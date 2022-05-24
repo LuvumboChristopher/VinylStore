@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import Navbar from './components/Header/Navbar'
 import VinylsList from './components/Vinylist/VinylsList'
 import '../../css/store.css'
