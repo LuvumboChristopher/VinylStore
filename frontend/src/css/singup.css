@@ -1,0 +1,130 @@
+.singupContainer {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  color: rgb(0, 0, 0);
+}
+
+.singup_img {
+  width: 100%;
+  background: url(../assets/img/singup_fond.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  flex: 0.8;
+}
+
+.singup_section header {
+  margin:  0 auto 3rem;
+}
+
+.auth_title {
+  font-family: var(--font-family-title);
+  font-size: 6rem;
+  width: 100%;
+  margin: 0;
+  text-transform: none;
+  text-align: center;
+}
+.auth_subtitle{
+  margin: 0;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 10px;
+  text-align: center;
+}
+
+.singup_form_container{
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  flex: 0.5;
+  border-left: 5px solid black;
+}
+
+.singup_section{
+  width: 80%;
+  margin: auto;
+}
+
+.singup_form  {
+  width: 80%;
+  margin: auto;
+  display: grid;
+  place-items: center;
+}
+
+.formInput_container {
+  width: 100%;
+  margin: auto;
+}
+
+
+.singup_input {
+  width: 100%;
+  padding: 0.8rem;
+  margin: 0.75rem auto;
+  background: transparent;
+  color: rgb(0, 0, 0);
+  border: 1px solid rgb(0, 0, 0);
+}
+
+.singin_link {
+  font-size: 0.86rem;
+  margin: 1rem auto;
+  padding: 0.3rem;
+  color: rgb(0, 0, 0);
+}
+
+.singin_link:hover {
+  color: rgba(0, 0, 0, 0.705);
+}
+
+input::placeholder {
+  font-size: 0.6rem;
+  font-family: var(--font-family-text);
+  text-transform: uppercase;
+  color: rgb(0, 0, 0);
+  opacity: 1;
+}
+
+input:focus::placeholder {
+  opacity: 0.8;
+  transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.singup_button {
+  width: fit-content;
+  margin: 1rem auto;
+  padding: 0.5rem 2rem;
+  background: rgb(0, 0, 0);
+  font-size: 0.8rem;
+  font-family: var(--font-family-text);
+  text-transform: uppercase;
+  color: rgb(255, 255, 255);
+  opacity: 1;
+  border: none;
+}
+
+.singup_button:hover {
+  cursor: pointer;
+  color: rgb(255, 255, 255);
+  background-color: rgb(129, 8, 8);
+}
+
+.error_message_singup {
+  width: 100%;
+  font-size: 12px;
+  color: red;
+  display: none;
+}
+
+input:invalid[focus='true'] ~ span {
+  display: block;
+}
+
+input:invalid[focus='true'] {
+  border: 1px solid red;
+}

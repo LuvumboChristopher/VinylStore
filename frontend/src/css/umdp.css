@@ -1,0 +1,75 @@
+.umdpContainer {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.umdp_img {
+  width: 100%;
+  background: url(../assets/img/john_doe.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  flex: 1;
+  display: none;
+}
+
+.umdp_text {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  flex: 2;
+}
+
+.umdp_text article {
+  width: 80%;
+  margin: auto;
+}
+
+.un_mot_du_proprio {
+  width: 80%;
+  margin-top: 1rem;
+  font-size: 2.5rem;
+  font-family: var(--font-family-title);
+}
+
+.umdp_text p {
+  width: 100%;
+  margin: 3rem auto;
+  text-align: justify;
+}
+
+#signature {
+  width: 82%;
+  margin-top: 3rem;
+  text-align: end;
+  font-size: 2rem;
+  font-family: var(--font-family-signature);
+}
+
+@media (min-width: 992px) {
+  .umdp_text article {
+    width: 100%;
+    margin: 2rem auto;
+  }
+  .un_mot_du_proprio {
+    width: 60%;
+    margin: auto;
+    text-align: center;
+  }
+
+  .umdp_img {
+    display: block;
+  }
+
+  .umdp_text article {
+    width: 70%;
+  }
+
+  .umdp_text p {
+    width: 80%;
+  }
+}
