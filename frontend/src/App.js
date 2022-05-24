@@ -10,6 +10,7 @@ import Store from './pages/Store/Store'
 import Cart from './pages/Store/Cart/Cart'
 import Shipping from './pages/Store/Shipping/Shipping'
 import Payment from './pages/Store/Payment/Payment'
+import Order from './pages/Store/Order/Order'
 
 function App() {
   return (
@@ -22,9 +23,10 @@ function App() {
         </Route>
         <Route path='/inscription' element={<Singup/>} />
         <Route path='/se-connecter' element={<Login/>} />
-        <Route path='/cart' element={<Cart/>} />
+        <Route path='/panier' element={<Cart/>} />
         <Route path='/expedition' element={<Shipping/>} />
         <Route path='/paiement' element={<Payment/>} />
+        <Route path='/commander' element={<Order/>} />
       </Routes>
     </div>
   )

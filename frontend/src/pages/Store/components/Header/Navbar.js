@@ -58,7 +58,7 @@ const NavContent = () => {
           </>
         )}
 
-        <Link to='/cart' className='cart_logo'>
+        <Link to='/panier' className='cart_logo'>
           <div>
             <IoBagSharp style={{ color: 'white', fontSize: '1.8em' }} />
             <div>
