@@ -21,7 +21,6 @@ const handleErrors = (err) => {
 
   if (err.message.includes('Please enter a password')) {
     errors.password = 'Please enter a password'
-    console.log('hey')
   }
 
   if (err.message.includes('Please enter a valid email')) {
@@ -45,7 +44,7 @@ const handleErrors = (err) => {
 
 // Creation de JWT
 const createToken = (user) => {
-  return jwt.sign({ ...user }, process.env.JWT, {
+  return jwt.sign({ user }, process.env.JWT, {
     expiresIn: '30d',
   })
 }
@@ -56,9 +55,7 @@ module.exports.signup = async (req, res) => {
 
   try {
     const user = await User.create({ email, password })
-    const token = createToken(user)
     // Envoie de JWT via les Cookies
-    res.cookie('jwt', token, { httpOnly: true })
     res.status(201).json({ user: user._id })
   } catch (err) {
     // Envoi des erreurs au client
@@ -75,13 +72,14 @@ module.exports.login = async (req, res) => {
 
     // Creation du token du nouveau utilisateur
     const token = createToken(user)
+    // Envoie de JWT via les Cookies
     res.cookie('jwt', token, { httpOnly: true })
     res.status(200).json({
       _id: user._id,
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
-      token: token,
+      token
     })
   } catch (err) {
     // Envoi des erreurs au client

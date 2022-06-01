@@ -27,7 +27,7 @@ const VinylsList = ({ search, handleAddToCart }) => {
     const fecthproducts = async () => {
       dispatch({ type: 'FETCH_REQUEST' })
       try {
-        const url = 'http://localhost:5000/api/v1/products'
+        const url = '/api/v1/products'
         const result = await axios.get(url)
         dispatch({ type: 'FETCH_SUCCESS', payload: result.data })
       } catch (err) {

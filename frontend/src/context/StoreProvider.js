@@ -24,7 +24,6 @@ const reducer = (state, action) => {
   switch (action.type) {
     case 'CART_ADD_ITEM':
       const newItem = action.payload
-      console.log(newItem)
       const existItem = state.cart.cartItems.find(
         (item) => item._id === newItem._id
       )
@@ -42,15 +41,20 @@ const reducer = (state, action) => {
       localStorage.setItem('cartItems', JSON.stringify(cartItems))
       return { ...state, cart: { ...state.cart, cartItems } }
     }
+    case 'CART_CLEAR':
+      return { ...state, cart: { ...state.cart, cartItems: [] } };
     case 'USER_LOGIN':
       return { ...state, userInfo: action.payload }
     case 'USER_SIGNOUT':
       return {
         ...state,
         userInfo: null,
-        cart: { cartItems: [], shippingAddress: {},
-      paymentMethod: '' },
-      }
+        cart: {
+          cartItems: [],
+          shippingAddress: {},
+          paymentMethod: '',
+        },
+      };
     case 'SAVE_SHIPPING_ADRESS':
       return {
         ...state,

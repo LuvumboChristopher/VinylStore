@@ -118,7 +118,7 @@ const Product = ({ props }) => {
       type: 'CART_ADD_ITEM',
       payload: { ...product, quantity },
     })
-    navigate('/cart')
+    navigate('/panier')
   }
 
   return (
