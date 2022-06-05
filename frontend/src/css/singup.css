@@ -15,26 +15,6 @@
   flex: 0.8;
 }
 
-.singup_section header {
-  margin:  0 auto 3rem;
-}
-
-.auth_title {
-  font-family: var(--font-family-title);
-  font-size: 6rem;
-  width: 100%;
-  margin: 0;
-  text-transform: none;
-  text-align: center;
-}
-.auth_subtitle{
-  margin: 0;
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: 10px;
-  text-align: center;
-}
-
 .singup_form_container{
   width: 100%;
   height: 100%;
@@ -48,6 +28,31 @@
   width: 80%;
   margin: auto;
 }
+
+
+
+.singup_section header {
+  margin:  0 auto 3rem;
+}
+
+.auth_title {
+  font-family: var(--font-family-title);
+  font-size: 6rem;
+  width: 100%;
+  margin: 0;
+  text-transform: none;
+  text-align: center;
+}
+
+.auth_subtitle{
+  margin: 0;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 10px;
+  text-align: center;
+}
+
+
 
 .singup_form  {
   width: 80%;

@@ -1,5 +1,4 @@
 const User = require('../models/User')
-const jwt = require('jsonwebtoken')
 const asyncWrapper = require('../middlewares/asyncWrapper')
 
 // Gestion des erreurs lies a la authetification
@@ -43,48 +42,27 @@ const handleErrors = (err) => {
   return errors
 }
 
-// Creation de JWT
-const createToken = (user) => {
-  return jwt.sign({ user }, process.env.JWT, {
-    expiresIn: '30d',
-  })
-}
 
 // Controlllers
-module.exports.signup = asyncWrapper( async(req, res) => {
-  const { email, password } = req.body
+module.exports.updateUser = asyncWrapper(async (req, res) => {
+  const user = await User.findById(req.user._id)
+  if (user) {
+    user.name = req.body.name || user.name
+    user.email = req.body.email || user.email
+    if (req.body.password) {
+      user.password = bcrypt.hashSync(req.body.password, 8)
+    }
 
-  try {
-    const user = await User.create({ email, password })
-    // Envoie de JWT via les Cookies
-    res.status(201).json({ user: user._id })
-  } catch (err) {
-    // Envoi des erreurs au client
-    const errors = handleErrors(err)
-    res.status(400).json({ errors })
-  }
-})
-
-module.exports.login = asyncWrapper( async(req, res) => {
-  const { email, password } = req.body
-
-  try {
-    const user = await User.login(email, password)
-
-    // Creation du token du nouveau utilisateur
-    const token = createToken(user)
-    // Envoie de JWT via les Cookies
-    res.cookie('jwt', token, { httpOnly: true })
-    res.status(200).json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      isAdmin: user.isAdmin,
-      token
+    const updatedUser = await user.save()
+    res.send({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      isAdmin: updatedUser.isAdmin,
+      token: generateToken(updatedUser),
     })
-  } catch (err) {
-    // Envoi des erreurs au client
-    const errors = handleErrors(err)
-    res.status(400).json({errors})
+  } else {
+    res.status(404).send({ message: 'User not found' })
   }
 })
+

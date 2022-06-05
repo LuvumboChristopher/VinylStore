@@ -1,11 +1,13 @@
 import React from 'react'
 import SinginVideo from '../../../assets/video/video.mp4'
 
+import { LoginVideo, Overlay} from '../style';
+
 const Video = () => {
   return (
     <>
-      <div className='overlay'></div>
-      <video src={SinginVideo} autoPlay loop muted />
+      <Overlay></Overlay>
+      <LoginVideo src={SinginVideo} autoPlay loop muted />
     </>
   )
 }

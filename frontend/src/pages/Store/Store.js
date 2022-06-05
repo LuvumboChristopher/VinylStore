@@ -73,7 +73,7 @@ const Store = () => {
     <section id='store'>
       <StoreHeader setSerchTerm={setSerchTerm} />
       <ContentContainer>
-        <VinylsList search={search} />
+        <VinylsList search={search}/>
         <Copyright>© {currentYear} VinylSore All Rights Reserved </Copyright>
       </ContentContainer>
     </section>

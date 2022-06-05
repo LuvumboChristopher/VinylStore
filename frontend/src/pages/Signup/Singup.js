@@ -2,22 +2,25 @@ import React from 'react'
 import Form from './components/Form'
 import '../../css/singup.css'
 
+
+import { SingupContainer, SingupImg, SingupFormContainer, SingupFormContent, SingupTitle, SingupSubtitle, SingupFormHeader } from './style';
+
 const Singup = () => {
   
   return (
     <section id='singup'>
-      <div className='singupContainer'>
-        <div className='singup_img'></div>
-        <div className='singup_form_container'>
-          <div className='singup_section'>
-            <header className='singup_header'>
-              <h1 className='auth_title'>S'inscrire</h1>
-              <p className='auth_subtitle'>formulaire d'inscription</p>
-            </header>
+      <SingupContainer>
+        <SingupImg></SingupImg>
+        <SingupFormContainer>
+          <SingupFormContent>
+            <SingupFormHeader>
+              <SingupTitle>S'inscrire</SingupTitle>
+              <SingupSubtitle>formulaire d'inscription</SingupSubtitle>
+            </SingupFormHeader>
             <Form/>
-          </div>
-        </div>
-      </div>
+          </SingupFormContent>
+        </SingupFormContainer>
+      </SingupContainer>
     </section>
   )
 }

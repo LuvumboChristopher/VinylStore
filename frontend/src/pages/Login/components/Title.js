@@ -1,14 +1,17 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import Vslogo from '../../../assets/img/vs_logo.png'
+
+import { LoginHeader, VsLogo, LoginSubtitle } from '../style';
 
 const Title = () => {
 
   const navigate = useNavigate()
   return (
-    <header onClick={() => navigate('/store')} style={{ cursor: 'pointer' }}>
-      <h1 className='auth_title'>VinylStore</h1>
-      <p className='auth_subtitle'>Bienvenue a la maison du vinyle</p>
-    </header>
+    <LoginHeader onClick={() => navigate('/store')} style={{ cursor: 'pointer' }}>
+      <VsLogo src={Vslogo} title='VinyleStore Logo' alt='VinylStore Logo' />
+      <LoginSubtitle>Bienvenue a la maison du vinyle</LoginSubtitle>
+    </LoginHeader>
   )
 }
 

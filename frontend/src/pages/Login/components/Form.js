@@ -1,8 +1,9 @@
-import React, { useState, useContext, useRef } from 'react'
-import { useEffect } from 'react'
+import React, { useState, useContext, useRef, useEffect } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { StoreContext } from '../../../context/StoreProvider'
+
+import { LoginForm, LoginInputContainer, LoginInput, LoginButton } from '../style';
 
 const Form = () => {
   const navigate = useNavigate()
@@ -23,6 +24,7 @@ const Form = () => {
   const { userInfo } = state
 
   const handleSubmit = async (e) => {
+    console.log('hey')
     e.preventDefault()
     try {
       const { data } = await axios.post(
@@ -53,9 +55,9 @@ const Form = () => {
 
   return (
     <>
-      <form className='singin_form' onSubmit={handleSubmit}>
-        <div className='input_container'>
-          <input
+      <LoginForm onSubmit={handleSubmit}>
+        <LoginInputContainer>
+          <LoginInput
             ref={emailRef}
             type='email'
             name='email'
@@ -65,7 +67,7 @@ const Form = () => {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-          <input
+          <LoginInput
             type='password'
             name='password'
             id='password'
@@ -74,13 +76,13 @@ const Form = () => {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <button className='singin_button'>Se connecter</button>
-        </div>
+          <LoginButton>Se connecter</LoginButton>
+        </LoginInputContainer>
         {/* {errors && <span>{errors.email}</span>} */}
         <Link to='/inscription' className='singup_link'>
           <p>Vous n'avez pas encore de compte ? Créez un compte.</p>
         </Link>
-      </form>
+      </LoginForm>
 
       {errors && <p style={{ textAlign: 'center', color: 'red' }}>{errors}</p>}
     </>

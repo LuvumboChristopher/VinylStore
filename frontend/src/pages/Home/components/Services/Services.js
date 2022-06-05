@@ -1,26 +1,60 @@
 import React from 'react'
-import '../../../../css/services.css'
-import Image1 from '../../../../assets/img/services_img_1.jpg'
 import data from '../../../../data/data.json'
+
+import CardImage1 from '../../../../assets/img/pexels-cottonbro-6863619.jpg'
+import CardImage2 from '../../../../assets/img/pexels-cottonbro-6862363.jpg'
+import CardImage3 from '../../../../assets/img/pexels-cottonbro-6862367.jpg'
+
+import { ServicesSection, ServicesContainer, ContentContainer, Card, CardImage, CardTextContainer, CardTitle, CardText, CardImageContainer   } from '../../style'
 
 const Services = () => {
   return (
-    <section id='services'>
-      <div className='services_container'>
-        <div className='content_container'>
-          <img
-            src={Image1}
-            title='Vinyles exclusives'
-            className='services_img_1'
-            alt='Vinyles exclusives img'
-          />
-          <div className='services_txt_1'>
-            <h2>{data.service.title}</h2>
-            <p>{data.service.text}</p>
-          </div>
-        </div>
-      </div>
-    </section>
+    <ServicesSection id='services'>
+      <ServicesContainer>
+        <ContentContainer>
+          <Card>
+            <CardImageContainer>
+              <CardImage
+                src={CardImage1}
+                title='Vinyles exclusives'
+                alt='Vinyles exclusives img'
+              />
+            </CardImageContainer>
+            
+            <CardTextContainer>
+              <CardTitle>{data.services.title_1}</CardTitle>
+              <CardText>{data.services.text}</CardText>
+            </CardTextContainer>
+          </Card>
+          <Card reverse>
+            <CardImageContainer>
+              <CardImage
+                src={CardImage2}
+                title='Vinyles exclusives'
+                alt='Vinyles exclusives img'
+              />
+            </CardImageContainer>
+            <CardTextContainer>
+              <CardTitle>{data.services.title_2}</CardTitle>
+              <CardText>{data.services.text}</CardText>
+            </CardTextContainer>
+          </Card>
+          <Card>
+            <CardImageContainer>
+              <CardImage
+                src={CardImage3}
+                title='Vinyles exclusives'
+                alt='Vinyles exclusives img'
+              />
+            </CardImageContainer>
+            <CardTextContainer>
+              <CardTitle>{data.services.title_3}</CardTitle>
+              <CardText>{data.services.text}</CardText>
+            </CardTextContainer>
+          </Card>
+        </ContentContainer>
+      </ServicesContainer>
+    </ServicesSection>
   )
 }
 

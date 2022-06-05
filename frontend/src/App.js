@@ -11,6 +11,10 @@ import Cart from './pages/Store/Cart/Cart'
 import Shipping from './pages/Store/Shipping/Shipping'
 import Payment from './pages/Store/Payment/Payment'
 import Order from './pages/Store/Order/Order'
+import Commande from './pages/Store/Commande/Commande'
+import Historique from './pages/Store/Historique/Historique'
+import UserProfile from './pages/Profiles/UserProfile'
+
 
 function App() {
   return (
@@ -21,12 +25,15 @@ function App() {
           <Route exact path='/store' element={<Store />} />
           <Route exact path='store/products/:id' element={<Product />} />
         </Route>
-        <Route path='/inscription' element={<Singup/>} />
-        <Route path='/se-connecter' element={<Login/>} />
-        <Route path='/panier' element={<Cart/>} />
-        <Route path='/expedition' element={<Shipping/>} />
-        <Route path='/paiement' element={<Payment/>} />
-        <Route path='/commande' element={<Order/>} />
+        <Route path='/inscription' element={<Singup />} />
+        <Route path='/se-connecter' element={<Login />} />
+        <Route path='/panier' element={<Cart />} />
+        <Route path='/expedition' element={<Shipping />} />
+        <Route path='/paiement' element={<Payment />} />
+        <Route path='/commande' element={<Order />} />
+        <Route path='/commande/:id' element={<Commande />} />
+        <Route path='/historique' element={<Historique />}></Route>
+        <Route path='/profil' element={<UserProfile />} />
       </Routes>
     </div>
   )
