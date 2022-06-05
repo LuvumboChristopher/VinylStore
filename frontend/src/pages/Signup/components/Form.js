@@ -49,6 +49,11 @@ const Form = () => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
 
+  const { state, dispatch: ctxDispatch } = useContext(StoreContext)
+  const { search } = useLocation()
+  const redirectInUrl = new URLSearchParams(search).get('redirect')
+  const redirect = redirectInUrl ? redirectInUrl : '/store'
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -66,30 +71,18 @@ const Form = () => {
         const login = async() => {
           try {
             const { data } = await axios.post(
-              "http://localhost:5000/api/v1/auth/login",
+              'http://localhost:5000/api/v1/auth/login',
               {
                 email: values.email,
                 password: values.password,
               }
-            );
-
+            )
             login()
-
-
           }
-          catch {
-            console.log('No a funcionado')
+          catch (err) {
+            console.log(err)
           }
         }
-
-
-        const {state,  dispatch: ctxDispatch } = useContext(StoreContext)
-        const { userInfo } = state
-
-        const { search } = useLocation()
-        const redirectInUrl = new URLSearchParams(search).get('redirect')
-        const redirect = redirectInUrl ? redirectInUrl : '/store'
-
         ctxDispatch({ type: "USER_LOGIN", payload: data  });
         localStorage.setItem("userInfo", JSON.stringify(data));
         navigate(redirect);

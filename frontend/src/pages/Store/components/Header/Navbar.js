@@ -15,13 +15,13 @@ const NavContent = () => {
   const { state, dispatch: ctxDispatch } = useContext(StoreContext)
   const { cart, userInfo } = state
 
-  const singOutHanddler = () => {
+  const signoutHandler = () => {
     ctxDispatch({ type: 'USER_SIGNOUT' })
     localStorage.removeItem('userInfo')
     localStorage.removeItem('shippingAddress')
     localStorage.removeItem('paymentMethod')
+    window.location.href = '/se-connecter'
   }
-
   return (
     <nav className='store_nav_container'>
       <ul>
@@ -35,11 +35,11 @@ const NavContent = () => {
                 <BsPersonCircle style={{ fontSize: '1.6em' }} />
                 <p>Profil</p>
               </Link>
-              <Link to='/commandes'>
+              <Link to='/historique'>
                 <BsClipboardData style={{ fontSize: '1.6em' }} />
                 <p>Suivi des commandes</p>
               </Link>
-              <Link to={''} onClick={singOutHanddler}>
+              <Link to={''} onClick={signoutHandler}>
                 <BsDoorOpenFill style={{ fontSize: '1.6em' }} />
                 <p>Déconnexion</p>
               </Link>

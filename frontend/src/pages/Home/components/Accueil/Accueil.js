@@ -13,7 +13,7 @@ const AccueilSection = styled.section`
   background-repeat: no-repeat;
   background-size: cover;
   overflow: auto;
-`;
+`
 
 const VsLogo = styled.img`
   width: clamp(200px, 20%, 600px);

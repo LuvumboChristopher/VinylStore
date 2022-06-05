@@ -5,7 +5,7 @@ import Accueil from './components/Accueil/Accueil'
 import Contact from './components/Contact/Contact'
 import Umdp from './components/Umdp/Umdp'
 import Services from './components/Services/Services'
-import Banner from './components/Services/Banner'
+import Banner from './components/Banner/Banner'
 
 function Home() {
   return (

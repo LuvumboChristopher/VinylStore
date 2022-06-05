@@ -24,6 +24,9 @@ const NavContainer = styled.div`
   border-radius: 50px;
   opacity: 0;
   animation: ${fadeNavIn} 1s ease 1 1s forwards;
+  @media (max-width: 720px) {
+    display: none;
+  }
 `
 const NavLink = styled.div`
   width: 100%;
