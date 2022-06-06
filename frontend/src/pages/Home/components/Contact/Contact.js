@@ -64,7 +64,7 @@ const Contact = () => {
                       mauris.
                     </LoremText>
                     <Copyright>
-                      ©{new Date().getFullYear()} Vinyl Store Lyon.
+                      ©{new Date().getFullYear()} VinylStore Lyon.
                     </Copyright>
                   </FooterContainer>
                   <FooterContainer>
@@ -75,10 +75,10 @@ const Contact = () => {
                           <a href='#accueil'>Accueil</a>
                         </PlanDuSiteContent>
                         <PlanDuSiteContent>
-                          <a href='#un_mot_du_proprio'>Un mot du proprio</a>
+                          <a href='#umdp'>Un mot du proprio</a>
                         </PlanDuSiteContent>
                         <PlanDuSiteContent>
-                          <a href='#nos_services'>Nos Services</a>
+                          <a href='#services'>Nos Services</a>
                         </PlanDuSiteContent>
                         <PlanDuSiteContent>
                           <a href='#contact'>Contact & Accés</a>

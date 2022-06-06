@@ -6,6 +6,32 @@ import ContactImage1 from '../../assets/img/contact_img_1.jpg'
 import ContactImage2 from '../../assets/img/contact_img_2.jpg'
 import JohnDoe from '../../assets/img/john_doe.png'
 
+/*------------------------------------------------------------Top-Button------------------------------------------------------------*/
+
+export const MoveBtn = keyframes`
+  0%{
+    transform: translateY(0px);
+  }
+  25%{
+    transform: translateY(20px);
+  }
+  50%{
+    transform: translateY(0px);
+  }
+  75%{
+    transform: translateY(-20px);
+  }
+  100%{
+    transform: translateY(0px);
+  }
+`
+export const TopButton = styled.div`
+  position: relative;
+`
+
+export const TopButtonIcon = styled.div`
+  position: relative;
+`
 
 /*------------------------------------------------------------Navigation------------------------------------------------------------*/
 
@@ -22,12 +48,12 @@ export const NavContainer = styled.div`
   top: 50%;
   transform: translateY(-50%) translateX(-100px);
   background: none;
-  padding: 15px 15px;
+  padding: 15px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   border-radius: 50px;
   opacity: 0;
   animation: ${FadeNavIn} 1s ease 1 1s forwards;
@@ -90,8 +116,8 @@ export const UmdpContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  @media screen and (max-height: 768px) {
-    height: 900px;
+  @media screen and (max-height: 868px) {
+    height: 1000px;
   }
 `
 export const UmdpImg = styled.div`
@@ -115,32 +141,26 @@ export const UmdpTextContainer = styled.div`
   flex: 2;
 `
 export const UmdpText = styled.article`
-  width: 80%;
+  width: 85%;
   margin: auto;
   @media (min-width: 768px) {
-    width: 100%;
+    width: 85%;
     margin: 2rem auto;
   }
 `
 export const UmdpTitle = styled.h1`
-  font-size: 2rem;
+  font-size: 2.2rem;
   font-family: var(--font-family-title);
-  @media (min-width: 768px) {
-    width: 80%;
-    margin: auto;
-  }
+
 `
 export const UmdpParagrph = styled.p`
   width: 100%;
   margin: 3rem auto;
   text-align: justify;
-  @media (min-width: 768px) {
-    width: 80%;
-  }
 `
 export const UmdpSignature = styled.p`
-  width: 82%;
-  margin-top: 3rem;
+  width: 95%;
+  margin-top: 4rem;
   text-align: end;
   font-size: 2rem;
   font-family: var(--font-family-signature);
@@ -156,6 +176,37 @@ export const ServicesSection = styled.section`
   background-repeat: no-repeat;
   background-size: cover;
 `
+export const ServicestHeader = styled.header`
+  width: 80%;
+  margin: auto;
+  margin-bottom: 0.2rem;
+  padding: 5rem 0 1rem;
+  color: white;
+  text-align: center;
+  border-bottom: 1px solid white;
+  @media (max-width: 1440px) {
+    padding: 5.3rem 0 0.5rem;
+    width: 86%;
+    text-align: left;
+  }
+  @media (max-width: 668px) {
+    border: none;
+  }
+`
+export const ServicesTitle = styled.h1`
+  font-family: var(--font-family-title);
+  font-size: 2.2rem;
+  width: 100%;
+  margin: 0 auto;
+  text-transform: none;
+`
+export const ServicesSubtitle = styled.p`
+  width: 100%
+  margin: 0;
+  font-size: 0.47rem;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+`
 export const ServicesContainer = styled.div`
   width: 100%;
   height: 100%;
@@ -163,22 +214,23 @@ export const ServicesContainer = styled.div`
   justify-content: space-around;
 `
 export const ContentContainer = styled.div`
-  width: 75%;
-  margin: 8rem auto;
+  width: 80%;
+  margin: 3rem  auto 6rem;
   display: flex;
   justify-content: space-around;
   gap: 80px;
   @media (max-width: 1440px) {
-    width: 80%;
+    width: 86%;
     flex-direction: column;
+    gap: 60px;
   }
   @media (max-width: 668px) {
-    width: 85%;
+
   }
 `
 export const Card = styled.div`
-  width: 60%;
-  margin: 0 0 3rem;
+  width: 30%;
+  margin: auto;
   display: flex;
   flex-direction: column;
   background-color: rgba(200, 200, 200, 0.055);
@@ -194,9 +246,11 @@ export const Card = styled.div`
     flex-direction: ${(props) => (props.reverse ? 'row-reverse' : 'row')};
   }
   @media (max-width: 668px) {
-    width: 90%;
+    width: 100%;
     flex-direction: column;
     height: auto;
+    background: none;
+    box-shadow: none;
   }
 `
 export const CardImageContainer = styled.div`
@@ -206,12 +260,13 @@ export const CardImageContainer = styled.div`
   }
   @media (max-width: 668px) {
     width: 100%;
-    height: 600px;
+    height: 400px;
   }
   
 `
 export const CardImage = styled.img`
   width: 100%;
+  
   margin: auto;
   &:hover {
     cursor: pointer;
@@ -226,7 +281,7 @@ export const CardImage = styled.img`
   }
   @media (max-width: 668px) {
     width: 100%;
-    height: 600px;
+    height: 400px;
     border-right: none;
   }
 `
@@ -241,13 +296,16 @@ export const CardTextContainer = styled.div`
     margin: auto 1.4rem;
   }
   @media (max-width: 668px) {
-    width: 88%;
+    width: 100%;
     margin: 2rem auto;
   }
 `
-export const CardTitle = styled.h2`
+export const CardTitle = styled.p`
   width: 100%;
-  margin: 0 0 1.5rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: auto auto 1.5rem;
+  text-align: left;
 `
 export const CardText = styled.p`
   font-size: 0.7rem;
@@ -324,8 +382,8 @@ export const ContactLeft = styled.div`
     display: grid;
     place-items: center;
   }
-  @media (min-width: 1440px) and (max-height: 800px) {
-    height: 1080px;
+  @media (min-width: 1440px) and (max-height: 920px) {
+    height: 920px;
   }
 `
 export const ContactRight = styled.div`
@@ -344,8 +402,8 @@ export const ContactRight = styled.div`
     display: grid;
     place-items: center;
   }
-  @media (min-width: 1440px) and (max-height: 800px) {
-    height: 1080px;
+  @media (min-width: 1440px) and (max-height: 920px) {
+    height: 920px;
   }
 `
 export const ContactSection = styled.div`
@@ -362,15 +420,8 @@ export const ContactSection = styled.div`
   }
 `
 export const SectionContainer = styled.div`
-  width: 70%;
-  margin: 1rem auto;
-  @media (min-width: 768px) {
-    width: 70%;
-  }
-  @media (min-width: 992px) {
-    width: 80%;
-    margin: 3rem auto;
-  }
+  width: 85%;
+  margin: 4rem auto;
   @media (min-width: 1440px) {
     width: ${(props) => (props.formSection ? '70%' : '83%')};
   }
@@ -387,7 +438,7 @@ export const ContactTitle = styled.h1`
 `
 export const ContactSubtitle = styled.p`
   margin: 0;
-  font-size: 0.60rem;
+  font-size: 0.47rem;
   text-transform: uppercase;
   letter-spacing: 5px;
 `
