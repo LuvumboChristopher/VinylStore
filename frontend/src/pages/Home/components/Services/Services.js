@@ -1,9 +1,9 @@
 import React from 'react'
 import data from '../../../../data/data.json'
 
-import CardImage1 from '../../../../assets/img/pexels-cottonbro-6864498.jpg'
-import CardImage2 from '../../../../assets/img/pexels-cottonbro-6862363.jpg'
-import CardImage3 from '../../../../assets/img/pexels-cottonbro-6862599.jpg'
+import CardImage1 from '../../../../assets/img/services_image_1.jpg'
+import CardImage2 from '../../../../assets/img/services_image_2.jpg'
+import CardImage3 from '../../../../assets/img/services_image_3.jpg'
 
 import { ServicesSection, ServicesContainer, ContentContainer, Card, CardImage, CardTextContainer, CardTitle, CardText, CardImageContainer, ServicestHeader, ServicesTitle, ServicesSubtitle   } from '../../style'
 

@@ -1,4 +1,6 @@
+import React from 'react'
 import styled, { keyframes }  from 'styled-components'
+import { FaAngleUp } from 'react-icons/fa';
 
 import AccueilFond from '../../assets/img/accueil_fond.png'
 import ServicesFond from '../../assets/img/services_fond.jpg'
@@ -8,30 +10,34 @@ import JohnDoe from '../../assets/img/john_doe.png'
 
 /*------------------------------------------------------------Top-Button------------------------------------------------------------*/
 
-export const MoveBtn = keyframes`
-  0%{
-    transform: translateY(0px);
-  }
-  25%{
-    transform: translateY(20px);
-  }
-  50%{
-    transform: translateY(0px);
-  }
-  75%{
-    transform: translateY(-20px);
-  }
-  100%{
-    transform: translateY(0px);
-  }
-`
-export const TopButton = styled.div`
+const Icon = ({ className, children }) => (
+  <FaAngleUp className={className}>
+    {children}
+  </FaAngleUp>
+);
+
+export const TopButtonContainer = styled.div`
   position: relative;
 `
 
-export const TopButtonIcon = styled.div`
-  position: relative;
-`
+export const TopButtonIcon = styled(Icon)`
+  position: fixed;
+  bottom: 40px;
+  right: 31px;
+  z-index: 20;
+  background-color: #000000;
+  border: 1px solid #fff;
+  height: 40px;
+  width: 40px;
+  padding: 0.45rem;
+  color: #fff;
+  cursor: pointer;
+  &:hover {
+      background: rgba(255, 255, 255, 0.89);
+      color: #000000;
+      border: 1px solid #000000;    
+  }
+`;
 
 /*------------------------------------------------------------Navigation------------------------------------------------------------*/
 

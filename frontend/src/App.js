@@ -14,11 +14,13 @@ import Order from './pages/Store/Order/Order'
 import Commande from './pages/Store/Commande/Commande'
 import Historique from './pages/Store/Historique/Historique'
 import UserProfile from './pages/Profiles/UserProfile'
+import ScrollToTop from './pages/Home/components/ScrollToTop/ScrollToTop'
 
 
 function App() {
   return (
     <div className='container'>
+      <ScrollToTop/>
       <Routes>
         <Route path='/' element={<Home />} />
         <Route>

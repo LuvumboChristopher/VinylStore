@@ -2,16 +2,16 @@ import React, { useContext } from 'react'
 import VsLogoBlack from '../../../../assets/img/vs_logo_black.png'
 import { IoBagSharp } from 'react-icons/io5'
 import { IoPersonAdd } from 'react-icons/io5'
-import { IoLogIn } from 'react-icons/io5'
+import { RiLoginCircleFill } from 'react-icons/ri'
 import { BsClipboardData } from 'react-icons/bs'
 import { BsDoorOpenFill } from 'react-icons/bs'
 import { BsPersonCircle } from 'react-icons/bs'
-
 import { BsFillVinylFill } from 'react-icons/bs'
 import { Link } from 'react-router-dom'
 import { StoreContext } from '../../../../context/StoreProvider'
 
 const NavContent = () => {
+
   const { state, dispatch: ctxDispatch } = useContext(StoreContext)
   const { cart, userInfo } = state
 
@@ -22,6 +22,7 @@ const NavContent = () => {
     localStorage.removeItem('paymentMethod')
     window.location.href = '/se-connecter'
   }
+
   return (
     <nav className='store_nav_container'>
       <ul>
@@ -30,7 +31,7 @@ const NavContent = () => {
             <Link to={''} className='dropbtn'>
               <BsFillVinylFill style={{ fontSize: '1.6em' }} /> Mon compte
             </Link>
-            <div className='dropdown-content'>
+            <div className='dropdown-content'>  
               <Link to='/profil'>
                 <BsPersonCircle style={{ fontSize: '1.6em' }} />
                 <p>Profil</p>
@@ -47,8 +48,8 @@ const NavContent = () => {
           </div>
         ) : (
           <>
-            <Link to='/se-connecter'>
-              <IoLogIn style={{ fontSize: '1.6em' }} />
+            <Link to='/se-connecter' login>
+              <RiLoginCircleFill style={{ fontSize: '1.6em' }} />
               Connexion
             </Link>
             <Link to='/inscription'>
@@ -79,6 +80,7 @@ const NavContent = () => {
     </nav>
   )
 }
+
 const Navbar = () => {
   return (
     <div className='store_header'>
