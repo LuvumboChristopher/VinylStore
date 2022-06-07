@@ -7,11 +7,12 @@ import { BsClipboardData } from 'react-icons/bs'
 import { BsDoorOpenFill } from 'react-icons/bs'
 import { BsPersonCircle } from 'react-icons/bs'
 import { BsFillVinylFill } from 'react-icons/bs'
+import { SiHomebridge } from 'react-icons/si'
+
 import { Link } from 'react-router-dom'
 import { StoreContext } from '../../../../context/StoreProvider'
 
 const NavContent = () => {
-
   const { state, dispatch: ctxDispatch } = useContext(StoreContext)
   const { cart, userInfo } = state
 
@@ -31,7 +32,7 @@ const NavContent = () => {
             <Link to={''} className='dropbtn'>
               <BsFillVinylFill style={{ fontSize: '1.6em' }} /> Mon compte
             </Link>
-            <div className='dropdown-content'>  
+            <div className='dropdown-content'>
               <Link to='/profil'>
                 <BsPersonCircle style={{ fontSize: '1.6em' }} />
                 <p>Profil</p>
@@ -55,10 +56,13 @@ const NavContent = () => {
             <Link to='/inscription'>
               <IoPersonAdd style={{ fontSize: '1.3em' }} />
               Inscription
-            </Link>{' '}
+            </Link>
           </>
         )}
-
+        <Link to='/' className='backtosite'>
+          <SiHomebridge style={{ fontSize: '1.3em' }} />
+          Visiter VinylStore.fr
+        </Link>
         <Link to='/panier' className='cart_logo'>
           <div>
             <IoBagSharp style={{ color: 'white', fontSize: '1.8em' }} />

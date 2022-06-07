@@ -4,9 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { NavContainer, NavLink, NavIcon, NavTitle } from '../../style'
 
 const Navbar = () => {
-
   const navigate = useNavigate()
-
   return (
     <NavContainer>
       <NavLink>

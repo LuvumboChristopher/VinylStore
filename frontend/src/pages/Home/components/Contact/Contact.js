@@ -46,7 +46,7 @@ const Contact = () => {
                   name='message'
                   id=''
                   cols='30'
-                  rows='5'
+                  rows='8'
                 ></ContactTextarea>
                 <ContactButton disabled='disabled'>Envoyer</ContactButton>
               </ContactForm>
@@ -57,11 +57,10 @@ const Contact = () => {
                     <LoremText>
                       Lorem ipsum dolor sit amet, consectetur adipiscing
                       ePlanDuSiteContentt. In congue nunc rhoncus lorem dapibus,
-                      sagittis mattis neque eleifend. Maecenas in tincidunt
-                      tellus. Quisque venenatis viverra justo vestibulum
-                      posuere. Integer molestie, eros congue pharetra viverra,
-                      nisi tellus finibus sapien, vel luctus quam nunc quis
-                      mauris.
+                      quasi a animi ullam recusandae In congue nunc rhoncus
+                      lorem dapibus, sagittisit amet consecte sagittis mattis
+                      neque eleifend. Maecenas in tincidunt tellus a animi
+                      ullam.
                     </LoremText>
                     <Copyright>
                       ©{new Date().getFullYear()} VinylStore Lyon.
@@ -96,10 +95,8 @@ const Contact = () => {
             <NewsletterContainer>
               <LoremTitle>Newsletter</LoremTitle>
               <LoremText>
-                Lorem ipsum dolor sit amet consectetur adipisicing
-                ePlanDuSiteContentt. Corrupti quasi a animi ullam recusandae
-                perferendis amet dolores nobis sed architecto vel quas pariatur
-                enim iusto
+                Lorem ipsum dolor sit amet consectetur adipisicing corrupti
+                quasi a animi ullam recusandae.
               </LoremText>
               <NewsletterInput
                 type='text'

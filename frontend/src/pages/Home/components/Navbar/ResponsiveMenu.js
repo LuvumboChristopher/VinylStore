@@ -1,0 +1,133 @@
+import React, { useState, useEffect, useRef } from 'react'
+import VsLogoBlack from '../../../../assets/img/vs_logo_black.png'
+
+import { SiMicrosoft } from 'react-icons/si'
+import { IoCloseSharp } from 'react-icons/io5'
+
+
+import { ResponsiveNavbar, HeaderImage, ResponsiveNavbarContent, NavContainer, MenuIcon } from '../../style'
+import { Link, useNavigate } from 'react-router-dom'
+
+
+const ResponsiveMenu = () => {
+  const ref = useRef()
+  const navigate = useNavigate()
+  const [showNavbar, setShowNavbar] = useState(false)
+  const [showNavbarMenu, setShowNavbarMenu] = useState(false)
+  const [navbarTransparency, setNavbarTransparency] = useState(true)
+
+  useEffect(() => {
+    const checkIfClickedOutside = (e) => {
+      if (showNavbarMenu && ref.current && !ref.current.contains(e.target)) {
+        setShowNavbarMenu(false)
+      }
+    }
+    document.addEventListener('mousedown', checkIfClickedOutside)
+    return () => {
+      document.removeEventListener('mousedown', checkIfClickedOutside)
+    }
+  }, [showNavbarMenu])
+
+  useEffect(() => {
+    setShowNavbar(true)
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 830) {
+        setNavbarTransparency(false)
+        console.log(ref)
+      } else {
+        setNavbarTransparency(true)
+      }
+    })
+  }, [showNavbar])
+
+  const HandleMenu = () => {
+    setShowNavbarMenu(!showNavbarMenu)
+  }
+
+  return (
+    <>
+      {showNavbarMenu && (
+        <ResponsiveNavbarContent ref={ref}>
+          <IoCloseSharp
+            style={{ color: 'white', fontSize: '2.5rem', cursor: 'pointer' }}
+            onClick={HandleMenu}
+          />
+          <div>
+            <a
+              href='/#accueil'
+              onClick={() => setShowNavbarMenu(false)}
+              style={{
+                color: 'white',
+                fontSize: '2rem',
+                cursor: 'pointer',
+              }}
+            >
+              Accueil
+            </a>
+            <a
+              href='/#umdp'
+              onClick={() => setShowNavbarMenu(false)}
+              style={{
+                color: 'white',
+                fontSize: '2rem',
+                cursor: 'pointer',
+              }}
+            >
+              UMDP
+            </a>
+            <a
+              href='/#services'
+              onClick={() => setShowNavbarMenu(false)}
+              style={{
+                color: 'white',
+                fontSize: '2rem',
+                cursor: 'pointer',
+              }}
+            >
+              Services
+            </a>
+            <a
+              href='/store'
+              onClick={() => setShowNavbarMenu(false)}
+              style={{
+                color: 'white',
+                fontSize: '2rem',
+                cursor: 'pointer',
+              }}
+            >
+              Store
+            </a>
+            <a
+              href='#contact'
+              onClick={() => setShowNavbarMenu(false)}
+              style={{
+                color: 'white',
+                fontSize: '2rem',
+                cursor: 'pointer',
+              }}
+            >
+              Contact
+            </a>
+          </div>
+        </ResponsiveNavbarContent>
+      )}
+      {showNavbar && (
+        <ResponsiveNavbar navbarTransparency={navbarTransparency}>
+          <a href={'/#accueil'}>
+            <HeaderImage
+              src={navbarTransparency ? '' : VsLogoBlack}
+              className='vs_logo_black'
+            />
+          </a>
+
+          <MenuIcon
+            onClick={HandleMenu}
+            navbarTransparency={navbarTransparency}
+          />
+        </ResponsiveNavbar>
+      )}
+    </>
+  )
+}
+
+export default ResponsiveMenu

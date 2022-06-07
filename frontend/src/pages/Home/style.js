@@ -2,6 +2,9 @@ import React from 'react'
 import styled, { keyframes }  from 'styled-components'
 import { FaAngleUp } from 'react-icons/fa';
 
+import { MenuAlt1 } from '@styled-icons/heroicons-outline'
+
+
 import AccueilFond from '../../assets/img/accueil_fond.png'
 import ServicesFond from '../../assets/img/services_fond.jpg'
 import ContactImage1 from '../../assets/img/contact_img_1.jpg'
@@ -24,7 +27,7 @@ export const TopButtonIcon = styled(Icon)`
   position: fixed;
   bottom: 40px;
   right: 31px;
-  z-index: 20;
+  z-index: 2;
   background-color: #000000;
   border: 1px solid #fff;
   height: 40px;
@@ -32,6 +35,7 @@ export const TopButtonIcon = styled(Icon)`
   padding: 0.45rem;
   color: #fff;
   cursor: pointer;
+  transition: all 0.4s linear;
   &:hover {
       background: rgba(255, 255, 255, 0.89);
       color: #000000;
@@ -41,7 +45,7 @@ export const TopButtonIcon = styled(Icon)`
 
 /*------------------------------------------------------------Navigation------------------------------------------------------------*/
 
-export const FadeNavIn = keyframes`
+const FadeNavIn = keyframes`
   to {
     transform: translateY(-50%) translateX(0);
     opacity: 1;
@@ -96,6 +100,62 @@ export const NavTitle = styled.p`
     display: block;
   }
 `
+/*------------------------------------------------------------RsponsiveNavbar------------------------------------------------------------*/
+
+export const ResponsiveNavbar = styled.div`
+display: none;
+@media (max-width: 720px) {
+    z-index: 99;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 120px;
+    margin: auto;
+    padding: 2.5rem;
+    background: ${props => props.navbarTransparency? 'transparent':'white'};
+    border-bottom: ${props => props.navbarTransparency? 'none':'5px solid black'};
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition:all 0.1s linear;
+  }
+  
+`
+export const HeaderImage = styled.img`
+  width: 180px;
+  cursor:pointer;
+  transition:all 0.1s linear;
+  &:hover {
+    transform: scale(1.05);
+  }
+`
+export const ResponsiveNavbarContent = styled.div`
+  display: none;
+  @media (max-width: 720px) {
+    display: block;
+    z-index: 100;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 87%;
+    height: 1000px;
+    margin: auto;
+    padding: 2rem;
+    background-color: rgba(0,0,0,0.96);
+    transition: all 0.1s linear;
+
+  }
+`
+export const MenuIcon = styled(MenuAlt1)`
+  width: 2.5rem;
+  color: ${(props) => (props.navbarTransparency ? 'white' : 'black')};
+  cursor:pointer;
+  transition:all 0.1s linear;
+  &:hover {
+    transform: scale(1.15);
+  }
+`
 
 /*------------------------------------------------------------Accueil------------------------------------------------------------*/
 
@@ -109,8 +169,12 @@ export const AccueilSection = styled.section`
   background-repeat: no-repeat;
   background-size: cover;
   overflow: auto;
+  @media screen and (max-height: 868px) {
+    height: 1000px;
+  }
 `
 export const VsLogo = styled.img`
+  display: block;
   width: clamp(230px, 20%, 600px);
 `
 
@@ -120,9 +184,8 @@ export const UmdpContainer = styled.div`
   width: 100%;
   height: 100vh;
   display: flex;
-  flex-wrap: wrap;
   flex-direction: row;
-  @media screen and (max-height: 868px) {
+  @media (max-height: 868px) {
     height: 1000px;
   }
 `
@@ -149,10 +212,6 @@ export const UmdpTextContainer = styled.div`
 export const UmdpText = styled.article`
   width: 85%;
   margin: auto;
-  @media (min-width: 768px) {
-    width: 85%;
-    margin: 2rem auto;
-  }
 `
 export const UmdpTitle = styled.h1`
   font-size: 2.2rem;
@@ -177,23 +236,25 @@ export const UmdpSignature = styled.p`
 export const ServicesSection = styled.section`
   width: 100%;
   height: 100%;
+  padding-top: 75px;
   background: url(${ServicesFond});
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  @media (max-width: 720px) {
+    padding-top: 160px;
+  }
 `
 export const ServicestHeader = styled.header`
   width: 80%;
   margin: auto;
   margin-bottom: 0.2rem;
-  padding: 5rem 0 1rem;
+  padding-bottom: 1rem;
   color: white;
-  text-align: center;
+  text-align: left;
   border-bottom: 1px solid white;
   @media (max-width: 1440px) {
-    padding: 5.3rem 0 0.5rem;
     width: 86%;
-    text-align: left;
   }
   @media (max-width: 668px) {
     border: none;
@@ -201,7 +262,7 @@ export const ServicestHeader = styled.header`
 `
 export const ServicesTitle = styled.h1`
   font-family: var(--font-family-title);
-  font-size: 2.2rem;
+  font-size: 2.5rem;
   width: 100%;
   margin: 0 auto;
   text-transform: none;
@@ -221,17 +282,14 @@ export const ServicesContainer = styled.div`
 `
 export const ContentContainer = styled.div`
   width: 80%;
-  margin: 3rem  auto 6rem;
+  margin: 3.5rem  auto 6rem;
   display: flex;
   justify-content: space-around;
-  gap: 80px;
+  gap: 75px;
   @media (max-width: 1440px) {
     width: 86%;
     flex-direction: column;
     gap: 60px;
-  }
-  @media (max-width: 668px) {
-
   }
 `
 export const Card = styled.div`
@@ -272,7 +330,6 @@ export const CardImageContainer = styled.div`
 `
 export const CardImage = styled.img`
   width: 100%;
-  
   margin: auto;
   &:hover {
     cursor: pointer;
@@ -314,7 +371,7 @@ export const CardTitle = styled.p`
   text-align: left;
 `
 export const CardText = styled.p`
-  font-size: 0.7rem;
+  font-size: 0.88rem;
   margin: auto;
   text-align: justify;
 `
@@ -375,6 +432,10 @@ export const ContactContainer = styled.div`
     display: flex;
     height: 100%;
   }
+  @media (max-width: 868px) {
+    padding-top: 119px;
+    margin-top: -119px;
+  }
 `
 export const ContactLeft = styled.div`
   background: url(${ContactImage1});
@@ -389,7 +450,7 @@ export const ContactLeft = styled.div`
     place-items: center;
   }
   @media (min-width: 1440px) and (max-height: 920px) {
-    height: 920px;
+    height: 1025px;
   }
 `
 export const ContactRight = styled.div`
@@ -409,7 +470,7 @@ export const ContactRight = styled.div`
     place-items: center;
   }
   @media (min-width: 1440px) and (max-height: 920px) {
-    height: 920px;
+    height: 1025px;
   }
 `
 export const ContactSection = styled.div`
@@ -429,7 +490,7 @@ export const SectionContainer = styled.div`
   width: 85%;
   margin: 4rem auto;
   @media (min-width: 1440px) {
-    width: ${(props) => (props.formSection ? '70%' : '83%')};
+    width: ${(props) => (props.formSection ? '80%' : '95%')};
   }
 `
 export const ContactHeader = styled.header`
@@ -608,14 +669,15 @@ export const NewsletterContainer = styled.div`
 `
 export const LoremTitle = styled.h3`
   margin: 0 auto 1rem;
-  font-size: 0.7rem;
+  font-size: 0.9rem;
   letter-spacing: 5px;
 `
 export const LoremText = styled.p`
   width: 100%;
   margin: auto;
-  font-size: 0.5rem;
+  font-size: 0.8rem;
   text-align: justify;
+  text-transform: lowercase;
 `
 export const NewsletterInput = styled.input`
   width: 100%;

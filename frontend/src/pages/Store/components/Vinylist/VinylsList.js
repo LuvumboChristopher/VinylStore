@@ -1,7 +1,7 @@
 import React, { useEffect, useReducer } from 'react'
 import { Vinyl } from './Vinyl'
 import axios from 'axios'
-import logger from 'use-reducer-logger'
+import LoadingSpinner from '../../../../assets/video/Blocks-1.2s-184px.svg'
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -29,7 +29,9 @@ const VinylsList = ({ search, handleAddToCart }) => {
       try {
         const url = '/api/v1/products'
         const result = await axios.get(url)
-        dispatch({ type: 'FETCH_SUCCESS', payload: result.data })
+        setTimeout( ()=> {
+          dispatch({ type: 'FETCH_SUCCESS', payload: result.data })
+        }, 1500)      
       } catch (err) {
         const error = 'Erreur de serveur, réessayez plus tard'
         dispatch({ type: 'FETCH_FAIL', payload: error })
@@ -43,7 +45,19 @@ const VinylsList = ({ search, handleAddToCart }) => {
       <div className='vinyl_list_container'>
         <div className='list_wrapper'>
           {loading ? (
-            <p style={{ textAlign: 'center' }}> En cours de chargement...</p>
+            <div>
+              {/* <p style={{ display: 'block' }}> En cours de chargement...</p> */}
+              <img
+                style={{
+                  textAlign: 'center',
+                  width: '2.5rem',
+                  margin: 'auto',
+                  display: 'block'
+                }}
+                src={LoadingSpinner}
+                alt='Loading spinner'
+              />
+            </div>
           ) : error ? (
             <p style={{ textAlign: 'center' }}>{error}</p>
           ) : products ? (

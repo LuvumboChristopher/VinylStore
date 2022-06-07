@@ -4,6 +4,9 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: #e6e6e6 #000000;
+  -ms-overflow-style: none;
 }
 
 @font-face {
@@ -41,12 +44,6 @@ a:hover {
   color: rgba(255, 255, 255, 0.548);
 }
 
-*{
-  -ms-overflow-style: none;
-}
-::-webkit-scrollbar {
-  display: block;
-}
 
 html {
   width: 100%;
@@ -55,22 +52,23 @@ html {
   overflow-y: scroll;
 }
 
-html::-webkit-scrollbar {
-  width: 7px;
+::-webkit-scrollbar {
+  width: 10px;
+  scrollbar-width: thin;
+  scrollbar-color: #e6e6e6 #000000 ;
 }
 
-html::-webkit-scrollbar-track {
+::-webkit-scrollbar-track {
   background-color: black;
 }
 
-html::-webkit-scrollbar-thumb,
+::-webkit-scrollbar-thumb,
 textarea::-webkit-scrollbar-thumb {
-  border-radius: 100px;
   background-color: #e6e6e6;
   background-clip: content-box;
 }
 
-html::-webkit-scrollbar-thumb:hover,
+::-webkit-scrollbar-thumb:hover,
 textarea::-webkit-scrollbar-thumb:hover {
   background-color: #b1b1b1;
 } 

@@ -5,8 +5,8 @@ import { UmdpContainer, UmdpImg, UmdpTextContainer, UmdpText, UmdpTitle, UmdpPar
 
 const Umdp = () => {
   return (
-    <section id='umdp'>
-      <UmdpContainer>
+    <div id='umdp'>
+      <UmdpContainer >
         <UmdpImg></UmdpImg>
         <UmdpTextContainer>
           <UmdpText>
@@ -17,7 +17,7 @@ const Umdp = () => {
           </UmdpText>
         </UmdpTextContainer>
       </UmdpContainer>
-    </section>
+    </div>
   )
 }
 

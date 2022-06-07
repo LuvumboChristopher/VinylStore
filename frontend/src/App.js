@@ -15,11 +15,13 @@ import Commande from './pages/Store/Commande/Commande'
 import Historique from './pages/Store/Historique/Historique'
 import UserProfile from './pages/Profiles/UserProfile'
 import ScrollToTop from './pages/Home/components/ScrollToTop/ScrollToTop'
+import ResponsiveMenu from './pages/Home/components/Navbar/ResponsiveMenu'
 
 
 function App() {
   return (
     <div className='container'>
+      <ResponsiveMenu/>
       <ScrollToTop/>
       <Routes>
         <Route path='/' element={<Home />} />
