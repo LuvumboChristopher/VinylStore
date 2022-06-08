@@ -33,7 +33,6 @@ const ResponsiveMenu = () => {
     window.addEventListener('scroll', () => {
       if (window.scrollY > 830) {
         setNavbarTransparency(false)
-        console.log(ref)
       } else {
         setNavbarTransparency(true)
       }

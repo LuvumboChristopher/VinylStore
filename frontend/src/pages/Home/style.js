@@ -24,10 +24,10 @@ export const TopButtonContainer = styled.div`
 `
 
 export const TopButtonIcon = styled(Icon)`
+  z-index: 99;
   position: fixed;
   bottom: 40px;
   right: 31px;
-  z-index: 2;
   background-color: #000000;
   border: 1px solid #fff;
   height: 40px;
@@ -51,8 +51,9 @@ const FadeNavIn = keyframes`
     opacity: 1;
   }
 `
+
 export const NavContainer = styled.div`
-  z-index: 1;
+  z-index: 100;
   position: fixed;
   left: 1%;
   top: 50%;
@@ -70,6 +71,7 @@ export const NavContainer = styled.div`
   @media (max-width: 720px) {
     display: none;
   }
+
 `
 export const NavLink = styled.div`
   width: 100%;
@@ -85,7 +87,6 @@ export const NavIcon = styled.a`
   border-radius: 50%;
   border: 1px solid white;
   cursor: pointer;
-
   &:hover {
     background-color: rgb(255, 255, 255);
     border: 1px solid rgb(0, 0, 0);
@@ -95,7 +96,6 @@ export const NavTitle = styled.p`
   display: none;
   font-size: 0.93rem;
   color: rgb(255, 255, 255);
-
   ${NavLink}:hover & {
     display: block;
   }
@@ -335,6 +335,7 @@ export const CardImage = styled.img`
     cursor: pointer;
   }
   @media (max-width: 1440px) {
+    z-index: 98;
     position; absolute;
     width: 100%;
     height: 320px;
