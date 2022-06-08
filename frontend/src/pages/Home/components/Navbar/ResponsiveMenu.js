@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import VsLogoBlack from '../../../../assets/img/vs_logo_black.png'
 
-import { SiMicrosoft } from 'react-icons/si'
 import { IoCloseSharp } from 'react-icons/io5'
 
 
@@ -31,7 +30,7 @@ const ResponsiveMenu = () => {
   useEffect(() => {
     setShowNavbar(true)
     window.addEventListener('scroll', () => {
-      if (window.scrollY > 818) {
+      if (window.scrollY > 800) {
         setNavbarTransparency(false)
       } else {
         setNavbarTransparency(true)
@@ -45,71 +44,82 @@ const ResponsiveMenu = () => {
 
   return (
     <>
-      
-        <ResponsiveNavbarContent ref={ref} showNavbarMenu={showNavbarMenu}>
-          <IoCloseSharp
-            style={{ color: 'white', fontSize: '2.5rem', cursor: 'pointer' }}
-            onClick={HandleMenu}
-          />
-          <div>
-            <a
-              href='/#accueil'
-              onClick={() => setShowNavbarMenu(false)}
-              style={{
-                color: 'white',
-                fontSize: '2rem',
-                cursor: 'pointer',
-              }}
-            >
-              Accueil
-            </a>
-            <a
-              href='/#umdp'
-              onClick={() => setShowNavbarMenu(false)}
-              style={{
-                color: 'white',
-                fontSize: '2rem',
-                cursor: 'pointer',
-              }}
-            >
-              UMDP
-            </a>
-            <a
-              href='/#services'
-              onClick={() => setShowNavbarMenu(false)}
-              style={{
-                color: 'white',
-                fontSize: '2rem',
-                cursor: 'pointer',
-              }}
-            >
-              Services
-            </a>
-            <a
-              href='/store'
-              onClick={() => setShowNavbarMenu(false)}
-              style={{
-                color: 'white',
-                fontSize: '2rem',
-                cursor: 'pointer',
-              }}
-            >
-              Store
-            </a>
-            <a
-              href='#contact'
-              onClick={() => setShowNavbarMenu(false)}
-              style={{
-                color: 'white',
-                fontSize: '2rem',
-                cursor: 'pointer',
-              }}
-            >
-              Contact
-            </a>
-          </div>
-        </ResponsiveNavbarContent>
-    
+      <ResponsiveNavbarContent ref={ref} showNavbarMenu={showNavbarMenu}>
+        <IoCloseSharp
+          style={{ color: 'white', fontSize: '2.5rem', cursor: 'pointer' }}
+          onClick={HandleMenu}
+        />
+        <div>
+          <ul style={{ color: 'white', fontSize: '2.5rem', cursor: 'pointer' }}>
+            <li>
+              <a
+                href='/#accueil'
+                onClick={() => setShowNavbarMenu(false)}
+                style={{
+                  color: 'white',
+                  fontSize: '2rem',
+                  cursor: 'pointer',
+                }}
+              >
+                Accueil
+              </a>
+            </li>
+            <li>
+              <a
+                href='/#umdp'
+                onClick={() => setShowNavbarMenu(false)}
+                style={{
+                  color: 'white',
+                  fontSize: '2rem',
+                  cursor: 'pointer',
+                }}
+              >
+                UMDP
+              </a>
+            </li>
+            <li>
+              <a
+                href='/#services'
+                onClick={() => setShowNavbarMenu(false)}
+                style={{
+                  color: 'white',
+                  fontSize: '2rem',
+                  cursor: 'pointer',
+                }}
+              >
+                Services
+              </a>
+            </li>
+            <li>
+              <a
+                href='/store'
+                onClick={() => setShowNavbarMenu(false)}
+                style={{
+                  color: 'white',
+                  fontSize: '2rem',
+                  cursor: 'pointer',
+                }}
+              >
+                Store
+              </a>
+            </li>
+            <li>
+              <a
+                href='#contact'
+                onClick={() => setShowNavbarMenu(false)}
+                style={{
+                  color: 'white',
+                  fontSize: '2rem',
+                  cursor: 'pointer',
+                }}
+              >
+                Contact
+              </a>
+            </li>
+          </ul>
+        </div>
+      </ResponsiveNavbarContent>
+
       {showNavbar && (
         <ResponsiveNavbar navbarTransparency={navbarTransparency}>
           <a href={'/#accueil'}>
