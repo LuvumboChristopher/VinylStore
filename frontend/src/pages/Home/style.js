@@ -131,6 +131,7 @@ export const HeaderImage = styled.img`
   }
 `
 export const ResponsiveNavbarContent = styled.div`
+display:none;
   @media (max-width: 720px) {
     display: block;
     z-index: 100;
@@ -157,7 +158,7 @@ export const MenuIcon = styled(MenuAlt1)`
 
 /*------------------------------------------------------------Accueil------------------------------------------------------------*/
 
-export const AccueilSection = styled.section`
+export const AccueilSection = styled.div`
   background: url(${AccueilFond});
   width: 100%;
   height: 100vh;
@@ -180,43 +181,48 @@ export const VsLogo = styled.img`
 
 export const UmdpContainer = styled.div`
   width: 100%;
-  height: 100vh;
   display: flex;
+  justify-content: space-between;
+  align-content: center;
   flex-direction: row;
-  align-content: flex-start;
-  @media (max-height: 868px) {
-    height: 160vh;
-  }
   @media (max-width: 720px) {
-    height: 115vh;
     padding-top: 120px;
+    padding-bottom: 120px;
     margin-top: -120px;
   }
-`
 
-export const UmdpImg = styled.div`
+`
+export const UmdpImgContainer = styled.div`
   width: 100%;
-  background: url(${JohnDoe});
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  flex: 1;
-  display: none;
+  height: 100vh;
+  flex: 30%;
   transition: all 0.5 ease;
-  @media (min-width: 1200px) {
-    display: block;
+  position: relative;
+  @media (max-width: 992px) {
+    display: none;
   }
+`
+export const UmdpImg = styled.img`
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  object-fit: cover;
 `
 export const UmdpTextContainer = styled.div`
   width: 100%;
-  height: 100%;
+  height: 100vh;
+  flex: 70%;
+  transition: all 0.5 ease;
+  position: relative;
   display: grid;
   place-items: center;
-  flex: 2;
+  @media (max-width: 1440px) {
+    flex: 50%;
+  }
 `
 export const UmdpText = styled.article`
-  width: 85%;
-  margin: auto;
+  width: 80%;
+  position: absolute;
 `
 export const UmdpTitle = styled.h1`
   font-size: 2.2rem;
@@ -241,7 +247,6 @@ export const UmdpSignature = styled.p`
 export const ServicesSection = styled.div`
   width: 100%;
   height: auto;
-  margin: 4rem auto;
   padding-top: 75px;
   background: url(${ServicesFond});
   background-position: center;
@@ -249,7 +254,8 @@ export const ServicesSection = styled.div`
   background-size: cover;
   @media (max-width: 720px) {
     padding-top: 160px;
-    margin-top: -120px;
+    padding-bottom: 120px;
+    margin-top: -160px;
   }
 `
 export const ServicestHeader = styled.header`
@@ -284,12 +290,13 @@ export const ServicesSubtitle = styled.p`
 export const ServicesContainer = styled.div`
   width: 100%;
   height: 100%;
+  margin: 0 auto;
   display: flex;
   justify-content: space-around;
 `
 export const ContentContainer = styled.div`
   width: 80%;
-  margin: 3.5rem  auto 6rem;
+  margin: 2rem auto;
   display: flex;
   justify-content: space-around;
   gap: 75px;
@@ -389,8 +396,6 @@ export const CardText = styled.p`
 export const BannerContainer = styled.div`
   width: 100%;
   height: 330px;
-  border-top: 3px solid white;
-
   position: relative;
 `
 export const BannerVideo = styled.video`
@@ -409,7 +414,6 @@ export const BannerOverlay = styled.div`
 export const CitacionContainer = styled.div`
   width: 100%;
   position: absolute;
-  border-bottom: 3px solid white;
   top: 0;
   left: 0;
   height: 328px;

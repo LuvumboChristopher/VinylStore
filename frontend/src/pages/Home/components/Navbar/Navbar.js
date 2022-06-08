@@ -1,12 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { NavContainer, NavLink, NavIcon, NavTitle, NavOverlay } from '../../style'
+import { NavContainer, NavLink, NavIcon, NavTitle } from '../../style'
 
 const Navbar = () => {
   const navigate = useNavigate()
   return (
-    <>
       <NavContainer>
         <NavLink>
           <NavIcon
@@ -43,7 +42,6 @@ const Navbar = () => {
           <NavTitle>Contact</NavTitle>
         </NavLink>
       </NavContainer>
-    </>
   )
 }
 

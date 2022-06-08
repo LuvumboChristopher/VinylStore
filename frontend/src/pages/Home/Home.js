@@ -14,7 +14,7 @@ function Home() {
       <Accueil />
       <Umdp />
       <Services />
-      <Banner/>
+      {/* <Banner/> */}
       <Contact />
     </>
   )
