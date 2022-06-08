@@ -112,9 +112,9 @@ display: none;
     width: 100%;
     height: 120px;
     margin: auto;
-    padding: 2.5rem;
+    padding: 2.8rem;
     background: ${props => props.navbarTransparency? 'transparent':'white'};
-    border-bottom: ${props => props.navbarTransparency? 'none':'5px solid black'};
+    border-bottom: ${props => props.navbarTransparency? 'none':'4px solid black'};
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -123,7 +123,7 @@ display: none;
   
 `
 export const HeaderImage = styled.img`
-  width: 180px;
+  width: 170px;
   cursor:pointer;
   transition:all 0.1s linear;
   &:hover {
@@ -131,24 +131,22 @@ export const HeaderImage = styled.img`
   }
 `
 export const ResponsiveNavbarContent = styled.div`
-  display: none;
   @media (max-width: 720px) {
     display: block;
     z-index: 100;
     position: fixed;
     top: 0;
-    right: 0;
-    width: 87%;
-    height: 1000px;
+    right: ${props => props.showNavbarMenu? '0':'-100%'};
+    width: 90%;
+    height: 100vh;
     margin: auto;
     padding: 2rem;
     background-color: rgba(0,0,0,0.96);
-    transition: all 0.1s linear;
-
+    transition: all 0.35s ease-out;
   }
 `
 export const MenuIcon = styled(MenuAlt1)`
-  width: 2.5rem;
+  width: 2.25rem;
   color: ${(props) => (props.navbarTransparency ? 'white' : 'black')};
   cursor:pointer;
   transition:all 0.1s linear;
@@ -185,10 +183,17 @@ export const UmdpContainer = styled.div`
   height: 100vh;
   display: flex;
   flex-direction: row;
+  align-content: flex-start;
   @media (max-height: 868px) {
-    height: 1000px;
+    height: 160vh;
+  }
+  @media (max-width: 720px) {
+    height: 115vh;
+    padding-top: 120px;
+    margin-top: -120px;
   }
 `
+
 export const UmdpImg = styled.div`
   width: 100%;
   background: url(${JohnDoe});
@@ -197,7 +202,7 @@ export const UmdpImg = styled.div`
   background-size: cover;
   flex: 1;
   display: none;
-  transition: 0.5;
+  transition: all 0.5 ease;
   @media (min-width: 1200px) {
     display: block;
   }
@@ -233,9 +238,10 @@ export const UmdpSignature = styled.p`
 
 /*------------------------------------------------------------Services------------------------------------------------------------*/
 
-export const ServicesSection = styled.section`
+export const ServicesSection = styled.div`
   width: 100%;
-  height: 100%;
+  height: auto;
+  margin: 4rem auto;
   padding-top: 75px;
   background: url(${ServicesFond});
   background-position: center;
@@ -243,6 +249,7 @@ export const ServicesSection = styled.section`
   background-size: cover;
   @media (max-width: 720px) {
     padding-top: 160px;
+    margin-top: -120px;
   }
 `
 export const ServicestHeader = styled.header`

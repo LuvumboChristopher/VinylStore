@@ -31,7 +31,7 @@ const ResponsiveMenu = () => {
   useEffect(() => {
     setShowNavbar(true)
     window.addEventListener('scroll', () => {
-      if (window.scrollY > 830) {
+      if (window.scrollY > 818) {
         setNavbarTransparency(false)
       } else {
         setNavbarTransparency(true)
@@ -45,8 +45,8 @@ const ResponsiveMenu = () => {
 
   return (
     <>
-      {showNavbarMenu && (
-        <ResponsiveNavbarContent ref={ref}>
+      
+        <ResponsiveNavbarContent ref={ref} showNavbarMenu={showNavbarMenu}>
           <IoCloseSharp
             style={{ color: 'white', fontSize: '2.5rem', cursor: 'pointer' }}
             onClick={HandleMenu}
@@ -109,7 +109,7 @@ const ResponsiveMenu = () => {
             </a>
           </div>
         </ResponsiveNavbarContent>
-      )}
+    
       {showNavbar && (
         <ResponsiveNavbar navbarTransparency={navbarTransparency}>
           <a href={'/#accueil'}>
