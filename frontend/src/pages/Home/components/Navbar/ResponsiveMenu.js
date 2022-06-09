@@ -105,7 +105,7 @@ const ResponsiveMenu = () => {
             </li>
             <li>
               <a
-                href='#contact'
+                href='/#contact'
                 onClick={() => setShowNavbarMenu(false)}
                 style={{
                   color: 'white',

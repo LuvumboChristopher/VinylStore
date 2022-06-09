@@ -235,7 +235,7 @@
 }
 
 .vinyl_list_container {
-  width: 80%;
+  width: 90%;
   padding-bottom: 3rem;
   padding-top: 3rem;
   margin: 3rem auto;
@@ -247,14 +247,15 @@
 
 .list_wrapper {
   width: 100%;
+  margin: auto;
   display: grid;
   place-items: left;
   align-items: center;
 }
 
 .vinyl_item {
-  width: 250px;
-  margin: 1rem 3.32rem;
+  width: 210px;
+  margin: 1rem 3rem;
 }
 
 .vinyl_list {
@@ -264,11 +265,11 @@
   flex-direction: row;
   flex-flow: row wrap;
   justify-content: center;
-  gap: 1rem;
+  gap: 0.5rem;
 }
 
 .vinyl_cover {
-  width: 210px;
+  width: 100%;
   margin: 1rem auto;
 }
 

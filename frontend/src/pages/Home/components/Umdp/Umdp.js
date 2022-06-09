@@ -1,11 +1,9 @@
 import React from 'react'
 import data from '../../../../data/data.json'
-import JohnDoe from '../../../../assets/img/john_doe.png'
 
 import {
   UmdpSection,
   UmdpImgContainer,
-  UmdpImg,
   UmdpText,
   UmdpTitle,
   UmdpParagrph,

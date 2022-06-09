@@ -1,10 +1,7 @@
 import React from 'react'
 import styled, { keyframes }  from 'styled-components'
 import { FaAngleUp } from 'react-icons/fa';
-
 import { MenuAlt1 } from '@styled-icons/heroicons-outline'
-
-
 import AccueilFond from '../../assets/img/accueil_fond.png'
 import ServicesFond from '../../assets/img/services_fond.jpg'
 import ContactImage1 from '../../assets/img/contact_img_1.jpg'
@@ -132,7 +129,6 @@ export const HeaderImage = styled.img`
     transform: scale(1.05);
   }
 `
-
 export const MenuIcon = styled(MenuAlt1)`
   position: absolute;
   top: 30%;
@@ -145,7 +141,6 @@ export const MenuIcon = styled(MenuAlt1)`
     transform: scale(1.15);
   }
 `
-
 export const ResponsiveNavbarContent = styled.div`
   display:none;
   @media (max-width: 720px) {
@@ -154,14 +149,16 @@ export const ResponsiveNavbarContent = styled.div`
     position: fixed;
     top: 0;
     right: ${props => props.showNavbarMenu? '0':'-150%'};
-    width: 95%;
+    width: 85%;
     height: 100vh;
     margin: auto;
-    padding: 2rem;
+    padding: 1.5rem;
     background-color: rgba(0,0,0,0.96);
     transition: all 0.35s ease-out;
   }
 `
+
+
 /*------------------------------------------------------------Accueil------------------------------------------------------------*/
 
 export const AccueilSection = styled.div`
@@ -180,7 +177,8 @@ export const AccueilSection = styled.div`
 `
 export const VsLogo = styled.img`
   display: block;
-  width: clamp(185px, 18%, 600px);
+  width: clamp(195px, 19%, 600px);
+  
 `
 
 /*------------------------------------------------------------UMDP------------------------------------------------------------*/
@@ -188,20 +186,24 @@ export const VsLogo = styled.img`
 export const UmdpSection = styled.div`
   width: 100%;
   margin: auto;
+  margin-top: -1px;
   display: flex;
   @media (max-width: 720px) {  
     padding-top: 40px;
   }
 `
 export const UmdpImgContainer = styled.div`
-  width: 40%;
+  width: 45%;
   height: 100vh;
   margin: auto;
   background: url(${JohnDoe});
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  border-right: 8px solid black;
+  border-right: 3px solid black;
+  @media (max-width: 1440px) {
+    width: 70%;
+  }
   @media (max-width: 1000px) {
     display: none;
   }
@@ -215,12 +217,15 @@ export const UmdpText = styled.div`
   width: 100%;
   margin: auto;
   padding: 6rem;
+  @media (max-width: 1440px) {
+    padding: 3rem;
+  }
   @media (max-width: 1000px) {
     width: 100%;
     margin: 4rem auto;
-    padding: 3.7rem;
-    padding-top: 17%;
-    padding-bottom: 17%;
+    padding: 4rem;
+    padding-top: 20%;
+    padding-bottom: 20%;
   }
   
 `
@@ -232,8 +237,6 @@ export const UmdpTitle = styled.h1`
   @media (max-width: 678px) {
     text-align: center;
   }
-  
-  
 `
 export const UmdpParagrph = styled.p`
   width: 100%;
@@ -259,31 +262,30 @@ export const ServicesSection = styled.div`
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  @media (max-width: 720px) {
-    padding-top: 160px;
-    margin-top: 160px
-  }
 `
 export const ServicestHeader = styled.header`
-  width: 80%;
+  width: 85%;
   margin: auto;
   margin-bottom: 0.2rem;
   padding-bottom: 1rem;
   color: white;
   text-align: left;
-  border-bottom: 1px solid white;
+  border-bottom: 3px solid white;
   @media (max-width: 1440px) {
     width: 86%;
   }
   @media (max-width: 668px) {
     border: none;
   }
+  @media (max-width: 720px) {
+    padding-top: 70px;
+  }
 `
 export const ServicesTitle = styled.h1`
   font-family: var(--font-family-title);
-  font-size: clamp(32px, 2.7vw, 42px);
+  font-size: clamp(40px, 3vw, 52px);
   width: 100%;
-  margin: 0 auto;
+  margin: 2rem auto 0;
   text-transform: none;
 `
 export const ServicesSubtitle = styled.p`
@@ -296,16 +298,16 @@ export const ServicesSubtitle = styled.p`
 export const ServicesContainer = styled.div`
   width: 100%;
   height: 100%;
-  margin: 0 auto;
+  margin: 2rem auto;
   display: flex;
   justify-content: space-around;
 `
 export const ContentContainer = styled.div`
-  width: 80%;
+  width: 85%;
   margin: 2rem auto;
   display: flex;
   justify-content: space-around;
-  gap: 75px;
+  gap: 4.5vw;
   @media (max-width: 1440px) {
     width: 86%;
     flex-direction: column;
@@ -319,11 +321,12 @@ export const Card = styled.div`
   flex-direction: column;
   background-color: rgba(200, 200, 200, 0.055);
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  transition: 0.3s;
+  transition: 0.3s ease;
+
 
   @media (max-width: 1440px) {
     width: 100%;
-    height: 320px;
+    height: 330px;
     margin: auto;
     justify-content: space-between;
     align-items: center;
@@ -340,7 +343,8 @@ export const Card = styled.div`
 export const CardImageContainer = styled.div`
   @media (max-width: 1440px) {
     position: relative;
-    width: 45%;
+    width: 40%;
+    height: 330px;
   }
   @media (max-width: 668px) {
     width: 100%;
@@ -350,13 +354,17 @@ export const CardImageContainer = styled.div`
 export const CardImage = styled.img`
   width: 100%;
   margin: auto;
+  height: 360px;
+  object-fit: cover;
+  
   &:hover {
     cursor: pointer;
   }
   @media (max-width: 1440px) {
     width: 100%;
-    height: 320px;
+    height: 330px;
     flex-direction: ${(props) => (props.reverse ? 'row-reverse' : 'row')};
+    border: none;
     border-right: 5px solid white;
     object-fit: cover;
   }
@@ -368,13 +376,13 @@ export const CardImage = styled.img`
 `
 export const CardTextContainer = styled.div`
   width: 85%;
-  margin: 1.6rem auto;
+  margin: 2rem auto;
   color: white;
   display: grid;
   place-items: center;
   @media (max-width: 1440px) {
-    width: 55%;
-    margin: auto 1.4rem;
+    width: 50%;
+    margin: auto 2rem;
   }
   @media (max-width: 668px) {
     width: 100%;
@@ -383,7 +391,7 @@ export const CardTextContainer = styled.div`
 `
 export const CardTitle = styled.p`
   width: 100%;
-  font-size: 1.2rem;
+  font-size: 1.35rem;
   font-weight: bold;
   margin: auto auto 1.5rem;
   text-align: left;
@@ -399,19 +407,24 @@ export const CardText = styled.p`
 export const BannerContainer = styled.div`
   width: 100%;
   height: 330px;
+  margin-top: -1vh;
   position: relative;
+  border-top: 2px solid white;
+  
 `
 export const BannerVideo = styled.video`
   width: 100%;
-  height: 328px;
+  height: 330px;
   object-fit: cover;
+
 `
 export const BannerOverlay = styled.div`
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 328px;
+  height: 330px;
+  border-bottom: 2px solid white;
   background-color: rgba(3, 2, 2, 0.81);
 `
 export const CitacionContainer = styled.div`
@@ -419,12 +432,12 @@ export const CitacionContainer = styled.div`
   position: absolute;
   top: 0;
   left: 0;
-  height: 328px;
+  height: 330px;
   display: grid;
   place-items: center;
 `
 export const Citacion = styled.p`
-  width: 80%;
+  width: 90%;
   margin: auto;
   display: block;
   color: white;
@@ -433,6 +446,10 @@ export const Citacion = styled.p`
   font-size: 0.65rem;
   text-transform: uppercase;
   letter-spacing: 6px;
+  @media (min-width: 1440px){
+    width: 50%;
+    font-size: 0.8rem;
+  }
 `
 
 /*------------------------------------------------------------Contact------------------------------------------------------------*/
@@ -448,8 +465,8 @@ export const ContactContainer = styled.div`
     height: 100%;
   }
   @media (max-width: 868px) {
-    padding-top: 119px;
-    margin-top: -119px;
+    padding-top: 120px;
+    margin-top: -115px;
   }
 `
 export const ContactLeft = styled.div`
@@ -513,7 +530,7 @@ export const ContactHeader = styled.header`
 `
 export const ContactTitle = styled.h1`
   font-family: var(--font-family-title);
-  font-size: clamp(27px, 2.2vw, 42px);
+  font-size: clamp(32px, 2.2vw, 42px);
   width: 100%;
   margin: 2rem auto 0;
   text-transform: none;
@@ -613,6 +630,7 @@ export const ContactButton = styled.button`
   text-transform: uppercase;
   color: white;
   opacity: 1;
+  transition: all 0.3s linear;
   &:hover {
     cursor: pointer;
     color: black;
@@ -684,7 +702,7 @@ export const NewsletterContainer = styled.div`
 `
 export const LoremTitle = styled.h3`
   margin: 0 auto 1rem;
-  font-size: 0.9rem;
+  font-size: 0.75rem;
   letter-spacing: 5px;
 `
 export const LoremText = styled.p`
@@ -723,6 +741,7 @@ export const NewsletterButton = styled.button`
   text-transform: uppercase;
   color: white;
   opacity: 1;
+  transition: all 0.3s linear;
   &:hover {
     cursor: pointer;
     color: black;
