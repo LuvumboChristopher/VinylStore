@@ -96,7 +96,7 @@ export const NavTitle = styled.p`
   }
 `
 
-/*------------------------------------------------------------RsponsiveNavbar------------------------------------------------------------*/
+/*------------------------------------------------------------ResponsiveNavbar------------------------------------------------------------*/
 
 export const ResponsiveNavbar = styled.div`
 display: none;
@@ -116,7 +116,6 @@ display: none;
     display: block;
     transition: all 0.1s linear;
   }
-  
 `
 export const HeaderImage = styled.img`
   position: absolute;
@@ -138,7 +137,7 @@ export const MenuIcon = styled(MenuAlt1)`
   cursor: pointer;
   transition: all 0.1s linear;
   &:hover {
-    transform: scale(1.15);
+    transform: scale(1.05);
   }
 `
 export const ResponsiveNavbarContent = styled.div`
@@ -191,6 +190,7 @@ export const UmdpSection = styled.div`
   @media (max-width: 720px) {  
     padding-top: 40px;
   }
+  
 `
 export const UmdpImgContainer = styled.div`
   width: 45%;
@@ -206,6 +206,9 @@ export const UmdpImgContainer = styled.div`
   }
   @media (max-width: 1000px) {
     display: none;
+  }
+  @media screen and (max-height: 900px) {
+    height: 900px;
   }
 `
 export const UmdpImg = styled.img`
@@ -381,12 +384,14 @@ export const CardTextContainer = styled.div`
   display: grid;
   place-items: center;
   @media (max-width: 1440px) {
-    width: 50%;
-    margin: auto 2rem;
+    width: 70%;
+    margin: auto;
+    padding: 2rem;
   }
   @media (max-width: 668px) {
     width: 100%;
     margin: 2rem auto;
+    padding: 0;
   }
 `
 export const CardTitle = styled.p`
@@ -635,6 +640,7 @@ export const ContactButton = styled.button`
     cursor: pointer;
     color: black;
     background-color: rgba(255, 255, 255, 0.801);
+    transition: all 0.1s linear;
   }
 `
 export const FooterInfo = styled.div`

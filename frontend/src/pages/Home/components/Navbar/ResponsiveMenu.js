@@ -30,7 +30,7 @@ const ResponsiveMenu = () => {
   useEffect(() => {
     setShowNavbar(true)
     window.addEventListener('scroll', () => {
-      if (window.scrollY > 800) {
+      if (window.scrollY > 845) {
         setNavbarTransparency(false)
       } else {
         setNavbarTransparency(true)

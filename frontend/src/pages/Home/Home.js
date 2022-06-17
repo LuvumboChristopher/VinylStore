@@ -1,20 +1,22 @@
 import React from 'react'
-
 import Navbar from './components/Navbar/Navbar'
+import ResponsiveMenu from './components/Navbar/ResponsiveMenu'
 import Accueil from './components/Accueil/Accueil'
-import Contact from './components/Contact/Contact'
 import Umdp from './components/Umdp/Umdp'
 import Services from './components/Services/Services'
 import Banner from './components/Banner/Banner'
+import Contact from './components/Contact/Contact'
+
 
 function Home() {
   return (
     <>
       <Navbar />
+      <ResponsiveMenu/>
       <Accueil />
       <Umdp />
       <Services />
-      <Banner/>
+      <Banner />
       <Contact />
     </>
   )

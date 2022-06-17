@@ -27,7 +27,7 @@ const Vinyl = (vinyl) => {
       </div>
       <div className='vinyl_data'>
         <h2>{title}</h2>
-        <h4>{author}</h4>
+        <h5>{author}</h5>
         <h5>{year}</h5>
         <p>
           {description.slice(0, 200)}
