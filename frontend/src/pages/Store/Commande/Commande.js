@@ -8,13 +8,14 @@ import Card from 'react-bootstrap/Card'
 import { Link } from 'react-router-dom'
 import { StoreContext } from '../../../context/StoreProvider'
 import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js'
+import useAuth from '../../../hooks/useAuth'
 
 function reducer(state, action) {
   switch (action.type) {
     case 'FETCH_REQUEST':
-      return { ...state, loading: true, error: '' }
+      return { ...state, loading: true }
     case 'FETCH_SUCCESS':
-      return { ...state, loading: false, order: action.payload, error: '' }
+      return { ...state, loading: false, order: action.payload }
     case 'FETCH_FAIL':
       return { ...state, loading: false, error: action.payload }
     case 'PAY_REQUEST':
@@ -29,9 +30,10 @@ function reducer(state, action) {
       return state
   }
 }
+
 export default function Commande() {
+  const { auth } = useAuth()
   const { state } = useContext(StoreContext)
-  const { userInfo } = state
 
   const { id: orderId } = useParams()
   const navigate = useNavigate()
@@ -65,10 +67,10 @@ export default function Commande() {
         try {
           dispatch({ type: 'PAY_REQUEST' })
           const { data } = await axios.put(
-            `/api/v1/orders/${order._id}/pay`,
+            `http://localhost:5000/api/v1/orders/${order._id}/pay`,
             details,
             {
-              headers: { authorization: `Bearer ${userInfo.token}` },
+              withCredentials: true,
             }
           )
           dispatch({ type: 'PAY_SUCCESS', payload: data })
@@ -78,29 +80,31 @@ export default function Commande() {
         }
       })
     }
+
     function onError(err) {
       console.error(err)
     }
 
 
   useEffect(() => {
+
+    if (!auth) {
+      return navigate('/connexion')
+    }
+
     const fetchOrder = async () => {
       try {
         dispatch({ type: 'FETCH_REQUEST' })
         const { data } = await axios.get(
           `http://localhost:5000/api/v1/orders/${orderId}`,
           {
-            headers: { authorization: `Bearer ${userInfo.token}` },
+            withCredentials: true
           }
         )
         dispatch({ type: 'FETCH_SUCCESS', payload: data })
       } catch (err) {
         dispatch({ type: 'FETCH_FAIL', payload: err.message })
       }
-    }
-
-    if (!userInfo) {
-      return navigate('/login')
     }
 
     if (!order._id || successPay || (order._id && order._id !== orderId)) {
@@ -111,9 +115,12 @@ export default function Commande() {
     } else {
 
       const loadPaypalScript = async () => {
-        const { data: paypalId } = await axios.get('/api/v1/paypal', {
-          headers: { authorization: `Bearer ${userInfo.token}` },
-        })
+        const { data: paypalId } = await axios.get(
+          'http://localhost:5000/api/v1/paypal',
+          {
+            withCredentials: true,
+          }
+        )
         paypalDispatch({
           type: 'resetOptions',
           value: {
@@ -126,7 +133,7 @@ export default function Commande() {
 
       loadPaypalScript()
     }
-  }, [order, userInfo, orderId, navigate, paypalDispatch])
+  }, [order, auth, orderId, navigate, paypalDispatch])
 
 
 
@@ -143,10 +150,8 @@ export default function Commande() {
             <Card.Body>
               <Card.Title>Shipping</Card.Title>
               <Card.Text>
-                <strong>Nom:</strong>
-                {order.shippingAddress.lastName}
-                <br />
-                <strong>Prenom:</strong> {order.shippingAddress.name} <br />
+                <strong>Nom:</strong> {order.shippingAddress.firstName} <br />
+                <strong>Prenom:</strong> {order.shippingAddress.lastName} <br />
                 <strong>Address: </strong> {order.shippingAddress.streetAddress}
                 ,{order.shippingAddress.city}, {order.shippingAddress.zipCode},
                 {order.shippingAddress.country}

@@ -1,6 +1,5 @@
 const User = require('../models/User')
 const jwt = require('jsonwebtoken')
-const asyncWrapper = require('../middlewares/asyncWrapper')
 
 // Gestion des erreurs lies a la authetification
 const handleErrors = (err) => {
@@ -17,15 +16,15 @@ const handleErrors = (err) => {
   }
 
   if (err.message.includes('Please enter an email')) {
-    errors.email = 'Please enter an email'
+    errors.email = 'Veuillez entrer une adresse e-mail'
   }
 
   if (err.message.includes('Please enter a password')) {
-    errors.password = 'Please enter a password'
+    errors.password = 'Veuillez entrer un mot de passe'
   }
 
   if (err.message.includes('Please enter a valid email')) {
-    errors.email = 'Please enter a valid email'
+    errors.email = 'Veuillez entrer une adresse électronique valide'
   }
 
   if (err.code === 11000) {
@@ -44,47 +43,62 @@ const handleErrors = (err) => {
 }
 
 // Creation de JWT
-const createToken = (user) => {
-  return jwt.sign({ user }, process.env.JWT, {
-    expiresIn: '30d',
+
+const maxAge = 3 * 24 * 60 * 60
+const createToken = (id, isAdmin) => {
+  return jwt.sign({ id, isAdmin }, process.env.JWT, {
+    expiresIn: maxAge,
   })
 }
 
 // Controlllers
-module.exports.signup = asyncWrapper( async(req, res) => {
+module.exports.signup = async (req, res) => {
   const { email, password } = req.body
 
   try {
-    const user = await User.create({ email, password })
-    // Envoie de JWT via les Cookies
-    res.status(201).json({ user: user._id })
+    await User.create({ email, password })
+    res.status(201)
   } catch (err) {
-    // Envoi des erreurs au client
     const errors = handleErrors(err)
     res.status(400).json({ errors })
   }
-})
+}
 
-module.exports.login = asyncWrapper( async(req, res) => {
+module.exports.login = async (req, res) => {
   const { email, password } = req.body
-
   try {
     const user = await User.login(email, password)
+    const token = createToken(user._id, user.isAdmin)
 
-    // Creation du token du nouveau utilisateur
-    const token = createToken(user)
-    // Envoie de JWT via les Cookies
-    res.cookie('jwt', token, { httpOnly: true })
-    res.status(200).json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      isAdmin: user.isAdmin,
-      token
-    })
+    res
+      .cookie('jwt', token, {
+        httpOnly: true,
+        maxAge: maxAge * 1000,
+        secure: process.env.NODE_ENV === 'production',
+      })
+      .status(200)
+      .json({
+        userId: user._id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        isAdmin: user.isAdmin
+      })
+
   } catch (err) {
-    // Envoi des erreurs au client
+    console.error(err)
     const errors = handleErrors(err)
-    res.status(400).json({errors})
+    res.status(400).json({ errors })
   }
-})
+}
+
+module.exports.logout = async (req, res) => {
+  return res
+    .clearCookie('jwt')
+    .status(200)
+    .json({ message: 'Successfully logged out 😏 🍀' })
+}
+
+module.exports.protected = async (req, res) => {
+  return res.json({ userId: req.userId, userIsAdmin: req.userIsAdmin })
+}

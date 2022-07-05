@@ -1,46 +1,36 @@
-import React, { useContext, useEffect, useReducer } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { StoreContext } from '../../../context/StoreProvider'
 
-const reducer = (state, action) => {
-  switch (action.type) {
-    case 'FETCH_REQUEST':
-      return { ...state, loading: true }
-    case 'FETCH_SUCCESS':
-      return { ...state, orders: action.payload, loading: false }
-    case 'FETCH_FAIL':
-      return { ...state, loading: false, error: action.payload }
-    default:
-      return state
-  }
-}
+
 
 export default function Historique() {
   const { state } = useContext(StoreContext)
   const { userInfo } = state
   const navigate = useNavigate()
 
-  const [{ loading, error, orders }, dispatch] = useReducer(reducer, {
-    loading: true,
-    error: '',
-  })
+  const [ orders, setOrders ] = useState()
+  const [error, setError] = useState()
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     const fetchData = async () => {
-      dispatch({ type: 'FETCH_REQUEST' })
       try {
+        setLoading(true)
         const { data } = await axios.get(
-          'http://localhost:5000/api/v1/orders/mine',
-
-          { headers: { Authorization: `Bearer ${userInfo.token}` } }
+          'http://localhost:5000/api/v1/orders',
+          {
+            headers: {
+              authorization: `Bearer ${userInfo.token}`,
+            },
+          }
         )
-        dispatch({ type: 'FETCH_SUCCESS', payload: data })
+        setLoading(false)
+        setOrders(data)
       } catch (err) {
-        dispatch({
-          type: 'FETCH_FAIL',
-          payload: err,
-        })
+        setLoading(false)
+        setError(err.message)
       }
     }
     fetchData()
@@ -54,7 +44,7 @@ export default function Historique() {
         <p> Loading...</p>
       ) : error ? (
         <p variant='danger'>{error}</p>
-      ) : (
+      ) : orders ? (
         <table className='table'>
           <thead>
             <tr>
@@ -93,7 +83,7 @@ export default function Historique() {
             ))}
           </tbody>
         </table>
-      )}
+      ): 'No orders'}
     </div>
   )
 }

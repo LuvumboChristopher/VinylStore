@@ -1,16 +1,13 @@
 const Product = require('../models/Product')
-const asyncWrapper = require('../middlewares/asyncWrapper');
-const { Error } = require('mongoose');
+const asyncWrapper = require('../utils/asyncWrapper')
 
 module.exports.getAllProducts = asyncWrapper(async (req, res) => {
-  let query = Product.find({})
-  const products = await query;
-  res.status(200).json(products)
-})
-
-module.exports.createProduct = asyncWrapper(async (req, res) => {
-  const product = await Product.create(req.body)
-  res.status(201).json({ product })
+  try {
+    const products = await Product.find()
+    res.status(200).json(products)
+  } catch(err){
+      res.status(500).send({ message: err.messagge})
+  }
 })
 
 module.exports.getProduct = asyncWrapper(async (req, res, next) => {
@@ -20,6 +17,11 @@ module.exports.getProduct = asyncWrapper(async (req, res, next) => {
     return next(createCustomError(`No product with id : ${productID}`, 404))
   }
   res.status(200).json(product[0])
+})
+
+module.exports.createProduct = asyncWrapper(async (req, res) => {
+  const product = await Product.create(req.body)
+  res.status(201).json({ product })
 })
 
 module.exports.updateProduct = asyncWrapper(async (req, res, next) => {

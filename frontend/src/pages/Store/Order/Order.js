@@ -30,7 +30,7 @@ export default function Order() {
   });
 
   const { state, dispatch: ctxDispatch } = useContext(StoreContext);
-  const { cart, userInfo } = state;
+  const { cart } = state;
   
 
   const round2 = (num) => Math.round(num * 100 + Number.EPSILON) / 100; // 123.2345 => 123.23
@@ -41,7 +41,8 @@ export default function Order() {
   cart.taxPrice = round2(0.15 * cart.itemsPrice);
   cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
 
-  const placeOrderHandler = async () => {
+  const placeOrderHandler = async (e) => {
+    e.preventDefault()
     try {
       dispatch({ type: 'CREATE_REQUEST' });
 
@@ -55,14 +56,11 @@ export default function Order() {
           shippingPrice: cart.shippingPrice,
           taxPrice: cart.taxPrice,
           totalPrice: cart.totalPrice,
-          user: userInfo
         },
         {
-          headers: {
-            authorization: `Bearer ${userInfo.token}`,
-          },
+          withCredentials: true,
         }
-      );
+      )
       ctxDispatch({ type: 'CART_CLEAR' });
       dispatch({ type: 'CREATE_SUCCESS' });
       localStorage.removeItem('cartItems');
@@ -90,7 +88,7 @@ export default function Order() {
                 <strong>Nom:</strong>
                 {cart.shippingAddress.lastName}
                 <br />
-                <strong>Prenom:</strong> {cart.shippingAddress.name} <br />
+                <strong>Prenom:</strong> {cart.shippingAddress.firstName} <br />
                 <strong>Address: </strong> {cart.shippingAddress.streetAddress},
                 {cart.shippingAddress.city}, {cart.shippingAddress.zipCode},
                 {cart.shippingAddress.country}

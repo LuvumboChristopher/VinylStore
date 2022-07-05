@@ -1,12 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react'
 import VsLogoBlack from '../../../../assets/img/vs_logo_black.png'
-
 import { IoCloseSharp } from 'react-icons/io5'
-
-
 import { ResponsiveNavbar, HeaderImage, ResponsiveNavbarContent, NavContainer, MenuIcon } from '../../style'
-import { Link, useNavigate } from 'react-router-dom'
-
+import { useNavigate } from 'react-router-dom'
 
 const ResponsiveMenu = () => {
   const ref = useRef()
@@ -119,7 +115,6 @@ const ResponsiveMenu = () => {
           </ul>
         </div>
       </ResponsiveNavbarContent>
-
       {showNavbar && (
         <ResponsiveNavbar navbarTransparency={navbarTransparency}>
           <a href={'/#accueil'}>

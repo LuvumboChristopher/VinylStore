@@ -1,44 +1,56 @@
+import axios from 'axios'
 import React, { useState, useContext, useRef, useEffect } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import axios from 'axios'
 import { StoreContext } from '../../../context/StoreProvider'
+import useAuth from '../../../hooks/useAuth'
 
-import { LoginForm, LoginInputContainer, LoginInput, LoginButton } from '../style';
+import {
+  LoginForm,
+  LoginInputContainer,
+  LoginInput,
+  LoginButton,
+} from '../style'
 
 const Form = () => {
-  const navigate = useNavigate()
-  const { search } = useLocation()
-  const redirectInUrl = new URLSearchParams(search).get('redirect')
-  const redirect = redirectInUrl ? redirectInUrl : '/store'
 
+  const { auth, login } = useAuth()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [errors, setErrors] = useState('')
   const emailRef = useRef()
 
+  const navigate = useNavigate()
+  const { search } = useLocation()
+  const redirectInUrl = new URLSearchParams(search).get('redirect')
+  const redirect = redirectInUrl ? redirectInUrl : '/store'
+
   useEffect(() => {
     emailRef.current.focus()
   }, [])
 
-  const {state,  dispatch: ctxDispatch } = useContext(StoreContext)
-  const { userInfo } = state
+  const { dispatch: ctxDispatch } = useContext(StoreContext)
 
-  const handleSubmit = async (e) => {
-    console.log('hey')
+  const handleLogin = async (e) => {
     e.preventDefault()
     try {
+      
+      const url = 'http://localhost:5000/api/v1/auth/login'
       const { data } = await axios.post(
-        'http://localhost:5000/api/v1/auth/login',
+        url,
         {
           email,
           password,
+        },
+        {
+          withCredentials: true
         }
       )
+      login(data)
       ctxDispatch({ type: 'USER_LOGIN', payload: data })
-      localStorage.setItem('userInfo', JSON.stringify(data))
-      navigate(redirect)
+      navigate(redirect || '/store')
     } catch (err) {
-      setErrors("L'adresse email ou le mot de passe sont incorrects")
+      console.error(err)
+      setErrors(err.message)
       setEmail('')
       setPassword('')
       setTimeout(() => {
@@ -48,14 +60,14 @@ const Form = () => {
   }
 
   useEffect(() => {
-    if (userInfo) {
+    if (auth) {
       navigate(redirect)
     }
-  }, [navigate, redirect, userInfo])
+  }, [navigate, redirect, auth])
 
   return (
     <>
-      <LoginForm onSubmit={handleSubmit}>
+      <LoginForm onSubmit={handleLogin}>
         <LoginInputContainer>
           <LoginInput
             ref={emailRef}

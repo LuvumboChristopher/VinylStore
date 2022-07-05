@@ -37,6 +37,7 @@ export const Overlay = styled.div`
   height: 100vh;
   background-color: rgba(3, 2, 2, 0.655);
 `
+
 /*------------------------------------------------------------Content------------------------------------------------------------*/
 
 export const LoginHeader = styled.div`

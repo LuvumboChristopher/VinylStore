@@ -3,29 +3,29 @@ import { useNavigate } from 'react-router-dom'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import { StoreContext } from '../../../context/StoreProvider'
+import useAuth from '../../../hooks/useAuth'
 
 export default function Payment() {
+  const { auth } = useAuth()
   const navigate = useNavigate()
   const { state, dispatch: ctxDispatch } = useContext(StoreContext)
-  const {
-    cart: { shippingAddress, paymentMethod },
-  } = state
+  const { cart: { paymentMethod } } = state
 
   const [paymentMethodName, setPaymentMethod] = useState(
     paymentMethod || 'PayPal'
   )
 
   useEffect(() => {
-    if (!shippingAddress.streetAddress) {
-      navigate('/shipping')
+    if (!auth || auth === null) {
+      navigate('/expedition')
     }
-  }, [shippingAddress, navigate])
+  }, [ navigate ])
   
   const submitHandler = (e) => {
     e.preventDefault()
     ctxDispatch({ type: 'SAVE_PAYMENT_METHOD', payload: paymentMethodName })
     localStorage.setItem('paymentMethod', paymentMethodName)
-    navigate('/commande ')
+    navigate('/commander ')
   }
   return (
     <div>

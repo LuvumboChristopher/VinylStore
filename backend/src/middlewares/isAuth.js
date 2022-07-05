@@ -1,20 +1,18 @@
 const jwt = require('jsonwebtoken')
 
-const isAuth = async(req, res, next) => {
-  const authorization = await req.headers.authorization
-  if(authorization) {
-    const token = await authorization.slice(7, authorization.length)
-    jwt.verify(token, process.env.JWT, (err, decode) => {
-      if (err) {
-        res.status(401).send({ message: 'Invalid Token' })
-      } else {
-        req.token = decode
-        next()
-      }
-    })
-  } else {
-    res.status(401).send({ message: 'No Token' })
+const isAuth = async (req, res, next) => {
+  const token = await req.cookies.jwt
+  if (!token) {
+    return res.sendStatus(403)
+  }
+  try {
+    const decodedData = jwt.verify(token, process.env.JWT)
+    req.userId = decodedData.id
+    req.userIsAdmin = decodedData.isAdmin
+    return next()
+  } catch {
+    return res.sendStatus(403)
   }
 }
 
-module.exports = isAuth
+module.exports = { isAuth }

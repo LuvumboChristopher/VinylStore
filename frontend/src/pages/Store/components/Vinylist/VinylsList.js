@@ -1,7 +1,12 @@
 import React, { useEffect, useReducer } from 'react'
 import { Vinyl } from './Vinyl'
 import axios from 'axios'
-import LoadingSpinner from '../../../../assets/video/Blocks-1.2s-184px.svg'
+
+import {
+  VinylListContainer,
+  ListWrapper,
+  VinylList,
+} from '../../style.js'
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -17,6 +22,7 @@ const reducer = (state, action) => {
 }
 
 const VinylsList = ({ search, handleAddToCart }) => {
+
   const [{ loading, error, products }, dispatch] = useReducer((reducer), {
     products: [],
     loading: true,
@@ -27,11 +33,9 @@ const VinylsList = ({ search, handleAddToCart }) => {
     const fecthproducts = async () => {
       dispatch({ type: 'FETCH_REQUEST' })
       try {
-        const url = '/api/v1/products'
-        const result = await axios.get(url)
-        setTimeout( ()=> {
-          dispatch({ type: 'FETCH_SUCCESS', payload: result.data })
-        }, 1500)      
+        const url = 'http://localhost:5000/api/v1/products'
+        const {data} = await axios.get(url)
+        dispatch({ type: 'FETCH_SUCCESS', payload: data })
       } catch (err) {
         const error = 'Erreur de serveur, réessayez plus tard'
         dispatch({ type: 'FETCH_FAIL', payload: error })
@@ -42,28 +46,18 @@ const VinylsList = ({ search, handleAddToCart }) => {
 
   return (
     <>
-      <div className='vinyl_list_container'>
-        <div className='list_wrapper'>
+      <VinylListContainer>
+        <ListWrapper>
           {loading ? (
             <div>
-              {/* <p style={{ display: 'block' }}> En cours de chargement...</p> */}
-              <img
-                style={{
-                  textAlign: 'center',
-                  width: '2.5rem',
-                  margin: 'auto',
-                  display: 'block'
-                }}
-                src={LoadingSpinner}
-                alt='Loading spinner'
-              />
+              <p> En cours de chargement...</p>
             </div>
           ) : error ? (
-            <p style={{ textAlign: 'center' }}>{error}</p>
+            <p>{error}</p>
           ) : products ? (
-            <div className='vinyl_list'>
+            <VinylList>
               {search(products).length === 0 ? (
-                <p style={{ textAlign: 'center' }}>
+                <p>
                   Pas de résultats pour votre recherche...
                 </p>
               ) : (
@@ -77,12 +71,12 @@ const VinylsList = ({ search, handleAddToCart }) => {
                   )
                 })
               )}
-            </div>
+            </VinylList>
           ) : (
             <p>Pas de resultats pour votre recherche</p>
           )}
-        </div>
-      </div>
+        </ListWrapper>
+      </VinylListContainer>
     </>
   )
 }

@@ -227,8 +227,8 @@ export const UmdpText = styled.div`
     width: 100%;
     margin: 4rem auto;
     padding: 4rem;
-    padding-top: 20%;
-    padding-bottom: 20%;
+    padding-top: 15%;
+    padding-bottom: 45%;
   }
   
 `
@@ -265,6 +265,10 @@ export const ServicesSection = styled.div`
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  @media (max-width: 720px) {
+    padding-top: 5rem;
+    margin-top: -5rem;
+  }
 `
 export const ServicestHeader = styled.header`
   width: 85%;
@@ -288,7 +292,8 @@ export const ServicesTitle = styled.h1`
   font-family: var(--font-family-title);
   font-size: clamp(40px, 3vw, 52px);
   width: 100%;
-  margin: 2rem auto 0;
+  margin: auto;
+  padding-top: 2rem;
   text-transform: none;
 `
 export const ServicesSubtitle = styled.p`
@@ -301,13 +306,13 @@ export const ServicesSubtitle = styled.p`
 export const ServicesContainer = styled.div`
   width: 100%;
   height: 100%;
-  margin: 2rem auto;
+  margin: 3rem auto;
   display: flex;
   justify-content: space-around;
 `
 export const ContentContainer = styled.div`
   width: 85%;
-  margin: 2rem auto;
+  margin: auto;
   display: flex;
   justify-content: space-around;
   gap: 4.5vw;
@@ -346,7 +351,7 @@ export const Card = styled.div`
 export const CardImageContainer = styled.div`
   @media (max-width: 1440px) {
     position: relative;
-    width: 40%;
+    width: 43%;
     height: 330px;
   }
   @media (max-width: 668px) {
@@ -398,7 +403,7 @@ export const CardTitle = styled.p`
   width: 100%;
   font-size: 1.35rem;
   font-weight: bold;
-  margin: auto auto 1.5rem;
+  margin: auto auto 0.75rem;
   text-align: left;
 `
 export const CardText = styled.p`

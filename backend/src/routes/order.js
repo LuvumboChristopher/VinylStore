@@ -1,8 +1,15 @@
 const router = require('express').Router()
-const {createOrder} = require('../controllers/order')
-const { requiereAuth } = require('../middlewares/authMiddleware')
+const { isAuth } = require('../middlewares/isAuth')
+const {
+  createOrder,
+  getOrder,
+  getUserOrders,
+  payOrder,
+} = require('../controllers/order')
 
-router.post('/', requiereAuth, createOrder)
+router.route('/').post(isAuth, createOrder)
+router.route('/:userId').get( isAuth, getUserOrders)
+router.route('/:id').get(isAuth, getOrder)
+router.route('/:id/pay').put(isAuth, payOrder)
 
 module.exports = router
- 

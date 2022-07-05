@@ -5,6 +5,9 @@ import { StoreContext } from '../../../context/StoreProvider'
 import { CartItem } from './components/CartItem'
 import CartHeader from './components/CartHeader'
 import styled from 'styled-components'
+import useAuth from '../../../hooks/useAuth'
+import { StoreHeader } from '../Store'
+import { ContentContainer } from '../style'
 
 
 const Panierwrapper = styled.div`
@@ -13,6 +16,7 @@ const Panierwrapper = styled.div`
 `
 
 export default function CartScreen() {
+  const { auth } = useAuth()
   const navigate = useNavigate()
   const { state, dispatch: ctxDispatch } = useContext(StoreContext)
   const {
@@ -31,49 +35,55 @@ export default function CartScreen() {
   }
 
   const checkoutHandler = () => {
-    navigate('/se-connecter?redirect=/expedition')
+    if(auth){
+      return navigate('/expedition')
+    }
+    navigate('/connexion')
   }
 
   return (
     <section id='cart'>
-      <CartHeader />
-      <Panierwrapper>
-        <div>
-          {cartItems.length === 0 ? (
-            <p>
-              Le panier est vide... <Link to='/store'>Aller à la boutique</Link>
-            </p>
-          ) : (
-            <CartItem
-              cartItems={cartItems}
-              removeItemHandler={removeItemHandler}
-              updateCartHandler={updateCartHandler}
-            />
-          )}
-        </div>
-        <div>
-          <h3>
-            Subtotal ({cartItems.reduce((a, c) => a + c.quantity, 0)} items) : $
-            {cartItems.reduce(
-              (a, c) =>
-                parseFloat(
-                  (
-                    parseFloat(a.toFixed(2)) +
-                    parseFloat(c.price.toFixed(2)) * c.quantity
-                  ).toFixed(2)
-                ),
-              0
+      <StoreHeader />
+      <ContentContainer>
+        <Panierwrapper>
+          <div>
+            {cartItems.length === 0 ? (
+              <p>
+                Le panier est vide...{' '}
+                <Link to='/store'>Aller à la boutique</Link>
+              </p>
+            ) : (
+              <CartItem
+                cartItems={cartItems}
+                removeItemHandler={removeItemHandler}
+                updateCartHandler={updateCartHandler}
+              />
             )}
-          </h3>
-          <button
-            type='button'
-            onClick={checkoutHandler}
-            disabled={cartItems.length === 0}
-          >
-            Procéder au paiement
-          </button>
-        </div>
-      </Panierwrapper>
+          </div>
+          <div>
+            <h3>
+              Total ({cartItems.reduce((a, c) => a + c.quantity, 0)} items) : €
+              {cartItems.reduce(
+                (a, c) =>
+                  parseFloat(
+                    (
+                      parseFloat(a.toFixed(2)) +
+                      parseFloat(c.price.toFixed(2)) * c.quantity
+                    ).toFixed(2)
+                  ),
+                0
+              )}
+            </h3>
+            <button
+              type='button'
+              onClick={checkoutHandler}
+              disabled={cartItems.length === 0}
+            >
+              Procéder au paiement
+            </button>
+          </div>
+        </Panierwrapper>
+      </ContentContainer>
     </section>
   )
 }

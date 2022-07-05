@@ -3,68 +3,89 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import { StoreContext } from '../../../context/StoreProvider'
 import axios from 'axios'
-import { ProductHeader } from '../Store'
+import { ProductHeader, StoreFooter, StoreHeader } from '../Store'
 import { BsArrowLeft } from 'react-icons/bs'
 import { FaHeart } from 'react-icons/fa'
 import { IoSave } from 'react-icons/io5'
-import { MdAddShoppingCart } from 'react-icons/md'
-import { useState } from 'react'
+import { BsCartPlusFill } from 'react-icons/bs'
+import { BsFillBagFill } from 'react-icons/bs'
+import { BsFillHeartFill } from 'react-icons/bs'
 
-const StyledWrapper = styled.div`
-  width: 85%;
-  margin: 5rem auto;
+
+import { ContentContainer, Copyright, StoreContainer } from '../style'
+
+export const ProductScreenWrapper = styled.div`
+  width: 95%;
+  margin: auto;
   display: flex;
+  justify-content: space-between;
+  align-items: start;
 `
-const CoverWrapper = styled.div`
+
+export const ContentWrapper = styled.div`
   width: 100%;
   margin: auto;
-  display: grid;
-  place-items: center;
+  padding: 2rem;
 `
-const ContentWrapper = styled.div`
-  width: 100%;
-  margin: auto;
-`
-const Description = styled.p`
+
+export const DetailsTitle = styled.div`
+  display: flex;
+  justify-content: space-between;
   text-align: justify;
+  margin: 1.5rem auto;
 `
-const Cover = styled.img`
-  width: 500px;
+
+export const Description = styled.p`
+  text-align: justify;
+  margin: 1rem auto;
 `
-const ContentContainer = styled.div`
+
+export const ProductVinylCoverContainer = styled.div`
   width: 100%;
-  margin: auto;
-  margin-top: 20rem;
+  margin: 0 auto;
+  padding: 2rem;
 `
-const ContentHeader = styled.div`
+
+export const ProductVinylCover = styled.img`
+  width: 500px;
+  margin: 0 auto 2rem;
+  box-shadow: 2px 3px 23px -3px rgba(0, 0, 0, 0.25);
+`
+
+export const ContentHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin: auto;
 `
-const ProductButtonsContainer = styled.div`
+export const ProductButtonsContainer = styled.div`
   width: 100%;
-  margin: 3rem auto;
+  margin: 2rem auto;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 `
-const ProductButtons = styled.button`
-  width: 100%;
-  padding: 2rem 0.4rem;
-  border: 1px solid black;
-  color:white
-  background-color: black;
+
+export const ProductButtons = styled.button`
+  width: fit-content;
+  padding: 1.1rem;
+  border: 2px solid black;
+  background-color: transparent;
   text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 5px;
+  gap: 1.5rem;
+  font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 3px;
   cursor: pointer;
+  &:hover {
+    color: white;
+    background-color: rgb(129, 8, 8);
+    box-shadow: 2px 3px 23px -3px rgba(0, 0, 0, 0.25);
+  }
 `
-
-
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -79,7 +100,7 @@ const reducer = (state, action) => {
   }
 }
 
-const Product = ({ props }) => {
+const Product = ({ current }) => {
   const { id } = useParams()
   const navigate = useNavigate()
 
@@ -93,10 +114,10 @@ const Product = ({ props }) => {
     const fecthproducts = async () => {
       dispatch({ type: 'FETCH_REQUEST' })
       try {
-        const result = await axios.get(
+        const { data } = await axios.get(
           `http://localhost:5000/api/v1/products/${id}`
         )
-        dispatch({ type: 'FETCH_SUCCESS', payload: result.data })
+        dispatch({ type: 'FETCH_SUCCESS', payload: data })
       } catch (err) {
         dispatch({ type: 'FETCH_FAIL' })
       }
@@ -107,9 +128,7 @@ const Product = ({ props }) => {
   const { state, dispatch: ctxDispatch } = useContext(StoreContext)
   const { cart } = state
 
-  const [qty, setQty] = useState(1)
-
-  const handleAddToCart = async () => {
+  const handleAddToCartAndNavigate = async () => {
     const existItem = cart.cartItems.find(
       (element) => element._id === product._id
     )
@@ -121,67 +140,102 @@ const Product = ({ props }) => {
     navigate('/panier')
   }
 
+  const handleAddToCart = async () => {
+    const existItem = cart.cartItems.find(
+      (element) => element._id === product._id
+    )
+    const quantity = existItem ? existItem.quantity + 1 : 1
+    ctxDispatch({
+      type: 'CART_ADD_ITEM',
+      payload: { ...product, quantity },
+    })
+  }
+
   return (
-    <>
-      <ProductHeader />
+    <StoreContainer>
+      <StoreHeader />
       <ContentContainer>
-        <div className='vinyl_container'>
+        <div>
           {loading ? (
-            <p>Loading...</p>
+            <div style={{ textAlign: 'center' }}>
+              <p> En cours de chargement...</p>
+            </div>
           ) : error ? (
             <p>{error}</p>
           ) : (
-            <StyledWrapper>
-              <Link to='/store'>
-                <BsArrowLeft />
-              </Link>
-              <CoverWrapper>
-                <Cover src={product.img} alt={product.title} />
-              </CoverWrapper>
-              <ContentWrapper>
-                <ContentHeader></ContentHeader>
-                <div>
-                  <h1>{product.title}</h1>
-                  <h2>{product.author}</h2>
-                  <small>{product.year}</small>
-                </div>
-
-                <Description>{product.description}</Description>
-                <p>{product.price}</p>
-                <div>
-                  <div>Quantité</div>
+            <ProductScreenWrapper>
+              <ProductVinylCoverContainer>
+                <ProductVinylCover src={product.img} alt={product.title} />
+              </ProductVinylCoverContainer>
+              <div>
+                <ContentWrapper>
                   <div>
-                    <select
-                      value={qty}
-                      onChange={(e) => setQty(e.target.value)}
-                    >
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-                      <option>5</option>
-                      <option>6</option>
-                    </select>
+                    <div>
+                      <div>
+                        <h1>{product.title}</h1>
+                        <h2>{product.author}</h2>
+                        <p>{product.year}</p>
+                      </div>
+                    </div>
+                    <ProductButtonsContainer>
+                      <div style={{ display: 'flex', gap: '0.85rem' }}>
+                        <ProductButtons onClick={handleAddToCart}>
+                          <BsCartPlusFill style={{ fontSize: '1.5rem' }} />
+                          Ajouter au panier
+                        </ProductButtons>
+                        <ProductButtons onClick={handleAddToCartAndNavigate}>
+                          <BsFillBagFill style={{ fontSize: '1.5rem' }} />
+                          Achetez maintenant
+                        </ProductButtons>
+                        <ProductButtons>
+                          <BsFillHeartFill style={{ fontSize: '1.5rem' }} />
+                        </ProductButtons>
+                      </div>
+                      <h1>{product.price} €</h1>
+                    </ProductButtonsContainer>
                   </div>
-                </div>
-                <ProductButtonsContainer>
-                  <ProductButtons onClick={handleAddToCart}>
-                    Ajouter au panier <MdAddShoppingCart />
-                  </ProductButtons>
-                  <ProductButtons>
-                    Ajouter aux favoris <FaHeart />
-                  </ProductButtons>
-                  <ProductButtons>
-                    Enregistrér pour plus tard <IoSave />
-                  </ProductButtons>
-                </ProductButtonsContainer>
-              </ContentWrapper>
-            </StyledWrapper>
+                  <div>
+                    <DetailsTitle>
+                      <h3>Détails du produit</h3>
+                      <h3>+</h3>
+                    </DetailsTitle>
+                    <hr />
+                    <Description>{product.description}</Description>
+                    <DetailsTitle>
+                      <h3>Politique de retour et de remboursement</h3>
+                      <h3>+</h3>
+                    </DetailsTitle>
+                    <hr />
+                    <Description>
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                      In iaculis blandit orci, eget feugiat lorem hendrerit id.
+                      Proin pulvinar, enim eu ultricies efficitur, elit neque
+                      scelerisque ligula, ac ultrices sapien ex sit amet sapien.
+                      Nunc accumsan aliquam dignissim. Nulla eu euismod felis,
+                      quis auctor dolor.
+                    </Description>
+                    <DetailsTitle>
+                      <h3>Info sur la livraison</h3>
+                      <h3>+</h3>
+                    </DetailsTitle>
+                    <hr />
+                    <Description>
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                      In iaculis blandit orci, eget feugiat lorem hendrerit id.
+                      Proin pulvinar, enim eu ultricies efficitur, elit neque
+                      scelerisque ligula, ac ultrices sapien ex sit amet sapien.
+                      Nunc accumsan aliquam dignissim. Nulla eu euismod felis,
+                      quis auctor dolor.
+                    </Description>
+                  </div>
+                </ContentWrapper>
+              </div>
+            </ProductScreenWrapper>
           )}
         </div>
       </ContentContainer>
-      {/* <Footer /> */}
-    </>
+      <StoreFooter/>
+    </StoreContainer>
   )
 }
 
