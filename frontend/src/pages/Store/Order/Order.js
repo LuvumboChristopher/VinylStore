@@ -94,9 +94,17 @@ export default function Order() {
           <h2>Prévisualiser la commande</h2>
         </ExpeditionHeader>
 
-        <div style={{ width: '100%', margin: 'auto', display: 'flex', alignItems:'end', justifyContent:'space-between' }}>
+        <div
+          style={{
+            width: '100%',
+            margin: 'auto',
+            display: 'flex',
+            alignItems: 'start',
+            justifyContent: 'space-between',
+          }}
+        >
           {/* Mi primer bloque de datos */}
-          <div style={{ width: '100%', margin: 'auto' }}>
+          <div style={{ width: '100%', margin: '0' }}>
             <div
               className='expedition'
               style={{ width: '100%', margin: 'auto' }}
@@ -132,7 +140,6 @@ export default function Order() {
                   </ItemResume>
                 </Row>
               </div>
-              <hr />
               <ExpeditionFormButton
                 to='/expedition'
                 style={{ color: 'white', backgroundColor: 'black' }}
@@ -163,10 +170,12 @@ export default function Order() {
             </div>
           </div>
           {/* Mi segundo bloque de datos */}
-          <hr />
-          <div className='Items' style={{ width: '100%', margin: 'auto' }}>
+
+          <div className='Items' style={{ width: '100%', margin: '0' }}>
             <div>
-              <h3>Items</h3>
+              <TotalToPay>
+                <h3>Vinyls</h3>
+              </TotalToPay>
               <hr />
               <div>
                 {cart.cartItems.map((item) => (
@@ -200,24 +209,18 @@ export default function Order() {
           </div>
 
           {/* Mi tercer bloque de datos */}
-          <hr />
-          <div className='ordersumary' style={{ width: '100%', margin: 'auto' }}>
+          <div className='ordersumary' style={{ width: '100%', margin: '0' }}>
             <div>
               <div>
                 <TotalToPay>
                   <h3>Order Summary</h3>
                 </TotalToPay>
                 <hr />
-                <ListGroup variant='flush'>
-                  <ListGroup.Item>
-                    <Row>
-                      <ItemResume>
-                        <h4>Items</h4>
-
-                        {cart.itemsPrice.toFixed(2)}
-                      </ItemResume>{' '}
-                    </Row>
-                  </ListGroup.Item>
+                <div variant='flush'>
+                  <TotalToPay>
+                    <h4>Items</h4>
+                    {cart.itemsPrice.toFixed(2)}
+                  </TotalToPay>{' '}
                   <ListGroup.Item>
                     <Row>
                       <ItemResume>
@@ -253,7 +256,7 @@ export default function Order() {
                       </ExpeditionFormButton>
                     </div>
                   </ListGroup.Item>
-                </ListGroup>
+                </div>
               </div>
             </div>
           </div>
