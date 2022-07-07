@@ -89,119 +89,119 @@ export default function Order() {
   return (
     <section>
       <StoreHeader />
-
       <ContentContainer>
         <ExpeditionHeader>
           <h2>Prévisualiser la commande</h2>
         </ExpeditionHeader>
 
-        <div style={{ display: 'flex' }}>
-          <div style={{ display: 'flex' }}>
-            <div>
+        <div style={{ width: '100%', margin: 'auto', display: 'flex', alignItems:'end', justifyContent:'space-between' }}>
+          {/* Mi primer bloque de datos */}
+          <div style={{ width: '100%', margin: 'auto' }}>
+            <div
+              className='expedition'
+              style={{ width: '100%', margin: 'auto' }}
+            >
+              <TotalToPay>
+                <h3>Adresse d'expedition</h3>
+              </TotalToPay>
+              <hr />
               <div>
-                <div>
-                  <TotalToPay>
-                    <h3>Adresse d'expedition</h3>
-                  </TotalToPay>
-                  <hr />
-                  <div>
-                    <Row>
-                      <ItemResume>
-                        <strong>Nom:</strong>
-                        {cart.shippingAddress.lastName}
-                      </ItemResume>
-                    </Row>
-                    <Row>
-                      <ItemResume>
-                        <strong>Prenom:</strong>
-                        {cart.shippingAddress.firstName}
-                      </ItemResume>
-                    </Row>
-                    <Row>
-                      <ItemResume>
-                        <strong>Address: </strong>
+                <Row>
+                  <ItemResume>
+                    <strong>Nom:</strong>
+                    {cart.shippingAddress.lastName}
+                  </ItemResume>
+                </Row>
+                <Row>
+                  <ItemResume>
+                    <strong>Prenom:</strong>
+                    {cart.shippingAddress.firstName}
+                  </ItemResume>
+                </Row>
+                <Row>
+                  <ItemResume>
+                    <strong>Address: </strong>
 
-                        {cart.shippingAddress.streetAddress}
-                        <br />
-                        {cart.shippingAddress.city}
-                        <br />
-                        {cart.shippingAddress.zipCode}
-                        <br />
-                        {cart.shippingAddress.country}
-                      </ItemResume>
-                    </Row>
-                  </div>
-                  <hr />
-                  <ExpeditionFormButton
-                    to='/expedition'
-                    style={{ color: 'white', backgroundColor: 'black' }}
-                  >
-                    Modifier
-                  </ExpeditionFormButton>
-                </div>
+                    {cart.shippingAddress.streetAddress}
+                    <br />
+                    {cart.shippingAddress.city}
+                    <br />
+                    {cart.shippingAddress.zipCode}
+                    <br />
+                    {cart.shippingAddress.country}
+                  </ItemResume>
+                </Row>
               </div>
               <hr />
-              <Card className='mb-3'>
-                <Card.Body>
-                  <TotalToPay>
-                    <h3>Payment</h3>
-                  </TotalToPay>
-
-                  <hr />
-
-                  <ItemResume>
-                    <strong>Method:</strong> {cart.paymentMethod}
-                  </ItemResume>
-                  <hr />
-
-                  <ExpeditionFormButton
-                    to='/paiement'
-                    style={{ color: 'white', backgroundColor: 'black' }}
-                  >
-                    Modifier
-                  </ExpeditionFormButton>
-                </Card.Body>
-              </Card>
+              <ExpeditionFormButton
+                to='/expedition'
+                style={{ color: 'white', backgroundColor: 'black' }}
+              >
+                Modifier
+              </ExpeditionFormButton>
             </div>
-            <hr />
-            <div>
-              <div>
-                <h3>Items</h3>
+            <div className='payment' style={{ width: '100%', margin: 'auto' }}>
+              <Card.Body>
+                <TotalToPay>
+                  <h3>Payment</h3>
+                </TotalToPay>
+
                 <hr />
-                <div>
-                  {cart.cartItems.map((item) => (
-                    <ListGroup.Item key={item._id}>
-                      <Row className='align-items-center'>
-                        <Col md={6}>
-                          <Link to={`/products/${item._id}`}>
-                            <img
-                              src={item.img}
-                              alt={item.title}
-                              style={{ width: '40px' }}
-                            ></img>{' '}
-                            {item.title}
-                          </Link>
-                        </Col>
-                        <Col md={3}>
-                          <span>{item.quantity}</span>
-                        </Col>
-                        <Col md={3}>${item.price}</Col>
-                      </Row>
-                    </ListGroup.Item>
-                  ))}
-                </div>
+
+                <ItemResume>
+                  <strong>Method:</strong> {cart.paymentMethod}
+                </ItemResume>
+                <hr />
+
                 <ExpeditionFormButton
-                  to='/panier'
+                  to='/paiement'
                   style={{ color: 'white', backgroundColor: 'black' }}
                 >
-                  Edit
+                  Modifier
                 </ExpeditionFormButton>
+              </Card.Body>
+            </div>
+          </div>
+          {/* Mi segundo bloque de datos */}
+          <hr />
+          <div className='Items' style={{ width: '100%', margin: 'auto' }}>
+            <div>
+              <h3>Items</h3>
+              <hr />
+              <div>
+                {cart.cartItems.map((item) => (
+                  <ListGroup.Item key={item._id}>
+                    <Row className='align-items-center'>
+                      <Col md={6}>
+                        <Link to={`/products/${item._id}`}>
+                          <img
+                            src={item.img}
+                            alt={item.title}
+                            style={{ width: '40px' }}
+                          ></img>{' '}
+                          {item.title}
+                        </Link>
+                      </Col>
+                      <Col md={3}>
+                        <span>{item.quantity}</span>
+                      </Col>
+                      <Col md={3}>${item.price}</Col>
+                    </Row>
+                  </ListGroup.Item>
+                ))}
               </div>
+              <ExpeditionFormButton
+                to='/panier'
+                style={{ color: 'white', backgroundColor: 'black' }}
+              >
+                Edit
+              </ExpeditionFormButton>
             </div>
           </div>
 
+          {/* Mi tercer bloque de datos */}
           <hr />
-          <div>
+          <div className='ordersumary' style={{ width: '100%', margin: 'auto' }}>
             <div>
               <div>
                 <TotalToPay>
