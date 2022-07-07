@@ -28,7 +28,6 @@ function App() {
 
   return (
     <div className='container'>
-
       <ScrollToTop />
       <Routes>
         <Route path='/' element={<Home />} />
@@ -80,7 +79,7 @@ function App() {
         />
 
           {/* Crear una pagina 404 */}
-        <Route path='*' element={<Store />} />
+        {/* <Route path='*' element={<Store />} /> */}
       </Routes>
     </div>
   )

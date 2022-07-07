@@ -22,7 +22,7 @@ module.exports.createOrder = asyncWrapper( async (req, res, next) => {
 })
 
 module.exports.getOrder = asyncWrapper(async (req, res, next) => {
-  const order = await Order.find({ user: req.userId })
+  const order = await Order.find({ _id: req.userId })
   if (!order) {
     return res.status(404).json({message: 'No orders'})
   }

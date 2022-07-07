@@ -1,13 +1,19 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import FormInput from './FormInput'
 import { StoreContext } from '../../../context/StoreProvider'
 import axios from 'axios'
 import { LoginScreenLink, SingupButton, SingupForm } from '../style'
+import useAuth from '../../../hooks/useAuth'
 
 const Form = () => {
+ 
   const navigate = useNavigate()
+  const { search } = useLocation()
+  const redirectInUrl = new URLSearchParams(search).get('redirect')
+  const redirect = redirectInUrl ? redirectInUrl : '/store'
 
+  const { auth, login } = useAuth()
   const [errors, setErrors] = useState(null)
   const [values, setValues] = useState({
     name: '',
@@ -51,9 +57,6 @@ const Form = () => {
   }
 
   const { state, dispatch: ctxDispatch } = useContext(StoreContext)
-  const { search } = useLocation()
-  const redirectInUrl = new URLSearchParams(search).get('redirect')
-  const redirect = redirectInUrl ? redirectInUrl : '/store'
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -62,10 +65,15 @@ const Form = () => {
       await axios.post(url, values)
       redirect('/store')
     } catch (err) {
-      console.log(err)
       setErrors(err)
     }
   }
+
+  useEffect(() => {
+    if (auth.userId) {
+      navigate(redirect)
+    }
+  }, [navigate, redirect, auth])
 
   return (
     <SingupForm onSubmit={handleSubmit}>

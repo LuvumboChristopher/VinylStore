@@ -12,6 +12,8 @@ import {
   Copyright,
   StoreContainer,
 } from './style.js'
+import { useEffect } from 'react'
+import useAuth from '../../hooks/useAuth'
 
 export const StoreHeader = ({ setSerchTerm }) => {
   return (
@@ -34,8 +36,14 @@ export const StoreFooter = ( ) => {
   )
 }
 
+
 const Store = () => {
   const [searchTerm, setSerchTerm] = useState('')
+  const {checkUser} = useAuth()
+  
+  useEffect(() => {
+    checkUser()
+  }, [])
 
   const search = (data) => {
     const keys = ['title', 'author', 'description']

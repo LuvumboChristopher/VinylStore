@@ -9,12 +9,10 @@ export const StoreContainer = styled.div`
   background-color: rgba(255, 255, 255, 0.589);
   display: grid;
   place-items: center;
-
 `
 
-
-
 export const HeaderContainer = styled.div`
+  z-index: 1;
   width: 100%;
   height: 7rem;
   background-color: white;
@@ -31,8 +29,6 @@ export const Header = styled.div`
 export const ContentContainer = styled.div`
   width: 90%;
   margin: 15rem auto 0;
-  padding-top: 3rem;
-  padding-bottom: 2rem;
   border: 2px solid rgb(0, 0, 0);
 `
 export const Copyright = styled.div`
@@ -50,6 +46,8 @@ export const VinylListContainer = styled.div`
   width: 100%;
   margin: auto;
   display: grid;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
   place-items: center;
   align-items: center;
   text-align: center;
@@ -59,8 +57,8 @@ export const ListWrapper = styled.div`
   margin: auto;
 `
 export const VinylList = styled.div`
-  width: 96%;
-  margin: auto auto 1rem;
+  width: 98%;
+  margin: auto;
   display: flex;
   flex-direction: row;
   flex-flow: row wrap;
@@ -71,7 +69,7 @@ export const VinylList = styled.div`
 /*------------------------------------------------------------VinylistItem------------------------------------------------------------*/
 
 export const VinylItem = styled.div`
-  width: 230px;
+  width: 240px;
   margin: 2rem;
 `
 
@@ -82,7 +80,13 @@ export const VinylCoverContainer = styled.div`
 export const VinylCover = styled.img`
   width: 100%;
   margin: 0 auto 2rem;
+  border-radius: 2px;
   box-shadow: 2px 3px 23px -3px rgba(0,0,0,0.25);
+  transition: transform 130ms ease-in-out;
+  cursor: pointer;
+  :hover {
+    transform: scale(1.1);
+  }
 `
 
 export const VinylData = styled.div`

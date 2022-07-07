@@ -13,6 +13,20 @@ import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { StoreContext } from '../../../../context/StoreProvider'
 import  Axios  from 'axios'
 import useAuth from '../../../../hooks/useAuth'
+import styled from 'styled-components'
+import { useEffect } from 'react'
+
+
+export const LogoStore = styled.img`
+width: 230px;
+  transition: transform 230ms ease-in-out;
+  cursor: cursor;
+  :hover {
+    transform: scale(1.025);
+  }
+`
+
+
 
 
 const NavContent = () => {
@@ -23,7 +37,7 @@ const NavContent = () => {
 
   const signoutHandler = async () => {  
     try {
-      const { data } = await Axios.get(
+      await Axios.get(
         'http://localhost:5000/api/v1/auth/logout',
         {
           withCredentials: true
@@ -42,10 +56,10 @@ const NavContent = () => {
   return (
     <nav className='store_nav_container'>
       <ul>
-        {auth ? (
+        {auth.user ? (
           <div className='dropdown'>
             <Link to={''} className='dropbtn'>
-              <BsFillVinylFill style={{ fontSize: '1.6em' }} /> Mon compte
+              <BsFillVinylFill style={{ fontSize: '1.6em' }} /> Hello{auth.user && ( `, ${auth.isAdmin} :)`)}
             </Link>
             <div className='dropdown-content'>
               <Link to='/profil'>
@@ -105,7 +119,7 @@ const Navbar = () => {
     <div className='store_header'>
       <div>
         <Link to='/store'>
-          <img src={VsLogoBlack} alt='logo' className='vs_logo_black'/>
+          <LogoStore src={VsLogoBlack} alt='logo' className='vs_logo_black'/>
         </Link>
       </div>
       <div>

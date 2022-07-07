@@ -6,13 +6,57 @@ import { CartItem } from './components/CartItem'
 import CartHeader from './components/CartHeader'
 import styled from 'styled-components'
 import useAuth from '../../../hooks/useAuth'
-import { StoreHeader } from '../Store'
+import { StoreFooter, StoreHeader } from '../Store'
 import { ContentContainer } from '../style'
+import { round2 } from '../Order/Order'
 
+const CartContentContainer = styled.div`
+  display: flex;
+  border: 2px solid black;
+  width: 90%;
+  margin: 17.5rem auto 3rem;
+`
 
 const Panierwrapper = styled.div`
-  display: grid;
-  place-items:center;
+  width: 100%;
+  margin: 0 auto;
+  flex: 2.5;
+  border-right: 2px solid black;
+`
+
+const Totalwrapper = styled.div`
+  width: 100%;
+  margin: 0 auto;
+  flex: 1;
+`
+
+export const TotalToPay = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  padding: 1.5rem;
+`
+export const ItemResume = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  padding: 1rem 1.5rem;
+`
+
+const PaimentButton = styled.button`
+  width: 100%;
+  margin: 0;
+  padding: 2.5rem;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: white;
+  background-color: black;
+  border: none;
+  cursor: pointer;
+  :disabled {
+    cursor: not-allowed;
+  }
 `
 
 export default function CartScreen() {
@@ -35,55 +79,74 @@ export default function CartScreen() {
   }
 
   const checkoutHandler = () => {
-    if(auth){
+    if (auth.user) {
       return navigate('/expedition')
     }
-    navigate('/connexion')
+    navigate('/connexion?redirect=/expedition')
   }
 
   return (
     <section id='cart'>
       <StoreHeader />
-      <ContentContainer>
+      <CartContentContainer>
         <Panierwrapper>
-          <div>
-            {cartItems.length === 0 ? (
-              <p>
-                Le panier est vide...{' '}
-                <Link to='/store'>Aller à la boutique</Link>
-              </p>
-            ) : (
-              <CartItem
-                cartItems={cartItems}
-                removeItemHandler={removeItemHandler}
-                updateCartHandler={updateCartHandler}
-              />
-            )}
-          </div>
-          <div>
-            <h3>
-              Total ({cartItems.reduce((a, c) => a + c.quantity, 0)} items) : €
-              {cartItems.reduce(
-                (a, c) =>
-                  parseFloat(
-                    (
-                      parseFloat(a.toFixed(2)) +
-                      parseFloat(c.price.toFixed(2)) * c.quantity
-                    ).toFixed(2)
-                  ),
-                0
-              )}
-            </h3>
-            <button
-              type='button'
-              onClick={checkoutHandler}
-              disabled={cartItems.length === 0}
-            >
-              Procéder au paiement
-            </button>
-          </div>
+          {cartItems.length === 0 ? (
+            <div></div>
+          ) : (
+            <CartItem
+              cartItems={cartItems}
+              removeItemHandler={removeItemHandler}
+              updateCartHandler={updateCartHandler}
+            />
+          )}
         </Panierwrapper>
-      </ContentContainer>
+        <Totalwrapper>
+          <TotalToPay>
+            <h1>Panier</h1>
+          </TotalToPay>
+          <hr style={{ border: '1px solid black' }} />
+          {cartItems.map((item) => (
+            <div key={item._id}>
+              <div>
+                <ItemResume>
+                  {item.title} x{item.quantity}
+                  <p>{round2(item.price * item.quantity)} €</p>
+                </ItemResume>
+              </div>
+            </div>
+          ))}
+          {cartItems.length > 0 && (
+              <hr style={{ border: '1px solid black' }} />
+          )}
+          <TotalToPay>
+            <div>
+              <h1>Total</h1>
+              <small>
+                ({cartItems.reduce((a, c) => a + c.quantity, 0)} Vinyls)
+              </small>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <h2>
+                {cartItems.reduce(
+                  (a, c) => round2(a + c.price * c.quantity),
+                  0
+                )}{' '}
+                €
+              </h2>
+            </div>
+          </TotalToPay>
+          <hr style={{ border: '1px solid black' }} />
+          <PaimentButton
+            type='button'
+            onClick={checkoutHandler}
+            disabled={cartItems.length === 0}
+          >
+            Procéder au paiement
+          </PaimentButton>
+          <hr style={{ border: '1px solid black' }} />
+        </Totalwrapper>
+      </CartContentContainer>
+      <StoreFooter />
     </section>
   )
 }

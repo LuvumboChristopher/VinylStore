@@ -328,7 +328,8 @@ export const Card = styled.div`
   display: flex;
   flex-direction: column;
   background-color: rgba(200, 200, 200, 0.055);
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
+  box-shadow: 2px 3px 23px -3px rgba(0,0,0,0.25);
   transition: 0.3s ease;
 
 
@@ -532,7 +533,7 @@ export const SectionContainer = styled.div`
   width: 85%;
   margin: 4rem auto;
   @media (min-width: 1440px) {
-    width: ${(props) => (props.formSection ? '80%' : '95%')};
+    width: ${(props) => (props.formSection ? '70%' : '85%')};
   }
 `
 export const ContactHeader = styled.header`

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useReducer } from 'react'
+import React, { useContext, useEffect, useReducer, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import { StoreContext } from '../../../context/StoreProvider'
@@ -11,12 +11,11 @@ import { BsCartPlusFill } from 'react-icons/bs'
 import { BsFillBagFill } from 'react-icons/bs'
 import { BsFillHeartFill } from 'react-icons/bs'
 
-
 import { ContentContainer, Copyright, StoreContainer } from '../style'
 
 export const ProductScreenWrapper = styled.div`
   width: 95%;
-  margin: auto;
+  margin: 2rem auto;
   display: flex;
   justify-content: space-between;
   align-items: start;
@@ -44,12 +43,25 @@ export const ProductVinylCoverContainer = styled.div`
   width: 100%;
   margin: 0 auto;
   padding: 2rem;
+  flex: 1;
+`
+export const InfoContainer = styled.div`
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem;
+  flex: 3;
 `
 
 export const ProductVinylCover = styled.img`
   width: 500px;
-  margin: 0 auto 2rem;
+  margin: 0 auto;
+  border-radius: 2px;
   box-shadow: 2px 3px 23px -3px rgba(0, 0, 0, 0.25);
+  transition: transform 100ms ease-in-out;
+  cursor: zoom-in;
+  :hover {
+    transform: scale(1.03);
+  }
 `
 
 export const ContentHeader = styled.div`
@@ -60,7 +72,7 @@ export const ContentHeader = styled.div`
 `
 export const ProductButtonsContainer = styled.div`
   width: 100%;
-  margin: 2rem auto;
+  margin: 2.3rem auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -75,7 +87,7 @@ export const ProductButtons = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1.5rem;
+  gap: 1.85rem;
   font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 3px;
@@ -103,6 +115,15 @@ const reducer = (state, action) => {
 const Product = ({ current }) => {
   const { id } = useParams()
   const navigate = useNavigate()
+  const [display, setDisplay] = useState({
+    details: true,
+    retours: false,
+    livraison: false
+  })
+
+  const toggleText = () => {
+    setDisplay(!display)
+  }
 
   const [{ loading, error, product }, dispatch] = useReducer(reducer, {
     product: {},
@@ -114,12 +135,13 @@ const Product = ({ current }) => {
     const fecthproducts = async () => {
       dispatch({ type: 'FETCH_REQUEST' })
       try {
-        const { data } = await axios.get(
-          `http://localhost:5000/api/v1/products/${id}`
-        )
+
+        const url = `http://localhost:5000/api/v1/products/${id}`
+        const { data } = await axios.get(url)
         dispatch({ type: 'FETCH_SUCCESS', payload: data })
       } catch (err) {
-        dispatch({ type: 'FETCH_FAIL' })
+        const error = 'Erreur de serveur, réessayez plus tard'
+        dispatch({ type: 'FETCH_FAIL', payload: error })
       }
     }
     fecthproducts()
@@ -155,86 +177,125 @@ const Product = ({ current }) => {
     <StoreContainer>
       <StoreHeader />
       <ContentContainer>
-        <div>
+        <ProductScreenWrapper>
           {loading ? (
-            <div style={{ textAlign: 'center' }}>
+            <div>
               <p> En cours de chargement...</p>
             </div>
           ) : error ? (
             <p>{error}</p>
           ) : (
-            <ProductScreenWrapper>
-              <ProductVinylCoverContainer>
-                <ProductVinylCover src={product.img} alt={product.title} />
-              </ProductVinylCoverContainer>
-              <div>
-                <ContentWrapper>
-                  <div>
+            product && (
+              <>
+                <ProductVinylCoverContainer>
+                  <ProductVinylCover src={product.img} alt={product.title} />
+                </ProductVinylCoverContainer>
+                <InfoContainer>
+                  <ContentWrapper>
                     <div>
                       <div>
-                        <h1>{product.title}</h1>
-                        <h2>{product.author}</h2>
-                        <p>{product.year}</p>
+                        <div>
+                          <h1>{product.title}</h1>
+                          <h2>{product.author}</h2>
+                          <p>{product.year}</p>
+                        </div>
                       </div>
+                      <ProductButtonsContainer>
+                        <div style={{ display: 'flex', gap: '0.85rem' }}>
+                          <ProductButtons onClick={handleAddToCart}>
+                            <BsCartPlusFill style={{ fontSize: '1.5rem' }} />
+                            Ajouter au panier
+                          </ProductButtons>
+                          <ProductButtons onClick={handleAddToCartAndNavigate}>
+                            <BsFillBagFill style={{ fontSize: '1.5rem' }} />
+                            Achetez maintenant
+                          </ProductButtons>
+                          <ProductButtons>
+                            <BsFillHeartFill style={{ fontSize: '1.5rem' }} />
+                          </ProductButtons>
+                        </div>
+                        <h1>{product.price} €</h1>
+                      </ProductButtonsContainer>
                     </div>
-                    <ProductButtonsContainer>
-                      <div style={{ display: 'flex', gap: '0.85rem' }}>
-                        <ProductButtons onClick={handleAddToCart}>
-                          <BsCartPlusFill style={{ fontSize: '1.5rem' }} />
-                          Ajouter au panier
-                        </ProductButtons>
-                        <ProductButtons onClick={handleAddToCartAndNavigate}>
-                          <BsFillBagFill style={{ fontSize: '1.5rem' }} />
-                          Achetez maintenant
-                        </ProductButtons>
-                        <ProductButtons>
-                          <BsFillHeartFill style={{ fontSize: '1.5rem' }} />
-                        </ProductButtons>
-                      </div>
-                      <h1>{product.price} €</h1>
-                    </ProductButtonsContainer>
-                  </div>
-                  <div>
-                    <DetailsTitle>
-                      <h3>Détails du produit</h3>
-                      <h3>+</h3>
-                    </DetailsTitle>
-                    <hr />
-                    <Description>{product.description}</Description>
-                    <DetailsTitle>
-                      <h3>Politique de retour et de remboursement</h3>
-                      <h3>+</h3>
-                    </DetailsTitle>
-                    <hr />
-                    <Description>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      In iaculis blandit orci, eget feugiat lorem hendrerit id.
-                      Proin pulvinar, enim eu ultricies efficitur, elit neque
-                      scelerisque ligula, ac ultrices sapien ex sit amet sapien.
-                      Nunc accumsan aliquam dignissim. Nulla eu euismod felis,
-                      quis auctor dolor.
-                    </Description>
-                    <DetailsTitle>
-                      <h3>Info sur la livraison</h3>
-                      <h3>+</h3>
-                    </DetailsTitle>
-                    <hr />
-                    <Description>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      In iaculis blandit orci, eget feugiat lorem hendrerit id.
-                      Proin pulvinar, enim eu ultricies efficitur, elit neque
-                      scelerisque ligula, ac ultrices sapien ex sit amet sapien.
-                      Nunc accumsan aliquam dignissim. Nulla eu euismod felis,
-                      quis auctor dolor.
-                    </Description>
-                  </div>
-                </ContentWrapper>
-              </div>
-            </ProductScreenWrapper>
+                    <div>
+                      <DetailsTitle>
+                        <h3>Détails du produit</h3>
+                        <span
+                          style={{ cursor: 'pointer' }}
+                          onClick={() =>
+                            setDisplay({
+                              ...display,
+                              details: !display.details,
+                            })
+                          }
+                        >
+                          {display.details ? <h3>-</h3> : <h3>+</h3>}
+                        </span>
+                      </DetailsTitle>
+                      <hr />
+                      {display.details && (
+                        <Description>{product.description}</Description>
+                      )}
+
+                      <DetailsTitle>
+                        <h3>Politique de retour et de remboursement</h3>
+                        <span
+                          style={{ cursor: 'pointer' }}
+                          onClick={() =>
+                            setDisplay({
+                              ...display,
+                              retours: !display.retours,
+                            })
+                          }
+                        >
+                          {display.retours ? <h3>-</h3> : <h3>+</h3>}
+                        </span>
+                      </DetailsTitle>
+                      <hr />
+                      {display.retours && (
+                        <Description>
+                          Lorem ipsum dolor sit amet, consectetur adipiscing
+                          elit. In iaculis blandit orci, eget feugiat lorem
+                          hendrerit id. Proin pulvinar, enim eu ultricies
+                          efficitur, elit neque scelerisque ligula, ac ultrices
+                          sapien ex sit amet sapien. Nunc accumsan aliquam
+                          dignissim. Nulla eu euismod felis, quis auctor dolor.
+                        </Description>
+                      )}
+                      <DetailsTitle>
+                        <h3>Info sur la livraison</h3>
+                        <span
+                          style={{ cursor: 'pointer' }}
+                          onClick={() =>
+                            setDisplay({
+                              ...display,
+                              livraison: !display.livraison,
+                            })
+                          }
+                        >
+                          {display.livraison ? <h3>-</h3> : <h3>+</h3>}
+                        </span>
+                      </DetailsTitle>
+                      <hr />
+                      {display.livraison && (
+                        <Description>
+                          Lorem ipsum dolor sit amet, consectetur adipiscing
+                          elit. In iaculis blandit orci, eget feugiat lorem
+                          hendrerit id. Proin pulvinar, enim eu ultricies
+                          efficitur, elit neque scelerisque ligula, ac ultrices
+                          sapien ex sit amet sapien. Nunc accumsan aliquam
+                          dignissim. Nulla eu euismod felis, quis auctor dolor.
+                        </Description>
+                      )}
+                    </div>
+                  </ContentWrapper>
+                </InfoContainer>
+              </>
+            )
           )}
-        </div>
+        </ProductScreenWrapper>
       </ContentContainer>
-      <StoreFooter/>
+      <StoreFooter />
     </StoreContainer>
   )
 }

@@ -33,7 +33,9 @@ const Vinyl = (vinyl) => {
   return (
     <VinylItem>
       <VinylCoverContainer>
-        <VinylCover src={img} alt='Vinyl cover' />
+        <Link to={`/products/${_id}`}>
+          <VinylCover src={img} alt='Vinyl cover' />
+        </Link>
       </VinylCoverContainer>
       <div>
         <VinylData>
@@ -48,13 +50,11 @@ const Vinyl = (vinyl) => {
 
         <VinylPurchase>
           <div>
-            <Link to={`/products/${_id}`} >
+            <Link to={`/products/${_id}`}>
               <VinylPurchaseButton voir={true}>Voir</VinylPurchaseButton>
             </Link>
 
-            <VinylPurchaseButton
-              onClick={handleAddToCart}
-            >
+            <VinylPurchaseButton onClick={handleAddToCart}>
               Acheter
             </VinylPurchaseButton>
           </div>

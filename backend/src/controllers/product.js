@@ -1,23 +1,24 @@
 const Product = require('../models/Product')
 const asyncWrapper = require('../utils/asyncWrapper')
 
-module.exports.getAllProducts = asyncWrapper(async (req, res) => {
+module.exports.getAllProducts = async (req, res) => {
   try {
-    const products = await Product.find()
+    const products = await Product.find({  })
     res.status(200).json(products)
-  } catch(err){
-      res.status(500).send({ message: err.messagge})
+  } catch (err) {
+    res.status(404).send({ message: `No products` })
   }
-})
+}
 
-module.exports.getProduct = asyncWrapper(async (req, res, next) => {
-  const { id: productID  } = req.params
-  const product = await Product.find({ _id: productID })
-  if (!product) {
-    return next(createCustomError(`No product with id : ${productID}`, 404))
+module.exports.getProduct = async (req, res) => {
+  const { id: productID } = req.params
+  try {
+    const product = await Product.find({ _id: productID })
+    res.status(200).json(product[0])
+  } catch (err) {
+    res.status(404).send({ message: `No product with id: ${productID}` })
   }
-  res.status(200).json(product[0])
-})
+}
 
 module.exports.createProduct = asyncWrapper(async (req, res) => {
   const product = await Product.create(req.body)

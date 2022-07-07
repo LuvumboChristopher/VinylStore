@@ -45,7 +45,6 @@ const VinylsList = ({ search, handleAddToCart }) => {
   }, [])
 
   return (
-    <>
       <VinylListContainer>
         <ListWrapper>
           {loading ? (
@@ -57,9 +56,7 @@ const VinylsList = ({ search, handleAddToCart }) => {
           ) : products ? (
             <VinylList>
               {search(products).length === 0 ? (
-                <p>
-                  Pas de résultats pour votre recherche...
-                </p>
+                <p>Pas de résultats pour votre recherche...</p>
               ) : (
                 search(products).map((vinyl) => {
                   return (
@@ -77,7 +74,6 @@ const VinylsList = ({ search, handleAddToCart }) => {
           )}
         </ListWrapper>
       </VinylListContainer>
-    </>
   )
 }
 

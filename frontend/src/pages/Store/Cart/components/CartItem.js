@@ -1,51 +1,66 @@
 import React from 'react'
 import ListGroup from 'react-bootstrap/ListGroup'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
+import { VinylData } from '../../style'
 
 const CartItemWrapper = styled.div`
   width: 100%;
-  margin: 2rem auto;
-  padding: 1rem;
-  border: 3px solid black;
+  margin: auto;
+  padding: 2rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: yellow;
 `
 const VinylWrapper = styled.div`
-  width: 100%;
+  width: 650px;
+  margin: 0.5rem 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 15px;
-  background-color: blue;
+  gap: 55px;
 `
 
 const Button = styled.button`
-  width: 100%;
-  padding: 5px;
-  color: white;
-  background-color: black;
-  border: none;
+  width: 50px;
+  height: 50px;
+  background-color: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.555);
+  border-radius: 2px;
+  cursor: pointer;
+  :hover {
+    background-color: black;
+    color: white;
+  }
 `
 
-const Price = styled.p`
-  width: 100%
-  font-size: 1.9rem;
+const Price = styled.h1`
+  font-size: 1.3rem;
+`
+
+const QuantityButtonWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  border-radius: 2px;
 `
 
 const DeleteButton = styled.button`
-  width: 100%;
-  margin: 0;
-  padding: 1.5rem;
-  color: black;
+  width: fit-content;
+  padding: 1rem 3rem;
   border: 1px solid rgba(0, 0, 0, 0.555);
+  border-radius: 2px;
   text-align: center;
-  font-size: 0.65rem;
   text-transform: uppercase;
   color: white;
   background-color: rgb(129, 8, 8);
+  cursor: pointer;
+  :hover {
+    background-color: transparent;
+    color: rgb(129, 8, 8);
+    border: 2px solid rgb(129, 8, 8);
+  }
 `
 
 export const CartItem = ({
@@ -53,51 +68,78 @@ export const CartItem = ({
   updateCartHandler,
   removeItemHandler,
 }) => {
+  const navigate = useNavigate()
+
   return (
     <ListGroup>
       {cartItems.map((item) => (
         <ListGroup.Item key={item._id}>
-          <CartItemWrapper className='align-items-center'>
+          <CartItemWrapper>
             <VinylWrapper>
-              <Link to={`/store/products/${item._id}`}>
-                <img
-                  style={{ width: '120px' }}
-                  src={item.img}
-                  alt={item.title}
-                  className='img-fluid rounded img-thumbnail'
-                ></img>
-              </Link>
+              <img
+                style={{
+                  width: '230px',
+                  borderRadius: '2px',
+                  boxShadow: '2px 3px 23px -3px rgba(0,0,0,0.25)',
+                  cursor: 'pointer',
+                }}
+                src={item.img}
+                alt={item.title}
+                onClick={() => navigate(`/products/${item._id}`)}
+              ></img>
               <div>
-                <p>{item.title} </p>
-                <p>{item.author}</p>
+                <VinylData>
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      padding: '1rem 0',
+                      margin: '1.1rem auto',
+                      borderBottom: '1px solid black',
+                    }}
+                  >
+                    <div>
+                      <h2
+                        onClick={() => navigate(`/products/${item._id}`)}
+                        style={{
+                          cursor: 'pointer',
+                        }}
+                      >
+                        {item.title}
+                      </h2>
+                      <h5>{item.author}</h5>
+                      <h5>{item.year}</h5>
+                    </div>
+                    <Price>{item.price}€</Price>
+                  </div>
+                  <p style={{ fontSize: '0.8rem' }}>
+                    {item.description.slice(0, 170)}
+                    {item.description.length > 170 && '...'}
+                  </p>
+                </VinylData>
               </div>
             </VinylWrapper>
             <div>
-              <Button
-                onClick={() => updateCartHandler(item, item.quantity - 1)}
-                disabled={item.quantity === 1}
-              >
-                -
-              </Button>
-              <span>{item.quantity}</span>
-              <Button
-                variant='light'
-                onClick={() => updateCartHandler(item, item.quantity + 1)}
-                disabled={item.quantity === 6}
-              >
-                +
-              </Button>
+              <QuantityButtonWrapper>
+                <Button
+                  onClick={() => updateCartHandler(item, item.quantity - 1)}
+                  disabled={item.quantity === 1}
+                >
+                  -
+                </Button>
+                <span>{item.quantity}</span>
+                <Button
+                  onClick={() => updateCartHandler(item, item.quantity + 1)}
+                  disabled={item.quantity === 6}
+                >
+                  +
+                </Button>
+              </QuantityButtonWrapper>
             </div>
-
-            <div>
-              <Price>${item.price}</Price>
-              <DeleteButton
-                onClick={() => removeItemHandler(item)}
-                variant='light'
-              >
-                Supprimer
-              </DeleteButton>
-            </div>
+            <DeleteButton onClick={() => removeItemHandler(item)}>
+              supprimer
+            </DeleteButton>
           </CartItemWrapper>
         </ListGroup.Item>
       ))}

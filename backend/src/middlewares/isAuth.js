@@ -11,7 +11,7 @@ const isAuth = async (req, res, next) => {
     req.userIsAdmin = decodedData.isAdmin
     return next()
   } catch {
-    return res.sendStatus(403)
+    return res.status(403)
   }
 }
 

@@ -13,10 +13,10 @@ import {
 
 const Form = () => {
 
-  const { auth, login } = useAuth()
+  const { auth, checkUser } = useAuth()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [errors, setErrors] = useState('')
+  const [errors, setErrors] = useState(null)
   const emailRef = useRef()
 
   const navigate = useNavigate()
@@ -28,12 +28,19 @@ const Form = () => {
     emailRef.current.focus()
   }, [])
 
+  useEffect(() => {
+    setEmail('')
+    setPassword('')
+    if( errors){
+      emailRef.current.focus()
+    }
+  }, [errors])
+
   const { dispatch: ctxDispatch } = useContext(StoreContext)
 
   const handleLogin = async (e) => {
     e.preventDefault()
     try {
-      
       const url = 'http://localhost:5000/api/v1/auth/login'
       const { data } = await axios.post(
         url,
@@ -45,14 +52,12 @@ const Form = () => {
           withCredentials: true
         }
       )
-      login(data)
+      checkUser()
       ctxDispatch({ type: 'USER_LOGIN', payload: data })
-      navigate(redirect || '/store')
+      navigate(redirect)
     } catch (err) {
+      setErrors(err.response.data.error)
       console.error(err)
-      setErrors(err.message)
-      setEmail('')
-      setPassword('')
       setTimeout(() => {
         setErrors('')
       }, 4000)
@@ -60,7 +65,7 @@ const Form = () => {
   }
 
   useEffect(() => {
-    if (auth) {
+    if (auth.userId) {
       navigate(redirect)
     }
   }, [navigate, redirect, auth])
