@@ -33,7 +33,8 @@ export const ContentContainer = styled.div`
 `
 export const Copyright = styled.div`
   width: 100%;
-  margin: 3rem auto;
+  margin: auto;
+  padding: 3rem;
   font-size: 10px;
   text-align: center;
   text-transform: uppercase;
@@ -53,12 +54,13 @@ export const VinylListContainer = styled.div`
   text-align: center;
 `
 export const ListWrapper = styled.div`
-  width: 100%;
-  margin: auto;
+  width: 90%;
+  margin: 0 auto -34px;
+  margin-top: -34px;
+  padding: 2rem;
+  border: 2px solid black;
 `
 export const VinylList = styled.div`
-  width: 98%;
-  margin: auto;
   display: flex;
   flex-direction: row;
   flex-flow: row wrap;

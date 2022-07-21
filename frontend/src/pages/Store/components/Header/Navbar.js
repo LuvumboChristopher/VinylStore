@@ -1,21 +1,17 @@
 import React, { useContext } from 'react'
 import VsLogoBlack from '../../../../assets/img/vs_logo_black.png'
 import { IoBagSharp } from 'react-icons/io5'
-import { IoPersonAdd } from 'react-icons/io5'
 import { RiLoginCircleFill } from 'react-icons/ri'
 import { BsClipboardData } from 'react-icons/bs'
 import { BsDoorOpenFill } from 'react-icons/bs'
 import { BsPersonCircle } from 'react-icons/bs'
 import { BsFillVinylFill } from 'react-icons/bs'
 import { SiHomebridge } from 'react-icons/si'
-
-import { Link, Navigate, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { StoreContext } from '../../../../context/StoreProvider'
 import  Axios  from 'axios'
 import useAuth from '../../../../hooks/useAuth'
 import styled from 'styled-components'
-import { useEffect } from 'react'
-
 
 export const LogoStore = styled.img`
 width: 230px;
@@ -26,13 +22,10 @@ width: 230px;
   }
 `
 
-
-
-
 const NavContent = () => {
   const { auth, logout } = useAuth()
-  const { state, dispatch: ctxDispatch } = useContext(StoreContext)
-  const { cart, userInfo } = state
+  const { state } = useContext(StoreContext)
+  const { cart } = state
   const navigate = useNavigate()
 
   const signoutHandler = async () => {  
@@ -44,25 +37,22 @@ const NavContent = () => {
         }
       )
       logout()
-      ctxDispatch({ type: 'USER_SIGNOUT' })
-      localStorage.removeItem('cart')
       navigate('/store')
-      window.location.reload()
     } catch (err) {
       console.error(err)
     }
   }
-
+  
   return (
     <nav className='store_nav_container'>
       <ul>
         {auth.user ? (
           <div className='dropdown'>
             <Link to={''} className='dropbtn'>
-              <BsFillVinylFill style={{ fontSize: '1.6em' }} /> Hello{auth.user && ( `, ${auth.isAdmin} :)`)}
+              <BsFillVinylFill style={{ fontSize: '1.6em' }} /> Mon Compte
             </Link>
             <div className='dropdown-content'>
-              <Link to='/profil'>
+              <Link to={''}>
                 <BsPersonCircle style={{ fontSize: '1.6em' }} />
                 <p>Profil</p>
               </Link>
@@ -81,10 +71,6 @@ const NavContent = () => {
             <Link to='/connexion'>
               <RiLoginCircleFill style={{ fontSize: '1.6em' }} />
               Connexion
-            </Link>
-            <Link to='/inscription'>
-              <IoPersonAdd style={{ fontSize: '1.3em' }} />
-              Inscription
             </Link>
           </>
         )}

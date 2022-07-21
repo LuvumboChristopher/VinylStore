@@ -44,20 +44,6 @@ const reducer = (state, action) => {
     case 'CART_CLEAR':
       return { ...state, cart: { ...state.cart, cartItems: [] } }
 
-    case 'USER_LOGIN':
-      return { ...state}
-
-    case 'USER_SIGNOUT':
-      localStorage.removeItem('cart')
-      return {
-        ...state,
-        cart: {
-          cartItems: [],
-          shippingAddress: {},
-          paymentMethod: '',
-        },
-      }
-
     case 'SAVE_SHIPPING_ADRESS':
       return {
         ...state,

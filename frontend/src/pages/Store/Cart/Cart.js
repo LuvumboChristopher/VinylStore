@@ -3,18 +3,16 @@ import { useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { StoreContext } from '../../../context/StoreProvider'
 import { CartItem } from './components/CartItem'
-import CartHeader from './components/CartHeader'
 import styled from 'styled-components'
 import useAuth from '../../../hooks/useAuth'
 import { StoreFooter, StoreHeader } from '../Store'
-import { ContentContainer } from '../style'
 import { round2 } from '../Order/Order'
 
 const CartContentContainer = styled.div`
   display: flex;
   border: 2px solid black;
   width: 90%;
-  margin: 17.5rem auto 3rem;
+  margin: 15rem auto 0;
 `
 
 const Panierwrapper = styled.div`
@@ -24,7 +22,7 @@ const Panierwrapper = styled.div`
   border-right: 2px solid black;
 `
 
-const Totalwrapper = styled.div`
+export const Totalwrapper = styled.div`
   width: 100%;
   margin: 0 auto;
   flex: 1;
@@ -35,6 +33,7 @@ export const TotalToPay = styled.div`
   justify-content: space-between;
   margin: auto;
   padding: 1.5rem;
+  font-size: 0.75rem;
 `
 export const ItemResume = styled.div`
   display: flex;
@@ -86,7 +85,7 @@ export default function CartScreen() {
   }
 
   return (
-    <section id='cart'>
+    <>
       <StoreHeader />
       <CartContentContainer>
         <Panierwrapper>
@@ -121,9 +120,9 @@ export default function CartScreen() {
           <TotalToPay>
             <div>
               <h1>Total</h1>
-              <small>
+              <p>
                 ({cartItems.reduce((a, c) => a + c.quantity, 0)} Vinyls)
-              </small>
+              </p>
             </div>
             <div style={{ display: 'flex', alignItems: 'center' }}>
               <h2>
@@ -147,6 +146,6 @@ export default function CartScreen() {
         </Totalwrapper>
       </CartContentContainer>
       <StoreFooter />
-    </section>
+    </>
   )
 }

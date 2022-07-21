@@ -3,6 +3,18 @@ const handleErrors = require('../utils/handleErrors')
 const createToken = require('../utils/createToken')
 
 // Controlllers
+module.exports.signup = async (req, res) => {
+  const { email, password } = req.body
+  try {
+    const user = await User.create({ email, password })
+    res.sendStatus(201)
+  } catch (err) {
+    // Envoi des erreurs au client
+    const errors = handleErrors(err)
+    res.status(400).json({ errors })
+  }
+}
+
 module.exports.protected = async (req, res) => {
   res.json({ userId: req.userId, userIsAdmin: req.userIsAdmin })
 }
@@ -19,22 +31,11 @@ module.exports.login = async (req, res) => {
     res
       .cookie('jwt', token, {
         httpOnly: true,
-        maxAge: 3 * 24 * 60 * 60 * 1000 ,
+        maxAge: 3 * 24 * 60 * 60 * 1000,
         secure: process.env.NODE_ENV === 'production',
       })
       .sendStatus(200)
   } catch (err) {
     res.status(400).json({ error: err.message })
-  }
-}
-
-module.exports.signup = async (req, res) => {
-  const { email, password } = req.body
-  try {
-    await User.create({ email, password })
-    res.status(201)
-  } catch (err) {
-    const errors = handleErrors(err)
-    res.status(400).json({ errors })
   }
 }

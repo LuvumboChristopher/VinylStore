@@ -1,19 +1,12 @@
-import React, { useState, useContext, useEffect } from 'react'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import React, { useState} from 'react'
 import FormInput from './FormInput'
-import { StoreContext } from '../../../context/StoreProvider'
 import axios from 'axios'
 import { LoginScreenLink, SingupButton, SingupForm } from '../style'
 import useAuth from '../../../hooks/useAuth'
 
-const Form = () => {
- 
-  const navigate = useNavigate()
-  const { search } = useLocation()
-  const redirectInUrl = new URLSearchParams(search).get('redirect')
-  const redirect = redirectInUrl ? redirectInUrl : '/store'
 
-  const { auth, login } = useAuth()
+const Form = () => {
+  const { login } = useAuth()
   const [errors, setErrors] = useState(null)
   const [values, setValues] = useState({
     name: '',
@@ -56,24 +49,22 @@ const Form = () => {
     setValues({ ...values, [e.target.name]: e.target.value })
   }
 
-  const { state, dispatch: ctxDispatch } = useContext(StoreContext)
-
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
       const url = 'http://localhost:5000/api/v1/auth/signup'
       await axios.post(url, values)
-      redirect('/store')
+      login(values.email, values.password )
     } catch (err) {
-      setErrors(err)
+      setErrors(err.response.data.errors)
+      setValues({
+        name: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+      })
     }
   }
-
-  useEffect(() => {
-    if (auth.userId) {
-      navigate(redirect)
-    }
-  }, [navigate, redirect, auth])
 
   return (
     <SingupForm onSubmit={handleSubmit}>
@@ -85,8 +76,8 @@ const Form = () => {
           onChange={onChange}
         />
       ))}
-      <LoginScreenLink to='/se-connecter'>
-          Vous avez déjà un compte ? Connectez-vous.
+      <LoginScreenLink to='/connexion'>
+        Vous avez déjà un compte ? Connectez-vous.
       </LoginScreenLink>
       {errors && <span style={{ color: 'red' }}>{errors.email}</span>}
       <SingupButton type='submit'>Envoyer</SingupButton>

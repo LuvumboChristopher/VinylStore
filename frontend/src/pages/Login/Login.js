@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import SinginVideo from '../../assets/video/video.mp4'
@@ -15,10 +15,20 @@ import {
   ContentContainer,
 } from './style'
 import Form from './components/Form'
+import useAuth from '../../hooks/useAuth'
 
 
 
 const Login = () => {
+  const { auth } = useAuth()
+  const navigate = useNavigate()
+  
+  useEffect(() => {
+    if (auth.user) {
+      navigate('/store')
+    }
+  }, [navigate, auth])
+
   return (
     <LoginVideoContainer>
       <Video />

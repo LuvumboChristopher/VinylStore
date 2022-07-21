@@ -3,12 +3,12 @@ const { isAuth } = require('../middlewares/isAuth')
 const {
   createOrder,
   getOrder,
-  getUserOrders,
+  getOrders,
   payOrder,
 } = require('../controllers/order')
 
+router.route('/').get(isAuth, getOrders)
 router.route('/').post(isAuth, createOrder)
-router.route('/:userId').get( isAuth, getUserOrders)
 router.route('/:id').get(isAuth, getOrder)
 router.route('/:id/pay').put(isAuth, payOrder)
 

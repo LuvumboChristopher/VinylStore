@@ -18,7 +18,7 @@ export const SingupImg = styled.div`
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    flex: 60%;
+    flex: 50%;
     @media (max-width: 1260px) {
         display: none;
     }
@@ -36,7 +36,7 @@ export const SingupFormContainer = styled.div`
         background: url(${SingupFond});
         background-position: center;
         background-repeat: no-repeat;
-        background-size: cover;
+        background-size: cover
     }
 `
 
@@ -46,12 +46,12 @@ export const SingupFormContent = styled.div`
 `
 
 export const SingupFormHeader = styled.header`
-    margin:  0 auto 3rem;
+    margin:  0 auto 2rem;
 `
 
 export const SingupTitle = styled.h1`
     font-family: var(--font-family-title);
-    font-size: 4.2rem;
+    font-size: 4.8rem;
     width: 100%;
     margin: 0;
     text-transform: none;
@@ -60,7 +60,7 @@ export const SingupTitle = styled.h1`
 
 export const SingupSubtitle = styled.p`
     margin: 0;
-    font-size: 0.45rem;
+    font-size: 0.55rem;
     text-transform: uppercase;
     letter-spacing: 10px;
     text-align: center;
@@ -73,15 +73,48 @@ export const SingupForm = styled.form`
     place-items: center;
 `
 export const SingupInputsContainer= styled.div`
-    width: 80%;
+    width: 100%;
     margin: auto;
     display: grid;
     place-items: center;
 `
 
+export const SingupInput = styled.input`
+    width: 100%;
+    padding: 1.5rem;
+    margin: 20px auto;
+    background: transparent;
+    color: rgb(0, 0, 0);
+    border: 1px solid rgb(0, 0, 0);
+
+    &::placeholder {
+        font-size: 0.6rem;
+        font-family: var(--font-family-text);
+        text-transform: uppercase;
+        color: rgb(0, 0, 0);
+        opacity: 1;
+    }
+
+    :focus::placeholder {
+    opacity: 0.6;
+    transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+    }
+
+    @media (max-width: 1260px) {
+        background: white;
+    }
+`
+
+export const Errormessage = styled.span`
+    width: 100%;
+    font-size: 12px;
+    color: red;
+    display: none;
+`
+
 
 export const LoginScreenLink = styled(Link)`
-    font-size: 0.86rem;
+    font-size: 0.95rem;
     margin: 1rem auto;
     padding: 0.3rem;
     color: rgb(0, 0, 0);
@@ -90,30 +123,41 @@ export const LoginScreenLink = styled(Link)`
     }
     @media (max-width: 1260px) {
         color: white;
+        &:hover {
+            color: white;
+        }
     }
 `
 
 export const SingupButton = styled.button`
     width: fit-content;
-    margin: 1rem auto;
-    padding: 0.5rem 2rem;
+    margin: 0.6rem auto;
+    padding: 0.85rem 2.85rem;
     background: rgb(0, 0, 0);
     font-size: 0.8rem;
     font-family: var(--font-family-text);
     text-transform: uppercase;
     color: rgb(255, 255, 255);
     opacity: 1;
+    cursor: pointer;
     border: none;
-    cursor: pointer;
-    @media (max-width: 1260px) {
-    background: rgb(255, 255, 255);
-    color: rgb(0, 0, 0);
-    }
     &:hover {
-    cursor: pointer;
-    color: rgb(255, 255, 255);
-    background-color: rgb(129, 8, 8);
+        cursor: pointer;
+        color: rgb(255, 255, 255);
+        background-color: rgb(129, 8, 8);
     }
+
+    @media (max-width: 1260px) {
+        border: none;
+        color: rgb(255, 255, 255);
+        background-color: rgb(129, 8, 8);
+        &:hover {
+            background-color: transparent;
+            outline: 1px solid white;
+            color: rgb(255, 255, 255);
+        }
+    }
+    
 `
 
 export const errorMessage = styled.span`

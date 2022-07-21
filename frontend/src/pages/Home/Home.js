@@ -10,7 +10,7 @@ import Contact from './components/Contact/Contact'
 
 function Home() {
   return (
-    <>
+    <section>
       <Navbar />
       <ResponsiveMenu/>
       <Accueil />
@@ -18,7 +18,7 @@ function Home() {
       <Services />
       <Banner />
       <Contact />
-    </>
+    </section>
   )
 }
 

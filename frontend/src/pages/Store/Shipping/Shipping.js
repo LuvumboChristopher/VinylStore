@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { StoreContext } from '../../../context/StoreProvider'
 import { useNavigate } from 'react-router-dom'
 import useAuth from '../../../hooks/useAuth'
@@ -50,7 +50,7 @@ export const ExpeditionFormButton = styled.button`
 `
 
 const Shipping = () => {
-  const { auth, checkUser } = useAuth()
+  const { auth } = useAuth()
   const navigate = useNavigate()
   const { state, dispatch: ctxDispatch } = useContext(StoreContext)
   const { cart: { shippingAddress } } = state
@@ -66,7 +66,7 @@ const Shipping = () => {
     e.preventDefault()
     ctxDispatch({
       type: 'SAVE_SHIPPING_ADRESS',
-      payload: { firstName, lastName, streetAddress, city, country, zipCode },
+      payload: { firstName, lastName, streetAddress,  city, country, zipCode },
     })
     localStorage.setItem(
       'shippingAddress',
@@ -79,7 +79,6 @@ const Shipping = () => {
         zipCode,
       })
     )
-    checkUser()
     if (auth.user) {
       return navigate('/paiement')
     }
@@ -93,7 +92,6 @@ const Shipping = () => {
         <ExpeditionHeader>
           <h2>Adresse de livraison</h2>
         </ExpeditionHeader>
-
         <ExpeditionForm onSubmit={handleSubmit}>
           <ExpeditionFormInput
             type='text'
@@ -111,12 +109,11 @@ const Shipping = () => {
             onChange={(e) => setFirstName(e.target.value)}
             required
           />
-
           <ExpeditionFormInput
             type='text'
             name={'street address'}
             value={streetAddress}
-            placeholder={'Street Address'}
+            placeholder={'Addresse'}
             onChange={(e) => setStreetAddress(e.target.value)}
             required
           />
@@ -129,11 +126,11 @@ const Shipping = () => {
             required
           />
           <ExpeditionFormInput
-            type={'number'}
+            type='number'
             name={'zip code'}
             value={zipCode}
             placeholder={'Code postal'}
-            maxLength='6'
+            maxLength={6}
             onChange={(e) => setZipCode(e.target.value)}
             required
           />

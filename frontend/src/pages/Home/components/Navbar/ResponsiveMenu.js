@@ -45,70 +45,45 @@ const ResponsiveMenu = () => {
           style={{ color: 'white', fontSize: '2.5rem', cursor: 'pointer' }}
           onClick={HandleMenu}
         />
-        <div>
-          <ul style={{ color: 'white', fontSize: '2.5rem', cursor: 'pointer' }}>
+        <div
+          style={{
+            width:'100%',
+            height: '80%',
+            margin: 'auto',
+            display: 'grid',
+            placeItems: 'center',
+          }}
+        >
+          <ul
+            style={{
+              color: 'white',
+              fontSize: '2.5rem',
+              cursor: 'pointer',
+              listStyle: 'none',
+            }}
+          >
             <li>
-              <a
-                href='/#accueil'
-                onClick={() => setShowNavbarMenu(false)}
-                style={{
-                  color: 'white',
-                  fontSize: '2rem',
-                  cursor: 'pointer',
-                }}
-              >
+              <a href='/#accueil' onClick={() => setShowNavbarMenu(false)}>
                 Accueil
               </a>
             </li>
             <li>
-              <a
-                href='/#umdp'
-                onClick={() => setShowNavbarMenu(false)}
-                style={{
-                  color: 'white',
-                  fontSize: '2rem',
-                  cursor: 'pointer',
-                }}
-              >
+              <a href='/#umdp' onClick={() => setShowNavbarMenu(false)}>
                 UMDP
               </a>
             </li>
             <li>
-              <a
-                href='/#services'
-                onClick={() => setShowNavbarMenu(false)}
-                style={{
-                  color: 'white',
-                  fontSize: '2rem',
-                  cursor: 'pointer',
-                }}
-              >
+              <a href='/#services' onClick={() => setShowNavbarMenu(false)}>
                 Services
               </a>
             </li>
             <li>
-              <a
-                href='/store'
-                onClick={() => setShowNavbarMenu(false)}
-                style={{
-                  color: 'white',
-                  fontSize: '2rem',
-                  cursor: 'pointer',
-                }}
-              >
+              <a href='/store' onClick={() => setShowNavbarMenu(false)}>
                 Store
               </a>
             </li>
             <li>
-              <a
-                href='/#contact'
-                onClick={() => setShowNavbarMenu(false)}
-                style={{
-                  color: 'white',
-                  fontSize: '2rem',
-                  cursor: 'pointer',
-                }}
-              >
+              <a href='/#contact' onClick={() => setShowNavbarMenu(false)}>
                 Contact
               </a>
             </li>

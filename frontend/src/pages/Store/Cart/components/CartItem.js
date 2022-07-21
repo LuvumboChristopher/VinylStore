@@ -1,6 +1,6 @@
 import React from 'react'
 import ListGroup from 'react-bootstrap/ListGroup'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { VinylData } from '../../style'
 

@@ -3,32 +3,22 @@ const bcrypt = require('bcrypt')
 
 const userSchema = new mongoose.Schema(
   {
-    firstName: {
-      type: String,
-      default: '',
-    },
-    lastName: {
-      type: String,
-      default: '',
-    },
-    phoneNumber: {
-      type: Number,
-      default: '',
-      match: [/^((\+)33|0)[1-9](\d{2}){4}$/, 'Please enter a valid number'],
-    },
     email: {
       type: String,
-      required: [true, 'Please enter an email'],
+      required: [true, 'Veuillez entrer une adresse e-mail'],
       unique: true,
       lowercase: true,
-      match: [/\S+@\S+\.\S+/, 'Please enter a valid email'],
+      match: [
+        /\S+@\S+\.\S+/,
+        'Veuillez saisir une adresse électronique valide',
+      ],
     },
     password: {
       type: String,
-      required: [true, 'Please enter a password'],
+      required: [true, 'Veuillez entrer un mot de passe'],
       match: [
         /^.*(?=.{8,19})(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).*$/,
-        'Le mot de passe doit comporter entre 8 et 19 lettres et doit contenir au moins 1 minuscule, 1 majuscule, 1 chiffre et 1 caractère spécial.',
+        'Le mot de passe doit comporter entre 8 et 19 lettres et doit contenir au moins 1 minuscule, 1 majuscule, 1 chiffre et 1 caractère spécial',
       ],
     },
     isAdmin: {
@@ -42,12 +32,12 @@ const userSchema = new mongoose.Schema(
 
 userSchema.pre('save', async function (next) {
   const salt = await bcrypt.genSalt()
-  this.password = bcrypt.hash(this.password, salt)
+  this.password = await bcrypt.hash(this.password, salt)
   next()
 })
 
 // static method to login user
-userSchema.statics.login = async function (email, password) {
+userSchema.statics.login = async function (email, password) { 
   const user = await this.findOne({ email })
   if (user) {
     const auth = await bcrypt.compare(password, user.password)

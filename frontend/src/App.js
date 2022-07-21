@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react'
-import { Outlet } from 'react-router-dom'
-
 import './css/style.css'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useLocation } from 'react-router-dom'
 import Home from './pages/Home/Home'
 import Product from './pages/Store/Product/Product'
 import Singup from './pages/Signup/Singup'
@@ -13,18 +11,20 @@ import Shipping from './pages/Store/Shipping/Shipping'
 import Payment from './pages/Store/Payment/Payment'
 import Order from './pages/Store/Order/Order'
 import Commande from './pages/Store/Commande/Commande'
-import Historique from './pages/Store/Historique/Historique'
 import ScrollToTop from './pages/Home/components/ScrollToTop/ScrollToTop'
 import useAuth from './hooks/useAuth'
 import RequireAuth from './utils/RequireAuth'
 import { UserProfile } from './pages/UserProfile/UserProfile'
+import { Historique } from './pages/Store/Historique/Historique'
 
 
 function App() {
-  const { checkUser } = useAuth()
-  useEffect(()=>{
+  const { auth, checkUser } = useAuth()
+  const location = useLocation()
+
+  useEffect(() => {
     checkUser()
-  }, [])
+  }, [checkUser, auth.user, location])
 
   return (
     <div className='container'>
@@ -77,8 +77,16 @@ function App() {
             </RequireAuth>
           }
         />
+        <Route
+          path='/historique'
+          element={
+            <RequireAuth>
+              <Historique />
+            </RequireAuth>
+          }
+        />
 
-          {/* Crear una pagina 404 */}
+        {/* Crear una pagina 404 */}
         {/* <Route path='*' element={<Store />} /> */}
       </Routes>
     </div>

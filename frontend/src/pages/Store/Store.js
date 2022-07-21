@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Navbar from './components/Header/Navbar'
 import VinylsList from './components/Vinylist/VinylsList'
 import '../../css/store.css'
-import { InputSearch, Search } from './components/Header/Search'
+import { InputSearch } from './components/Header/Search'
 import './style'
 
 import {
@@ -12,8 +12,6 @@ import {
   Copyright,
   StoreContainer,
 } from './style.js'
-import { useEffect } from 'react'
-import useAuth from '../../hooks/useAuth'
 
 export const StoreHeader = ({ setSerchTerm }) => {
   return (
@@ -21,7 +19,6 @@ export const StoreHeader = ({ setSerchTerm }) => {
       <Header>
         <Navbar />
       </Header>
-      <InputSearch setSerchTerm={setSerchTerm} />
     </HeaderContainer>
   )
 }
@@ -39,12 +36,7 @@ export const StoreFooter = ( ) => {
 
 const Store = () => {
   const [searchTerm, setSerchTerm] = useState('')
-  const {checkUser} = useAuth()
   
-  useEffect(() => {
-    checkUser()
-  }, [])
-
   const search = (data) => {
     const keys = ['title', 'author', 'description']
     return data.filter((item) =>
@@ -55,10 +47,9 @@ const Store = () => {
   return (
     <>
       <StoreContainer>
-        <StoreHeader setSerchTerm={setSerchTerm} />
-        <ContentContainer>
-          <VinylsList search={search} />
-        </ContentContainer>
+        <StoreHeader/>
+        <InputSearch setSerchTerm={setSerchTerm} />
+        <VinylsList search={search} />
         <StoreFooter />
       </StoreContainer>
     </>

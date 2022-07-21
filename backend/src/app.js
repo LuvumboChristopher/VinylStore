@@ -27,7 +27,7 @@ app.use('/api/v1/orders', orders)
 app.use('/api/v1/auth', auth)
 app.use('/api/v1/users', user)
 
-app.get('/api/v1/paypal', (res) => {
+app.get('/api/v1/keys/paypal', (req, res) => {
   res.send(process.env.PAYPAL_CLIENT_ID || 'sb')
 })
 

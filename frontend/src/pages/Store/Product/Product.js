@@ -1,17 +1,14 @@
 import React, { useContext, useEffect, useReducer, useState } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import { StoreContext } from '../../../context/StoreProvider'
 import axios from 'axios'
-import { ProductHeader, StoreFooter, StoreHeader } from '../Store'
-import { BsArrowLeft } from 'react-icons/bs'
-import { FaHeart } from 'react-icons/fa'
-import { IoSave } from 'react-icons/io5'
+import { StoreFooter, StoreHeader } from '../Store'
 import { BsCartPlusFill } from 'react-icons/bs'
 import { BsFillBagFill } from 'react-icons/bs'
 import { BsFillHeartFill } from 'react-icons/bs'
 
-import { ContentContainer, Copyright, StoreContainer } from '../style'
+import { ContentContainer, StoreContainer } from '../style'
 
 export const ProductScreenWrapper = styled.div`
   width: 95%;
@@ -112,7 +109,7 @@ const reducer = (state, action) => {
   }
 }
 
-const Product = ({ current }) => {
+const Product = () => {
   const { id } = useParams()
   const navigate = useNavigate()
   const [display, setDisplay] = useState({
@@ -120,10 +117,6 @@ const Product = ({ current }) => {
     retours: false,
     livraison: false
   })
-
-  const toggleText = () => {
-    setDisplay(!display)
-  }
 
   const [{ loading, error, product }, dispatch] = useReducer(reducer, {
     product: {},

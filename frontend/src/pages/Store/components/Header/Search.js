@@ -5,7 +5,9 @@ import styled from 'styled-components'
 
 const SearchWrapper = styled.div`
   width: 90%;
-  margin: -10px  auto;
+  margin: 0;
+  margin-top: 12rem;
+  margin-bottom: 0;
   padding: 20px;
   display: flex;
   align-items: center;
@@ -19,6 +21,7 @@ const SearchInput = styled.input`
   border: none;
   text-transform: uppercase;
   letter-spacing: 5px;
+  font-size: 0.60rem;
   &:focus {
     outline: none;
   }

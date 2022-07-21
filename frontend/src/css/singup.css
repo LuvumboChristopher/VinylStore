@@ -1,10 +1,10 @@
 .singup_input {
-  width: 100%;
-  padding: 0.8rem;
-  margin: 0.75rem auto;
-  background: transparent;
-  color: rgb(0, 0, 0);
-  border: 1px solid rgb(0, 0, 0);
+    width: 100%;
+    padding: 1.5rem;
+    margin: 20px auto;
+    background: transparent;
+    color: rgb(0, 0, 0);
+    border: 1px solid rgb(0, 0, 0);
 }
 
 

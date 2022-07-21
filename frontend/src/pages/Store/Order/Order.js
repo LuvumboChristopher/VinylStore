@@ -7,11 +7,17 @@ import Button from 'react-bootstrap/Button'
 import ListGroup from 'react-bootstrap/ListGroup'
 import { StoreContext } from '../../../context/StoreProvider'
 import axios from 'axios'
-import { StoreHeader } from '../Store'
-import { ContentContainer } from '../style'
+import { StoreFooter, StoreHeader } from '../Store'
+import {
+  ContentContainer,
+  VinylCover,
+  VinylCoverContainer,
+  VinylData,
+  VinylItem,
+} from '../style'
 import { ExpeditionFormButton, ExpeditionHeader } from '../Shipping/Shipping'
 import useAuth from '../../../hooks/useAuth'
-import { CartContentContainer, ItemResume, TotalToPay } from '../Cart/Cart'
+import { ItemResume, TotalToPay, Totalwrapper } from '../Cart/Cart'
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -38,7 +44,10 @@ export default function Order() {
   })
 
   const { state, dispatch: ctxDispatch } = useContext(StoreContext)
-  const { cart } = state
+  const {
+    cart,
+    cart: { cartItems },
+  } = state
 
   cart.itemsPrice = round2(
     cart.cartItems.reduce((a, c) => a + c.quantity * c.price, 0)
@@ -87,181 +96,157 @@ export default function Order() {
   }, [cart, navigate])
 
   return (
-    <section>
+    <>
       <StoreHeader />
       <ContentContainer>
         <ExpeditionHeader>
           <h2>Prévisualiser la commande</h2>
         </ExpeditionHeader>
-
-        <div
-          style={{
-            width: '100%',
-            margin: 'auto',
-            display: 'flex',
-            alignItems: 'start',
-            justifyContent: 'space-between',
-          }}
-        >
+        <section style={{ width: '100%', margin: '0', textAlign: 'right' }}>
           {/* Mi primer bloque de datos */}
-          <div style={{ width: '100%', margin: '0' }}>
-            <div
-              className='expedition'
-              style={{ width: '100%', margin: 'auto' }}
+          <div
+            className='vinyls'
+            style={{ width: '50%', margin: '3rem auto 7rem' }}
+          >
+            <Totalwrapper>
+              <TotalToPay>
+                <h3>Vinyls</h3>
+              </TotalToPay>
+              <hr style={{ border: '1px solid black' }} />
+              {cartItems.map((item) => (
+                <div key={item._id}>
+                  <div>
+                    <ItemResume>
+                      {item.title} x{item.quantity}
+                      <p>{round2(item.price * item.quantity)} €</p>
+                    </ItemResume>
+                  </div>
+                </div>
+              ))}
+            </Totalwrapper>
+            <ExpeditionFormButton
+              onClick={() => navigate('/panier')}
+              style={{
+                color: 'white',
+                backgroundColor: 'black',
+                margin: '4rem auto 0',
+              }}
             >
+              Edit
+            </ExpeditionFormButton>
+          </div>
+          {/* Mi segundo bloque de datos */}
+          <div
+            className='expedition'
+            style={{ width: '50%', margin: '3rem auto 7rem' }}
+          >
+            <Totalwrapper>
               <TotalToPay>
                 <h3>Adresse d'expedition</h3>
               </TotalToPay>
-              <hr />
+              <hr style={{ border: '1px solid black' }} />
               <div>
-                <Row>
-                  <ItemResume>
-                    <strong>Nom:</strong>
-                    {cart.shippingAddress.lastName}
-                  </ItemResume>
-                </Row>
-                <Row>
-                  <ItemResume>
-                    <strong>Prenom:</strong>
-                    {cart.shippingAddress.firstName}
-                  </ItemResume>
-                </Row>
-                <Row>
-                  <ItemResume>
-                    <strong>Address: </strong>
+                <ItemResume>
+                  <h4>Nom:</h4>
+                  {cart.shippingAddress.lastName}
+                </ItemResume>
+                <ItemResume>
+                  <h4>Prenom:</h4>
+                  {cart.shippingAddress.firstName}
+                </ItemResume>
 
-                    {cart.shippingAddress.streetAddress}
-                    <br />
-                    {cart.shippingAddress.city}
-                    <br />
-                    {cart.shippingAddress.zipCode}
-                    <br />
-                    {cart.shippingAddress.country}
-                  </ItemResume>
-                </Row>
+                <ItemResume>
+                  <h4>Address: </h4>
+                  {cart.shippingAddress.streetAddress}
+                  <br />
+                  {`${cart.shippingAddress.city} ${cart.shippingAddress.zipCode} ${cart.shippingAddress.country}`}
+                </ItemResume>
               </div>
+            </Totalwrapper>
+            <ExpeditionFormButton
+              onClick={() => navigate('/expedition')}
+              style={{
+                color: 'white',
+                backgroundColor: 'black',
+                margin: '4rem auto 0',
+              }}
+            >
+              Modifier
+            </ExpeditionFormButton>
+          </div>
+          {/* Mi tercer bloque de datos */}
+          <div
+            className='payment'
+            style={{ width: '50%', margin: '3rem auto 7rem' }}
+          >
+            <div>
+              <TotalToPay>
+                <h3>Payment</h3>
+              </TotalToPay>
+
+              <hr style={{ border: '1px solid black' }} />
+
+              <ItemResume>
+                <h4>Method:</h4> {cart.paymentMethod}
+              </ItemResume>
               <ExpeditionFormButton
-                to='/expedition'
-                style={{ color: 'white', backgroundColor: 'black' }}
+                onClick={() => navigate('/paiement')}
+                style={{
+                  color: 'white',
+                  backgroundColor: 'black',
+                  margin: '4rem auto 0',
+                }}
               >
                 Modifier
               </ExpeditionFormButton>
             </div>
-            <div className='payment' style={{ width: '100%', margin: 'auto' }}>
-              <Card.Body>
-                <TotalToPay>
-                  <h3>Payment</h3>
-                </TotalToPay>
-
-                <hr />
-
-                <ItemResume>
-                  <strong>Method:</strong> {cart.paymentMethod}
-                </ItemResume>
-                <hr />
-
-                <ExpeditionFormButton
-                  to='/paiement'
-                  style={{ color: 'white', backgroundColor: 'black' }}
-                >
-                  Modifier
-                </ExpeditionFormButton>
-              </Card.Body>
-            </div>
           </div>
-          {/* Mi segundo bloque de datos */}
+          {/* Mi cuarto bloque de datos */}
 
-          <div className='Items' style={{ width: '100%', margin: '0' }}>
-            <div>
+          <div
+            className='summary'
+            style={{ width: '50%', margin: '3rem auto 7rem' }}
+          >
+            <TotalToPay>
+              <h3>Sommaire de la commande</h3>
+            </TotalToPay>{' '}
+            <hr style={{ border: '1px solid black' }} />
+            <div variant='flush'>
               <TotalToPay>
-                <h3>Vinyls</h3>
+                <h4>Vinyls</h4>x{cart.cartItems.length}
               </TotalToPay>
-              <hr />
-              <div>
-                {cart.cartItems.map((item) => (
-                  <ListGroup.Item key={item._id}>
-                    <Row className='align-items-center'>
-                      <Col md={6}>
-                        <Link to={`/products/${item._id}`}>
-                          <img
-                            src={item.img}
-                            alt={item.title}
-                            style={{ width: '40px' }}
-                          ></img>{' '}
-                          {item.title}
-                        </Link>
-                      </Col>
-                      <Col md={3}>
-                        <span>{item.quantity}</span>
-                      </Col>
-                      <Col md={3}>${item.price}</Col>
-                    </Row>
-                  </ListGroup.Item>
-                ))}
-              </div>
+              <TotalToPay>
+                <h4>Montant</h4>
+                {cart.itemsPrice.toFixed(2)}
+              </TotalToPay>
+
+              <TotalToPay>
+                <h4>Expedition</h4>
+                {cart.shippingPrice.toFixed(2)}€
+              </TotalToPay>
+
+              <TotalToPay>
+                <h4>TVA </h4>
+                {cart.taxPrice.toFixed(2)}€
+              </TotalToPay>
+
+              <TotalToPay>
+                <h4>Total </h4>
+                {cart.totalPrice.toFixed(2)}€
+              </TotalToPay>
+
               <ExpeditionFormButton
-                to='/panier'
-                style={{ color: 'white', backgroundColor: 'black' }}
+                onClick={placeOrderHandler}
+                disabled={cart.cartItems.length === 0}
+                style={{ margin: '4rem auto 0' }}
               >
-                Edit
+                Commander
               </ExpeditionFormButton>
             </div>
           </div>
-
-          {/* Mi tercer bloque de datos */}
-          <div className='ordersumary' style={{ width: '100%', margin: '0' }}>
-            <div>
-              <div>
-                <TotalToPay>
-                  <h3>Order Summary</h3>
-                </TotalToPay>
-                <hr />
-                <div variant='flush'>
-                  <TotalToPay>
-                    <h4>Items</h4>
-                    {cart.itemsPrice.toFixed(2)}
-                  </TotalToPay>{' '}
-                  <ListGroup.Item>
-                    <Row>
-                      <ItemResume>
-                        <h4>Expedition</h4>
-                        {cart.shippingPrice.toFixed(2)}€
-                      </ItemResume>{' '}
-                    </Row>
-                  </ListGroup.Item>
-                  <ListGroup.Item>
-                    <Row>
-                      <ItemResume>
-                        <h4>TVA </h4>
-                        {cart.taxPrice.toFixed(2)}€
-                      </ItemResume>{' '}
-                    </Row>
-                  </ListGroup.Item>
-                  <ListGroup.Item>
-                    <Row>
-                      <ItemResume>
-                        <h4>Total </h4>
-                        {cart.totalPrice.toFixed(2)}€
-                      </ItemResume>{' '}
-                    </Row>
-                  </ListGroup.Item>
-                  <ListGroup.Item>
-                    <div className='d-grid'>
-                      <ExpeditionFormButton
-                        type='button'
-                        onClick={placeOrderHandler}
-                        disabled={cart.cartItems.length === 0}
-                      >
-                        Commander
-                      </ExpeditionFormButton>
-                    </div>
-                  </ListGroup.Item>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        </section>
       </ContentContainer>
-    </section>
+      <StoreFooter />
+    </>
   )
 }

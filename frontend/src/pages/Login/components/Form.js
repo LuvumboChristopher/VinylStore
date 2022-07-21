@@ -1,8 +1,6 @@
 import axios from 'axios'
-import React, { useState, useContext, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { StoreContext } from '../../../context/StoreProvider'
-import useAuth from '../../../hooks/useAuth'
 
 import {
   LoginForm,
@@ -13,7 +11,6 @@ import {
 
 const Form = () => {
 
-  const { auth, checkUser } = useAuth()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [errors, setErrors] = useState(null)
@@ -23,26 +20,16 @@ const Form = () => {
   const { search } = useLocation()
   const redirectInUrl = new URLSearchParams(search).get('redirect')
   const redirect = redirectInUrl ? redirectInUrl : '/store'
-
+  
   useEffect(() => {
     emailRef.current.focus()
   }, [])
-
-  useEffect(() => {
-    setEmail('')
-    setPassword('')
-    if( errors){
-      emailRef.current.focus()
-    }
-  }, [errors])
-
-  const { dispatch: ctxDispatch } = useContext(StoreContext)
 
   const handleLogin = async (e) => {
     e.preventDefault()
     try {
       const url = 'http://localhost:5000/api/v1/auth/login'
-      const { data } = await axios.post(
+      await axios.post(
         url,
         {
           email,
@@ -52,23 +39,18 @@ const Form = () => {
           withCredentials: true
         }
       )
-      checkUser()
-      ctxDispatch({ type: 'USER_LOGIN', payload: data })
       navigate(redirect)
     } catch (err) {
-      setErrors(err.response.data.error)
       console.error(err)
+      setErrors(err.response.data.error)
+      setEmail('')
+      setPassword('')
       setTimeout(() => {
         setErrors('')
-      }, 4000)
+      }, 3000)
+      emailRef.current.focus()
     }
   }
-
-  useEffect(() => {
-    if (auth.userId) {
-      navigate(redirect)
-    }
-  }, [navigate, redirect, auth])
 
   return (
     <>
@@ -95,7 +77,6 @@ const Form = () => {
           />
           <LoginButton>Se connecter</LoginButton>
         </LoginInputContainer>
-        {/* {errors && <span>{errors.email}</span>} */}
         <Link to='/inscription' className='singup_link'>
           <p>Vous n'avez pas encore de compte ? Créez un compte.</p>
         </Link>
