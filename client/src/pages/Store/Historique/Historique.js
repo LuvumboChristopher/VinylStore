@@ -19,7 +19,7 @@ export const  Historique = ()=> {
       try {
         setLoading(true)
         const { data } = await axios.get(
-          'http://localhost:5000/api/v1/orders',
+          '/api/v1/orders',
           {
             withCredentials: true
           }
