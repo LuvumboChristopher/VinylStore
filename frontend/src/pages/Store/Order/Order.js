@@ -1,15 +1,11 @@
 import React, { useContext, useEffect, useReducer } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
-import Card from 'react-bootstrap/Card'
-import Button from 'react-bootstrap/Button'
-import ListGroup from 'react-bootstrap/ListGroup'
+import { useNavigate } from 'react-router-dom'
 import { StoreContext } from '../../../context/StoreProvider'
 import axios from 'axios'
 import { StoreFooter, StoreHeader } from '../Store'
 import {
   ContentContainer,
+  OrderContentContainer,
   VinylCover,
   VinylCoverContainer,
   VinylData,
@@ -98,15 +94,15 @@ export default function Order() {
   return (
     <>
       <StoreHeader />
-      <ContentContainer>
+      <OrderContentContainer>
         <ExpeditionHeader>
           <h2>Prévisualiser la commande</h2>
         </ExpeditionHeader>
-        <section style={{ width: '100%', margin: '0', textAlign: 'right' }}>
+        <section style={{ width: '90%', margin: '0', textAlign: 'right' }}>
           {/* Mi primer bloque de datos */}
           <div
             className='vinyls'
-            style={{ width: '50%', margin: '3rem auto 7rem' }}
+            style={{ width: '100%', margin: '3rem auto 7rem' }}
           >
             <Totalwrapper>
               <TotalToPay>
@@ -138,7 +134,7 @@ export default function Order() {
           {/* Mi segundo bloque de datos */}
           <div
             className='expedition'
-            style={{ width: '50%', margin: '3rem auto 7rem' }}
+            style={{ width: '100%', margin: '3rem auto 7rem' }}
           >
             <Totalwrapper>
               <TotalToPay>
@@ -177,7 +173,7 @@ export default function Order() {
           {/* Mi tercer bloque de datos */}
           <div
             className='payment'
-            style={{ width: '50%', margin: '3rem auto 7rem' }}
+            style={{ width: '100%', margin: '3rem auto 7rem' }}
           >
             <div>
               <TotalToPay>
@@ -205,7 +201,7 @@ export default function Order() {
 
           <div
             className='summary'
-            style={{ width: '50%', margin: '3rem auto 7rem' }}
+            style={{ width: '100%', margin: '3rem auto 7rem' }}
           >
             <TotalToPay>
               <h3>Sommaire de la commande</h3>
@@ -245,7 +241,7 @@ export default function Order() {
             </div>
           </div>
         </section>
-      </ContentContainer>
+      </OrderContentContainer>
       <StoreFooter />
     </>
   )

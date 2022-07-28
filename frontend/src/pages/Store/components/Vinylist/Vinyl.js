@@ -10,6 +10,7 @@ import {
   VinylData,
   VinylPurchase,
   VinylPurchaseButton,
+  VinylDescription,
 } from '../../style.js'
 
 
@@ -41,12 +42,12 @@ const Vinyl = (vinyl) => {
         <VinylData>
           <h2>{title}</h2>
           <h5>{author}</h5>
-          <h5>{year}</h5>
-          <p style={{ fontSize: '0.8rem' }}>
-            {description.slice(0, 170)}
-            {description.length > 170 && '...'}
-          </p>
-        </VinylData>
+          <h5>{year}</h5></VinylData>
+          <VinylDescription>
+            {description.slice(0, 158)}
+            {description.length > 158 && '...'}
+          </VinylDescription>
+        
 
         <VinylPurchase>
           <div>
@@ -58,7 +59,7 @@ const Vinyl = (vinyl) => {
               Acheter
             </VinylPurchaseButton>
           </div>
-          <h2>{price}€</h2>
+          <h1 style={{ fontSize: '1.20rem' }}>{price} €</h1>
         </VinylPurchase>
       </div>
     </VinylItem>

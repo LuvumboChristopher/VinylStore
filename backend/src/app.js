@@ -3,6 +3,7 @@ const connectDB = require('./db/connect')
 const dotenv = require('dotenv').config()
 const cookieParser = require('cookie-parser')
 const cors = require('cors')
+const path = require ('path')
 
 const products = require('./routes/product')
 const orders = require('./routes/order')
@@ -30,6 +31,28 @@ app.use('/api/v1/users', user)
 app.get('/api/v1/keys/paypal', (req, res) => {
   res.send(process.env.PAYPAL_CLIENT_ID || 'sb')
 })
+
+
+// app.use(express.static(path.resolve(__dirname, '../../', 'frontend/build')))
+app.get('/', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../../', 'frontend/build'))
+})
+
+
+// app.use(express.static(path.resolve(__dirname, '../../','frontend/build')))
+// app.get('*', (req, res) => {
+//   res.sendFile(path.resolve(__dirname, '../../' ,'frontend/build'))
+// })
+
+
+
+
+// if (process.env.NODE_ENV === 'production') {
+//   app.use(express.static(path.resolve(__dirname,'/frontend/build')))
+//   app.get('*', (req, res) => {
+//     res.sendFile(path.resolve(__dirname, '../frontend/','build', 'index.html'))
+//   })
+// }
 
 // Demarage du server
 const start = async () => {

@@ -1,24 +1,33 @@
 import React from 'react'
-import ListGroup from 'react-bootstrap/ListGroup'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
-import { VinylData } from '../../style'
+
 
 const CartItemWrapper = styled.div`
   width: 100%;
   margin: auto;
-  padding: 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  @media (min-width: 1440px) {
+    width: 95%;
+    margin: auto;
+  }
 `
-const VinylWrapper = styled.div`
-  width: 650px;
-  margin: 0.5rem 0;
+
+export const VinylWrapper = styled.div`
+  width: 80%;
+  margin: 3rem auto;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  gap: 55px;
+  @media (min-width: 1440px) {
+    width: 100%;
+    margin: 2.75rem auto;
+    flex-direction: row;
+    gap: 3rem;
+  }
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `
 
 const Button = styled.button`
@@ -33,21 +42,26 @@ const Button = styled.button`
     color: white;
   }
 `
-
-const Price = styled.h1`
-  font-size: 1.3rem;
+export const Price = styled.h1`
+  font-size: 1.2rem;
 `
-
 const QuantityButtonWrapper = styled.div`
   width: 100%;
+  margin: 1rem auto;
+  padding: 1rem;
   display: flex;
   align-items: center;
-  gap: 25px;
+  justify-content: center;
+  gap: 20px;
   border-radius: 2px;
+  @media (min-width: 1440px) {
+    width: fit-content;
+    margin: auto;
+    padding: 0;
+  }
 `
-
 const DeleteButton = styled.button`
-  width: fit-content;
+  width: 100%;
   padding: 1rem 3rem;
   border: 1px solid rgba(0, 0, 0, 0.555);
   border-radius: 2px;
@@ -59,7 +73,27 @@ const DeleteButton = styled.button`
   :hover {
     background-color: transparent;
     color: rgb(129, 8, 8);
-    border: 2px solid rgb(129, 8, 8);
+    border: 1px solid rgb(129, 8, 8);
+  }
+  @media (min-width: 1440px) {
+    width: fit-content;
+  }
+`
+
+const VinylInfo = styled.div`
+  width: 100%;
+  margin: auto;
+  text-align: justify;
+  @media (min-width: 1440px) {
+    width: 40%;
+  }
+`
+
+export const CartVinylCover = styled.img`
+  width: 65%;
+  margin: auto;
+  @media (min-width: 1440px) {
+    width: 250px;
   }
 `
 
@@ -71,56 +105,51 @@ export const CartItem = ({
   const navigate = useNavigate()
 
   return (
-    <ListGroup>
+    <>
       {cartItems.map((item) => (
-        <ListGroup.Item key={item._id}>
+        <div key={item._id}>
           <CartItemWrapper>
             <VinylWrapper>
-              <img
-                style={{
-                  width: '230px',
-                  borderRadius: '2px',
-                  boxShadow: '2px 3px 23px -3px rgba(0,0,0,0.25)',
-                  cursor: 'pointer',
-                }}
-                src={item.img}
-                alt={item.title}
-                onClick={() => navigate(`/products/${item._id}`)}
-              ></img>
-              <div>
-                <VinylData>
-                  <div
-                    style={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      padding: '1rem 0',
-                      margin: '1.1rem auto',
-                      borderBottom: '1px solid black',
-                    }}
-                  >
-                    <div>
-                      <h2
-                        onClick={() => navigate(`/products/${item._id}`)}
-                        style={{
-                          cursor: 'pointer',
-                        }}
-                      >
-                        {item.title}
-                      </h2>
-                      <h5>{item.author}</h5>
-                      <h5>{item.year}</h5>
-                    </div>
-                    <Price>{item.price}€</Price>
+              {/*  seccion 1 */}
+                <CartVinylCover
+                  src={item.img}
+                  alt={item.title}
+                  onClick={() => navigate(`/products/${item._id}`)}
+                />
+              {/*  seccion 2 */}
+              <VinylInfo>
+                <div
+                  style={{
+                    width: '100%',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    padding: '1rem 0',
+                    margin: '1.5rem auto',
+                    borderBottom: '1px solid black',
+                    gap:'30px'
+                  }}
+                >
+                  <div>
+                    <h2
+                      onClick={() => navigate(`/products/${item._id}`)}
+                      style={{
+                        cursor: 'pointer',
+                      }}
+                    >
+                      {item.title}
+                    </h2>
+                    <h5>{item.author}</h5>
+                    <h5>{item.year}</h5>
                   </div>
-                  <p style={{ fontSize: '0.8rem' }}>
-                    {item.description.slice(0, 170)}
-                    {item.description.length > 170 && '...'}
-                  </p>
-                </VinylData>
-              </div>
-            </VinylWrapper>
-            <div>
+                  <Price>{item.price}€</Price>
+                </div>
+                <p style={{ fontSize: '0.8rem' }}>
+                  {item.description.slice(0, 220)}
+                  {item.description.length > 220 && '...'}
+                </p>
+              </VinylInfo>
+              {/*  seccion 3 */}
               <QuantityButtonWrapper>
                 <Button
                   onClick={() => updateCartHandler(item, item.quantity - 1)}
@@ -136,13 +165,14 @@ export const CartItem = ({
                   +
                 </Button>
               </QuantityButtonWrapper>
-            </div>
-            <DeleteButton onClick={() => removeItemHandler(item)}>
-              supprimer
-            </DeleteButton>
+              {/*  seccion  */}
+              <DeleteButton onClick={() => removeItemHandler(item)}>
+                Supprimer
+              </DeleteButton>
+            </VinylWrapper>
           </CartItemWrapper>
-        </ListGroup.Item>
+        </div>
       ))}
-    </ListGroup>
+    </>
   )
 }

@@ -11,81 +11,121 @@ import { BsFillHeartFill } from 'react-icons/bs'
 import { ContentContainer, StoreContainer } from '../style'
 
 export const ProductScreenWrapper = styled.div`
-  width: 95%;
-  margin: 2rem auto;
+  width: 100%;
+  margin: auto;
+  padding: 3rem;
   display: flex;
   justify-content: space-between;
   align-items: start;
+  gap: 4rem;
+  @media (max-width: 1440px) {
+    padding: 0;
+    margin: 0 auto;
+    flex-direction: column;
+    place-items: center;
+    gap: 0;
+  }
 `
 
 export const ContentWrapper = styled.div`
   width: 100%;
-  margin: auto;
-  padding: 2rem;
+  margin: 0 auto;
+`
+
+export const ProductInfoHeader = styled.div`
+  width: 100%;
+  margin: 0 auto;
+  @media (max-width: 1440px) {
+    text-align: center;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid black;
+  }
 `
 
 export const DetailsTitle = styled.div`
   display: flex;
   justify-content: space-between;
-  text-align: justify;
-  margin: 1.5rem auto;
+  margin: 1rem auto;
+  gap: 1rem;
+  margin: auto;
+  padding: 1rem 0;
+  border-bottom: 1px solid black;
 `
 
 export const Description = styled.p`
   text-align: justify;
-  margin: 1rem auto;
+  margin: 1.5rem auto;
 `
 
 export const ProductVinylCoverContainer = styled.div`
-  width: 100%;
-  margin: 0 auto;
-  padding: 2rem;
+  width: fit-content;
+  margin: 2rem auto;
+  display: grid;
+  place-items: center;
   flex: 1;
-`
-export const InfoContainer = styled.div`
-  width: 100%;
-  margin: 0 auto;
-  padding: 2rem;
-  flex: 3;
+  @media (max-width: 1440px) {
+    width: 300px;
+  }
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `
 
 export const ProductVinylCover = styled.img`
-  width: 500px;
+  width: 100%;
   margin: 0 auto;
   border-radius: 2px;
   box-shadow: 2px 3px 23px -3px rgba(0, 0, 0, 0.25);
   transition: transform 100ms ease-in-out;
   cursor: zoom-in;
-  :hover {
-    transform: scale(1.03);
+`
+
+export const InfoContainer = styled.div`
+  width: 100%;
+  margin: 0 auto;
+  flex: 2;
+  @media (min-width: 768px) and (max-width: 1440px) {
+    width: 85%;
+  }
+  @media (max-width: 768px) {
+    width: 100%;
   }
 `
 
-export const ContentHeader = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: auto;
-`
 export const ProductButtonsContainer = styled.div`
   width: 100%;
-  margin: 2.3rem auto;
+  margin: 3rem auto;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+`
+
+export const ProductButtonsContent = styled.div`
+  width: 100%;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  justify-content: start;
+  @media (max-width: 1280px) {
+    width: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+  }
 `
 
 export const ProductButtons = styled.button`
-  width: fit-content;
-  padding: 1.1rem;
-  border: 2px solid black;
+  width: 100%;
+  margin: auto;
+  padding: 1rem;
+  border: 1px solid black;
   background-color: transparent;
   text-align: center;
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 1.85rem;
-  font-size: 0.7rem;
+  justify-content: start;
+  gap: 10px;
+  font-size: 0.65rem;
   text-transform: uppercase;
   letter-spacing: 3px;
   cursor: pointer;
@@ -93,6 +133,30 @@ export const ProductButtons = styled.button`
     color: white;
     background-color: rgb(129, 8, 8);
     box-shadow: 2px 3px 23px -3px rgba(0, 0, 0, 0.25);
+  }
+  @media (max-width: 1280px) {
+    width: 100%;
+    text-align: center;
+  }
+`
+
+export const ProductHeader = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  alignItems: center;
+  padding: 1rem 0;
+  margin: 0 auto;
+  border-bottom: 1px solid black;     
+`
+export const DetailsContainer = styled.div`
+  width: 100%;
+  padding: 2rem;
+  margin: 2rem auto 0;
+  border: 1px solid black;
+  @media (max-width: 768px) {
+    padding: 0;
+    border: none;
   }
 `
 
@@ -114,8 +178,8 @@ const Product = () => {
   const navigate = useNavigate()
   const [display, setDisplay] = useState({
     details: true,
-    retours: false,
-    livraison: false
+    retours: true,
+    livraison: true,
   })
 
   const [{ loading, error, product }, dispatch] = useReducer(reducer, {
@@ -128,7 +192,6 @@ const Product = () => {
     const fecthproducts = async () => {
       dispatch({ type: 'FETCH_REQUEST' })
       try {
-
         const url = `http://localhost:5000/api/v1/products/${id}`
         const { data } = await axios.get(url)
         dispatch({ type: 'FETCH_SUCCESS', payload: data })
@@ -172,11 +235,13 @@ const Product = () => {
       <ContentContainer>
         <ProductScreenWrapper>
           {loading ? (
-            <div>
+            <div style={{ padding: '3rem', textAlign: 'center' }}>
               <p> En cours de chargement...</p>
             </div>
           ) : error ? (
-            <p>{error}</p>
+            <div style={{ padding: '3rem', textAlign: 'center' }}>
+              <p>{error}</p>
+            </div>
           ) : (
             product && (
               <>
@@ -186,31 +251,33 @@ const Product = () => {
                 <InfoContainer>
                   <ContentWrapper>
                     <div>
-                      <div>
+                      <ProductHeader>
                         <div>
-                          <h1>{product.title}</h1>
-                          <h2>{product.author}</h2>
-                          <p>{product.year}</p>
+                          <h2>{product.title}</h2>
+                          <h4>{product.author}</h4>
+                          <h4>{product.year}</h4>
                         </div>
-                      </div>
+                        <h2>{product.price}€</h2>
+                      </ProductHeader>
                       <ProductButtonsContainer>
-                        <div style={{ display: 'flex', gap: '0.85rem' }}>
+                        <ProductButtonsContent>
                           <ProductButtons onClick={handleAddToCart}>
                             <BsCartPlusFill style={{ fontSize: '1.5rem' }} />
                             Ajouter au panier
                           </ProductButtons>
                           <ProductButtons onClick={handleAddToCartAndNavigate}>
                             <BsFillBagFill style={{ fontSize: '1.5rem' }} />
-                            Achetez maintenant
+                            Achetez maintenant{' '}
+                            <small> ({product.price}€)</small>
                           </ProductButtons>
                           <ProductButtons>
                             <BsFillHeartFill style={{ fontSize: '1.5rem' }} />
+                            Coups de cœur
                           </ProductButtons>
-                        </div>
-                        <h1>{product.price} €</h1>
+                        </ProductButtonsContent>
                       </ProductButtonsContainer>
                     </div>
-                    <div>
+                    <DetailsContainer>
                       <DetailsTitle>
                         <h3>Détails du produit</h3>
                         <span
@@ -225,7 +292,7 @@ const Product = () => {
                           {display.details ? <h3>-</h3> : <h3>+</h3>}
                         </span>
                       </DetailsTitle>
-                      <hr />
+
                       {display.details && (
                         <Description>{product.description}</Description>
                       )}
@@ -244,7 +311,7 @@ const Product = () => {
                           {display.retours ? <h3>-</h3> : <h3>+</h3>}
                         </span>
                       </DetailsTitle>
-                      <hr />
+
                       {display.retours && (
                         <Description>
                           Lorem ipsum dolor sit amet, consectetur adipiscing
@@ -269,7 +336,7 @@ const Product = () => {
                           {display.livraison ? <h3>-</h3> : <h3>+</h3>}
                         </span>
                       </DetailsTitle>
-                      <hr />
+
                       {display.livraison && (
                         <Description>
                           Lorem ipsum dolor sit amet, consectetur adipiscing
@@ -280,7 +347,7 @@ const Product = () => {
                           dignissim. Nulla eu euismod felis, quis auctor dolor.
                         </Description>
                       )}
-                    </div>
+                    </DetailsContainer>
                   </ContentWrapper>
                 </InfoContainer>
               </>

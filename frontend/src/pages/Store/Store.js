@@ -13,7 +13,7 @@ import {
   StoreContainer,
 } from './style.js'
 
-export const StoreHeader = ({ setSerchTerm }) => {
+export const StoreHeader = () => {
   return (
     <HeaderContainer ContentContainer={ContentContainer}>
       <Header>
@@ -23,8 +23,7 @@ export const StoreHeader = ({ setSerchTerm }) => {
   )
 }
 
-
-export const StoreFooter = ( ) => {
+export const StoreFooter = () => {
   const currentYear = new Date().getFullYear()
   return (
     <Copyright>
@@ -33,26 +32,25 @@ export const StoreFooter = ( ) => {
   )
 }
 
-
 const Store = () => {
   const [searchTerm, setSerchTerm] = useState('')
-  
+
   const search = (data) => {
     const keys = ['title', 'author', 'description']
     return data.filter((item) =>
       keys.some((key) => item[key].toLowerCase().includes(searchTerm))
     )
   }
-  
+
   return (
-    <>
-      <StoreContainer>
-        <StoreHeader/>
+    <StoreContainer>
+      <StoreHeader />
+      <ContentContainer>
         <InputSearch setSerchTerm={setSerchTerm} />
         <VinylsList search={search} />
-        <StoreFooter />
-      </StoreContainer>
-    </>
+      </ContentContainer>
+      <StoreFooter />
+    </StoreContainer>
   )
 }
 

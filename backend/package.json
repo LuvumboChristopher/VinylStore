@@ -1,5 +1,5 @@
 {
-  "name": "node-express-jwt-auth",
+  "name": "server",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
@@ -16,9 +16,19 @@
     "nodemon": "^2.0.15",
     "validator": "^13.7.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "concurrently": "^7.3.0"
+  },
+  "engine": {
+    "node":"14.17.6",
+    "npm": "6.14.15"
+  },
   "scripts": {
-    "dev": "nodemon src/app.js"
+    "start": "node src/app.js",
+    "backend": "nodemon src/app.js",
+    "frontend": "npm run frontend --prefix frontend",
+    "dev": "concurrently \"npm run backend\" \"npm run start\" ",
+    "heroku-postbuild": "npm install --prefix npm run build --prefix frontend"
   },
   "keywords": [],
   "author": "",

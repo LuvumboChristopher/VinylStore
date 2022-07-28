@@ -14,10 +14,10 @@ export const ExpeditionHeader = styled.div`
 
 export const ExpeditionForm = styled.form`
   width: 100%;
-  margin: 0;
+  margin: auto;
   background-color: rgba(255, 255, 255, 0.589);
   display: flex;
-  place-items: center;
+  flex-direction: column;
 `
 
 export const ExpeditionFormInput = styled.input`

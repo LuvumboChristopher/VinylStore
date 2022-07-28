@@ -4,15 +4,13 @@ import styled from 'styled-components'
 
 
 const SearchWrapper = styled.div`
-  width: 90%;
+  width: 100%;
   margin: 0;
-  margin-top: 12rem;
-  margin-bottom: 0;
   padding: 20px;
   display: flex;
   align-items: center;
-  border: 2px solid black;
-  background: white;
+  border: none;
+  border-bottom: 1px solid black;
 `
 
 const SearchInput = styled.input`

@@ -12,7 +12,7 @@ import {
   VsLogo,
   LoginSubtitle,
   LoginContainer,
-  ContentContainer,
+  LoginContentContainer,
 } from './style'
 import Form from './components/Form'
 import useAuth from '../../hooks/useAuth'
@@ -50,10 +50,10 @@ const Video = () => {
 const Content = () => {
   return (
     <LoginContainer>
-      <ContentContainer>
+      <LoginContentContainer>
         <Title />
         <Form />
-      </ContentContainer>
+      </LoginContentContainer>
     </LoginContainer>
   )
 }

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 /*------------------------------------------------------------Video------------------------------------------------------------*/
@@ -18,7 +19,7 @@ export const LoginContainer = styled.div`
   align-items: center;
   color: white;
 `
-export const ContentContainer = styled.div`
+export const LoginContentContainer = styled.div`
   width: 70%;
   @media (max-width: 1200px) {
     width: 85%;
@@ -41,11 +42,11 @@ export const Overlay = styled.div`
 /*------------------------------------------------------------Content------------------------------------------------------------*/
 
 export const LoginHeader = styled.div`
-  width:100%;
+  width: 100%;
   text-align: center;
 `
 export const VsLogo = styled.img`
-  width: clamp(280px, 37%, 600px);
+  width: clamp(320px, 34%, 600px);
   margin: 1.5rem auto;
   display: block;
   @media (max-width: 1200px) {
@@ -53,13 +54,13 @@ export const VsLogo = styled.img`
   }
 `
 export const LoginSubtitle = styled.p`
-  margin: 0;
-  font-size: 0.56rem;
+  margin: 2rem auto 0;
+  font-size: 0.46rem;
   text-transform: uppercase;
   letter-spacing: 10px;
   text-align: center;
-  @media (max-width: 1200px) {
-    display: none;
+  @media (max-width: 768px) {
+    letter-spacing: 5px;
   }
 `
 export const LoginForm = styled.form`
@@ -70,26 +71,39 @@ export const LoginForm = styled.form`
 export const LoginInputContainer = styled.div`
   width: 100%;
   display: flex;
-  margin: 3rem auto 1rem;
+  margin: 2rem auto 1rem;
   border: none;
   @media (max-width: 768px) {
     flex-direction: column;
+    gap: 30px;
   }
 `
 export const LoginInput = styled.input`
   width: 100%;
   margin: 0;
-  padding: 1.5rem;
+  padding: 1.5rem 2rem;
   color: black;
   border: 1px solid rgba(0, 0, 0, 0.555);
   text-align: center;
   font-size: 0.65rem;
   text-transform: uppercase;
   letter-spacing: 5px;
+
   &:focus {
     outline: none;
     color: white;
-    background-color: rgba(255, 255, 255, 0.552);
+    background-color: rgba(255, 255, 255, 0.2);
+    ::placeholder {
+      color: white;
+    }
+  }
+  @media (max-width: 768px) {
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
+    ::placeholder {
+      color: white;
+    }
   }
 `
 export const LoginButton = styled.button`
@@ -111,5 +125,15 @@ export const LoginButton = styled.button`
   &:hover {
     cursor: pointer;
     background-color: rgba(129, 8, 8, 0.837);
+  }
+`
+
+export const ToSingupLink = styled(Link)`
+  margin: 1rem auto;
+  text-align: center;
+  color: white;
+  &:hover {
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.837);
   }
 `

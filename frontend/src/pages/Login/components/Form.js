@@ -1,12 +1,13 @@
 import axios from 'axios'
 import React, { useState, useRef, useEffect } from 'react'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 import {
   LoginForm,
   LoginInputContainer,
   LoginInput,
   LoginButton,
+  ToSingupLink,
 } from '../style'
 
 const Form = () => {
@@ -77,9 +78,9 @@ const Form = () => {
           />
           <LoginButton>Se connecter</LoginButton>
         </LoginInputContainer>
-        <Link to='/inscription' className='singup_link'>
-          <p>Vous n'avez pas encore de compte ? Créez un compte.</p>
-        </Link>
+        <ToSingupLink to='/inscription'>
+          Vous n'avez pas encore de compte? Créez un compte.
+        </ToSingupLink>
       </LoginForm>
 
       {errors && <p style={{ textAlign: 'center', color: 'red' }}>{errors}</p>}

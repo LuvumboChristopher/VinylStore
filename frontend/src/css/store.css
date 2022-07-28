@@ -10,14 +10,13 @@
 .store_header {
   width: 90%;
   margin: 1rem auto 0;
-  padding: 40px;
+  padding: 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 2px solid black;
+  border: 1px solid black;
   background: white;
 }
-
 
 .store_nav_container {
   margin: auto;
@@ -27,16 +26,17 @@
 
 .store_nav_container ul {
   display: flex;
-  gap: 10px;
 }
 
 .store_nav_container a {
-  padding: 15px 18px;
+  width: 125px;
+  height: 55px;
+  margin: auto;
   color: black;
   font-size: 1.2rem;
   list-style: none;
   display: flex;
-  gap: 10px;
+  place-items: center;
   align-items: center;
 }
 
@@ -52,12 +52,10 @@
   box-sizing: border-box;
 }
 
-
 .store_nav_container a:hover {
   background-color: rgb(0, 0, 0);
   color: rgb(255, 255, 255);
 }
-
 
 .cart_logo {
   position: relative;
@@ -65,8 +63,8 @@
   background-color: rgb(129, 8, 8);
 }
 
-.cart_logo:hover  {
-  background-color: rgba(96, 96, 96, 0.451) !important;
+.cart_logo:hover {
+  background-color: rgb(0, 0, 0) !important;
   box-shadow: inset 0px 0px 0px 1px rgb(0, 0, 0);
   box-sizing: border-box;
 }
@@ -76,24 +74,23 @@
 }
 
 .cart_logo span {
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
   color: white;
   background-color: black;
   position: absolute;
   display: grid;
   place-items: center;
-  bottom: 50px;
+  bottom: 40px;
   right: -10px;
 }
 
 /************************************************/
 
-
 .dropbtn {
   position: relative;
-  display: inline-block;
-  width:300px;
+  display: inline-flex;
+  width: 375px;
   color: rgb(0, 0, 0) !important;
   background-color: rgb(255, 255, 255) !important;
   box-shadow: inset 0px 0px 0px 1px rgb(0, 0, 0);
@@ -101,54 +98,35 @@
 }
 
 .dropdown-content {
+  padding: 1rem;
   display: none;
   position: absolute;
-  background-color: #f1f1f1;
-  min-width: 300px;
+  background-color: #ffffff;
+  min-width: 375px !important;
+  border: 1px solid black;
+  border-top: none;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
 
 .dropdown-content a {
   width: 100%;
-  font-size: 0.95rem;
+  margin: auto;
+  padding: 1.5rem ;
+  font-size: 0.98rem;
+  gap: 17px;
 }
 
-
 .dropdown-content a:hover {
-  background-color: rgba(96, 96, 96, 0.451);
+  background-color: rgb(0, 0, 0);
 }
 
 .dropdown:hover .dropdown-content {
   display: block;
 }
 
-
 /************************************************/
-.footer_container {
-  background: url(../assets/img/contact_img_1.jpg);
-  background-position: center;
-  color: white;
-  border-top: 0.6rem solid black;
-  font-family: var(--font-family-text);
-  text-transform: uppercase;
-}
 
-.footer_container_wrapper {
-  width: 85%;
-  margin: auto;
-  padding-top: 4rem;
-  padding-bottom: 6rem;
-  display: flex;
-  justify-content: space-around;
-  align-items: flex-start;
-}
-
-.newsletter_background {
-  width: 100%;
-  padding: 2rem 8rem 1rem 8rem;
-  background-color: rgba(0, 0, 0, 0.451);
-}
 /***********************/
 
 .input_container {

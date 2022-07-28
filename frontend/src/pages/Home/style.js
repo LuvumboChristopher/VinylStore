@@ -66,7 +66,6 @@ export const NavContainer = styled.div`
   @media (max-width: 992px) {
     display: none;
   }
-
 `
 export const NavLink = styled.div`
   width: 100%;
@@ -135,9 +134,9 @@ export const MenuIcon = styled(MenuAlt1)`
   width: 2.8rem;
   color: ${(props) => (props.navbarTransparency ? 'white' : 'black')};
   cursor: pointer;
-  transition: all 0.1s linear;
+  transition: all 0.2s linear;
   &:hover {
-    transform: scale(1.05);
+    transform: scale(1.2);
   }
 `
 export const ResponsiveNavbarContent = styled.div`
@@ -176,7 +175,7 @@ export const AccueilSection = styled.div`
 `
 export const VsLogo = styled.img`
   display: block;
-  width: clamp(195px, 19%, 600px);
+  width: clamp(252px, 20%, 600px);
   
 `
 
@@ -260,7 +259,7 @@ export const ServicesSection = styled.div`
   width: 100%;
   height: auto;
   padding-top: 5rem;
-  padding-bottom: 6.5rem;
+  padding-bottom: 7rem;
   background: url(${ServicesFond});
   background-position: center;
   background-repeat: no-repeat;
@@ -268,7 +267,7 @@ export const ServicesSection = styled.div`
 `
 export const ServicestHeader = styled.header`
   width: 86%;
-  margin: 0 auto 3.25rem;
+  margin: 0 auto 3.5rem;
   padding-bottom: 1rem;
   color: white;
   text-align: center;
@@ -401,13 +400,13 @@ export const CardText = styled.p`
 
 export const BannerContainer = styled.div`
   width: 100%;
-  height: 330px;
+  height: 322px;
   position: relative;
   border-top: 3px solid white;
 `
 export const BannerVideo = styled.video`
   width: 100%;
-  height: 330px;
+  height: 322px;
   object-fit: cover;
 
 `
@@ -416,7 +415,7 @@ export const BannerOverlay = styled.div`
   top: 0;
   left: 0;
   width: 100%;
-  height: 330px;
+  height: 322px;
   border-bottom: 3px solid white;
   background-color: rgba(3, 2, 2, 0.81);
 `
@@ -425,7 +424,7 @@ export const CitacionContainer = styled.div`
   position: absolute;
   top: 0;
   left: 0;
-  height: 330px;
+  height: 322px;
   display: grid;
   place-items: center;
 `

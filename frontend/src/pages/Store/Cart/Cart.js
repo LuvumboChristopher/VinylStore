@@ -1,6 +1,6 @@
 import React from 'react'
 import { useContext } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { StoreContext } from '../../../context/StoreProvider'
 import { CartItem } from './components/CartItem'
 import styled from 'styled-components'
@@ -10,16 +10,29 @@ import { round2 } from '../Order/Order'
 
 const CartContentContainer = styled.div`
   display: flex;
-  border: 2px solid black;
+  border: 1px solid black;
   width: 90%;
-  margin: 15rem auto 0;
+  margin: 13rem auto 0;
+  @media (max-width: 768px) {
+    width: 77%;
+    flex-direction: column;
+    margin: 15.5rem auto 0;
+    border: none;
+  }
 `
 
 const Panierwrapper = styled.div`
   width: 100%;
-  margin: 0 auto;
-  flex: 2.5;
-  border-right: 2px solid black;
+  margin: 0;
+  flex: 1.5;
+  display: grid;
+  place-items: center;
+  @media (min-width: 1440px) {
+    flex: 3;
+  }
+  @media (min-width: 768px) {
+    border-right: 1px solid black;
+  }
 `
 
 export const Totalwrapper = styled.div`
@@ -36,6 +49,7 @@ export const TotalToPay = styled.div`
   font-size: 0.75rem;
 `
 export const ItemResume = styled.div`
+  width: 100%;
   display: flex;
   justify-content: space-between;
   margin: auto;
@@ -103,7 +117,7 @@ export default function CartScreen() {
           <TotalToPay>
             <h1>Panier</h1>
           </TotalToPay>
-          <hr style={{ border: '1px solid black' }} />
+          <hr />
           {cartItems.map((item) => (
             <div key={item._id}>
               <div>
@@ -114,15 +128,11 @@ export default function CartScreen() {
               </div>
             </div>
           ))}
-          {cartItems.length > 0 && (
-              <hr style={{ border: '1px solid black' }} />
-          )}
+          {cartItems.length > 0 && <hr />}
           <TotalToPay>
             <div>
               <h1>Total</h1>
-              <p>
-                ({cartItems.reduce((a, c) => a + c.quantity, 0)} Vinyls)
-              </p>
+              <p>({cartItems.reduce((a, c) => a + c.quantity, 0)} Vinyls)</p>
             </div>
             <div style={{ display: 'flex', alignItems: 'center' }}>
               <h2>
@@ -134,7 +144,6 @@ export default function CartScreen() {
               </h2>
             </div>
           </TotalToPay>
-          <hr style={{ border: '1px solid black' }} />
           <PaimentButton
             type='button'
             onClick={checkoutHandler}
@@ -142,7 +151,6 @@ export default function CartScreen() {
           >
             Procéder au paiement
           </PaimentButton>
-          <hr style={{ border: '1px solid black' }} />
         </Totalwrapper>
       </CartContentContainer>
       <StoreFooter />

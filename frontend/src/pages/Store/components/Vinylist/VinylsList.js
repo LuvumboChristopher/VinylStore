@@ -2,11 +2,7 @@ import React, { useEffect, useReducer } from 'react'
 import { Vinyl } from './Vinyl'
 import axios from 'axios'
 
-import {
-  VinylListContainer,
-  ListWrapper,
-  VinylList,
-} from '../../style.js'
+import { VinylListContainer, ListWrapper, VinylList } from '../../style.js'
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -22,8 +18,7 @@ const reducer = (state, action) => {
 }
 
 const VinylsList = ({ search, handleAddToCart }) => {
-
-  const [{ loading, error, products }, dispatch] = useReducer((reducer), {
+  const [{ loading, error, products }, dispatch] = useReducer(reducer, {
     products: [],
     loading: true,
     error: '',
@@ -34,7 +29,7 @@ const VinylsList = ({ search, handleAddToCart }) => {
       dispatch({ type: 'FETCH_REQUEST' })
       try {
         const url = 'http://localhost:5000/api/v1/products'
-        const {data} = await axios.get(url)
+        const { data } = await axios.get(url)
         dispatch({ type: 'FETCH_SUCCESS', payload: data })
       } catch (err) {
         const error = 'Erreur de serveur, réessayez plus tard'
@@ -45,35 +40,41 @@ const VinylsList = ({ search, handleAddToCart }) => {
   }, [])
 
   return (
-      <VinylListContainer>
-        <ListWrapper>
-          {loading ? (
-            <div>
-              <p> En cours de chargement...</p>
-            </div>
-          ) : error ? (
+    <VinylListContainer>
+      <ListWrapper>
+        {loading ? (
+          <div style={{ textAlign: 'center' }}>
+            <p> En cours de chargement...</p>
+          </div>
+        ) : error ? (
+          <div style={{ textAlign: 'center' }}>
             <p>{error}</p>
-          ) : products ? (
-            <VinylList>
-              {search(products).length === 0 ? (
-                <p>Pas de résultats pour votre recherche...</p>
-              ) : (
-                search(products).map((vinyl) => {
-                  return (
-                    <Vinyl
-                      key={vinyl._id}
-                      {...vinyl}
-                      handleAddToCart={handleAddToCart}
-                    ></Vinyl>
-                  )
-                })
-              )}
-            </VinylList>
-          ) : (
-            <p>Pas de resultats pour votre recherche</p>
-          )}
-        </ListWrapper>
-      </VinylListContainer>
+          </div>
+        ) : products ? (
+          <VinylList>
+            {search(products).length === 0 ? (
+              <div style={{ textAlign: 'center' }}>
+                <p>Pas de resultats pour votre recherche</p>
+              </div>
+            ) : (
+              search(products).map((vinyl) => {
+                return (
+                  <Vinyl
+                    key={vinyl._id}
+                    {...vinyl}
+                    handleAddToCart={handleAddToCart}
+                  ></Vinyl>
+                )
+              })
+            )}
+          </VinylList>
+        ) : (
+          <div style={{ textAlign: 'center' }}>
+            <p>Pas de resultats pour votre recherche...</p>
+          </div>
+        )}
+      </ListWrapper>
+    </VinylListContainer>
   )
 }
 

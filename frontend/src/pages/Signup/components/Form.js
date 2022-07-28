@@ -77,7 +77,7 @@ const Form = () => {
         />
       ))}
       <LoginScreenLink to='/connexion'>
-        Vous avez déjà un compte ? Connectez-vous.
+        Vous avez déjà un compte? Connectez-vous.
       </LoginScreenLink>
       {errors && <span style={{ color: 'red' }}>{errors.email}</span>}
       <SingupButton type='submit'>Envoyer</SingupButton>

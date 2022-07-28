@@ -1,13 +1,5 @@
 const mongoose = require('mongoose')
 
-const genreShema = new mongoose.Schema(
-  {
-    name: {
-      type: String,
-      required: true
-    }
-  }
-)
 
 const productsShema = new mongoose.Schema(
   {
@@ -28,13 +20,13 @@ const productsShema = new mongoose.Schema(
       {
         genreName: {
           type: String,
-          require: true,
+          require: [true, 'must provide a genre'],
         },
       },
     ],
     price: {
       type: Number,
-      required: [true, 'must provide an price'],
+      required: [true, 'must provide a price'],
     },
     img: {
       type: String,
@@ -42,10 +34,6 @@ const productsShema = new mongoose.Schema(
     },
     description: {
       type: String,
-      required: [true, 'must provide a description'],
-    },
-    stock: {
-      type: Number,
       required: [true, 'must provide a description'],
     },
   },
