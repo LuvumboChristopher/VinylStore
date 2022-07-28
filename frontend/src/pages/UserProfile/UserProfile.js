@@ -1,10 +1,10 @@
 import React, { useContext, useReducer, useState } from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
-import { toast } from 'react-toastify'
-import { getError } from '../../utils'
-import axios from 'axios'
+import Axios from 'axios'
 import { StoreContext } from '../../context/StoreProvider'
+import { useEffect } from 'react'
+import useAuth from '../../hooks/useAuth'
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -20,13 +20,32 @@ const reducer = (state, action) => {
   }
 }
 
-export default function UserProfile() {
-  const { state, dispatch: ctxDispatch } = useContext(StoreContext)
-  const { userInfo } = state
-  const [name, setName] = useState(userInfo.name)
-  const [email, setEmail] = useState(userInfo.email)
+export const UserProfile = () => {
+
+  const {auth, setAuth}=useAuth()
+  const {userId}= auth
+
+  const [firstName, setFirstName] = useState()
+  const [lastName, setLastName] = useState()
+  const [email, setEmail] = useState()
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
+
+  useEffect(async()=>{
+    const { data } = await Axios.get(
+    `http://localhost:5000/api/v1/users/${userId}`,
+    {
+      withCredentials: true
+    })
+
+    if(data){
+      setFirstName(data.firstName)
+      setLastName(data.firstName)
+      setEmail(data.email)
+    }
+  },[])
+
+  const { state, dispatch: ctxDispatch } = useContext(StoreContext)
 
   const [{ loadingUpdate }, dispatch] = useReducer(reducer, {
     loadingUpdate: false,
@@ -35,14 +54,14 @@ export default function UserProfile() {
   const submitHandler = async (e) => {
     e.preventDefault()
     try {
-      const { data } = await axios.put(
+      const { data } = await Axios.put(
         'http://localhost:5000/api/v1/users',
         {
           email,
           password,
         },
         {
-          headers: { Authorization: `Bearer ${userInfo.token}` },
+          withCredentials: true
         }
       )
       dispatch({
@@ -50,12 +69,12 @@ export default function UserProfile() {
       })
       ctxDispatch({ type: 'USER_SIGNIN', payload: data })
       localStorage.setItem('userInfo', JSON.stringify(data))
-      toast.success('User updated successfully')
+      console.log('User updated successfully')
     } catch (err) {
       dispatch({
         type: 'FETCH_FAIL',
       })
-      toast.error(getError(err))
+      console.error(err)
     }
   }
 
@@ -63,7 +82,7 @@ export default function UserProfile() {
     <div className='container small-container'>
       <h1 className='my-3'>User Profile</h1>
       <form onSubmit={submitHandler}>
-        <Form.Group className='mb-3' controlId='name'>
+        <Form.Group className='mb-3' controlId='email'>
           <Form.Label>Email</Form.Label>
           <Form.Control
             type='email'

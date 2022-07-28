@@ -3,6 +3,17 @@ import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { StoreContext } from '../../../../context/StoreProvider';
 
+import {
+  VinylItem,
+  VinylCoverContainer,
+  VinylCover,
+  VinylData,
+  VinylPurchase,
+  VinylPurchaseButton,
+  VinylDescription,
+} from '../../style.js'
+
+
 const Vinyl = (vinyl) => {
   const { _id, title, author, img, description, year, price } = vinyl
   
@@ -21,33 +32,37 @@ const Vinyl = (vinyl) => {
   }
 
   return (
-    <article className='vinyl_item'>
-      <div className='vinyl_cover_container'>
-        <img className='vinyl_cover' src={img} alt='Vinyl cover' />
-      </div>
-      <div className='vinyl_data'>
-        <h2>{title}</h2>
-        <h4>{author}</h4>
-        <h5>{year}</h5>
-        <p>
-          {description.slice(0, 200)}
-          {description.length > 200 && '...'}
-        </p>
-      </div>
+    <VinylItem>
+      <VinylCoverContainer>
+        <Link to={`/products/${_id}`}>
+          <VinylCover src={img} alt='Vinyl cover' />
+        </Link>
+      </VinylCoverContainer>
+      <div>
+        <VinylData>
+          <h2>{title}</h2>
+          <h5>{author}</h5>
+          <h5>{year}</h5></VinylData>
+          <VinylDescription>
+            {description.slice(0, 158)}
+            {description.length > 158 && '...'}
+          </VinylDescription>
+        
 
-      <div className='vinyl_purchase'>
-        <div>
-          <Link to={`products/${_id}`}>
-            <button className='voir_btn btn'>Voir</button>
-          </Link>
+        <VinylPurchase>
+          <div>
+            <Link to={`/products/${_id}`}>
+              <VinylPurchaseButton voir={true}>Voir</VinylPurchaseButton>
+            </Link>
 
-          <button onClick={handleAddToCart} className='acheter_btn btn'>
-            Acheter
-          </button>
-        </div>
-        <p>{price}$</p>
+            <VinylPurchaseButton onClick={handleAddToCart}>
+              Acheter
+            </VinylPurchaseButton>
+          </div>
+          <h1 style={{ fontSize: '1.20rem' }}>{price} €</h1>
+        </VinylPurchase>
       </div>
-    </article>
+    </VinylItem>
   )
 };
 

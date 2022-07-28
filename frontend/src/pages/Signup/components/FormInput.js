@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
+import { SingupInputsContainer } from '../style'
 
 const FormInput = (props) => {
   
   const [focus, setFocus] = useState(false)
   
   return (
-    <div className='formInput_container'>
+    <SingupInputsContainer>
       <input
         {...props}
         onChange={props.onChange}
@@ -17,7 +18,7 @@ const FormInput = (props) => {
         className='singup_input'
       />
       <span className='error_message_singup'>{props.errormessage}</span>
-    </div>
+    </SingupInputsContainer>
   )
 }
 

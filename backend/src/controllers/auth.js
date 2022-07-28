@@ -1,90 +1,41 @@
 const User = require('../models/User')
-const jwt = require('jsonwebtoken')
-const asyncWrapper = require('../middlewares/asyncWrapper')
-
-// Gestion des erreurs lies a la authetification
-const handleErrors = (err) => {
-  let errors = { email: '', password: '' }
-
-  // incorrect email
-  if (err.message === "L'adresse mail ne pas enregistré") {
-    errors.email = "L'adresse mail ne pas enregistré"
-  }
-
-  // incorrect password
-  if (err.message === 'Mot de passe incorrect') {
-    errors.password = 'Mot de passe incorrect'
-  }
-
-  if (err.message.includes('Please enter an email')) {
-    errors.email = 'Please enter an email'
-  }
-
-  if (err.message.includes('Please enter a password')) {
-    errors.password = 'Please enter a password'
-  }
-
-  if (err.message.includes('Please enter a valid email')) {
-    errors.email = 'Please enter a valid email'
-  }
-
-  if (err.code === 11000) {
-    errors.email = 'Cet email est déjà enregistré'
-    return errors
-  }
-
-  // validation errors
-  if (err.message.includes('user validation failed')) {
-    Object.values(err.errors).forEach(({ properties }) => {
-      errors[properties.path] = properties.message
-    })
-  }
-
-  return errors
-}
-
-// Creation de JWT
-const createToken = (user) => {
-  return jwt.sign({ user }, process.env.JWT, {
-    expiresIn: '30d',
-  })
-}
+const handleErrors = require('../utils/handleErrors')
+const createToken = require('../utils/createToken')
 
 // Controlllers
-module.exports.signup = asyncWrapper( async(req, res) => {
+module.exports.signup = async (req, res) => {
   const { email, password } = req.body
-
   try {
     const user = await User.create({ email, password })
-    // Envoie de JWT via les Cookies
-    res.status(201).json({ user: user._id })
+    res.sendStatus(201)
   } catch (err) {
     // Envoi des erreurs au client
     const errors = handleErrors(err)
     res.status(400).json({ errors })
   }
-})
+}
 
-module.exports.login = asyncWrapper( async(req, res) => {
+module.exports.protected = async (req, res) => {
+  res.json({ userId: req.userId, userIsAdmin: req.userIsAdmin })
+}
+
+module.exports.logout = async (req, res) => {
+  res.clearCookie('jwt').sendStatus(200)
+}
+
+module.exports.login = async (req, res) => {
   const { email, password } = req.body
-
   try {
     const user = await User.login(email, password)
-
-    // Creation du token du nouveau utilisateur
-    const token = createToken(user)
-    // Envoie de JWT via les Cookies
-    res.cookie('jwt', token, { httpOnly: true })
-    res.status(200).json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      isAdmin: user.isAdmin,
-      token
-    })
+    const token = createToken(user._id, user.isAdmin)
+    res
+      .cookie('jwt', token, {
+        httpOnly: true,
+        maxAge: 3 * 24 * 60 * 60 * 1000,
+        secure: process.env.NODE_ENV === 'production',
+      })
+      .sendStatus(200)
   } catch (err) {
-    // Envoi des erreurs au client
-    const errors = handleErrors(err)
-    res.status(400).json({errors})
+    res.status(400).json({ error: err.message })
   }
-})
+}

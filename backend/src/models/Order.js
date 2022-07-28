@@ -7,11 +7,11 @@ const orderSchema = new mongoose.Schema(
         title: { type: String, required: true },
         author: {
           type: String,
-          required: [true, 'must provide an author'],
+          required: true,
         },
         img: {
           type: String,
-          required: [true, 'must provide an image'],
+          required: true,
         },
         product: {
           type: mongoose.Schema.Types.ObjectId,
@@ -21,7 +21,7 @@ const orderSchema = new mongoose.Schema(
       },
     ],
     shippingAddress: {
-      name: { type: String, required: true },
+      firstName: { type: String, required: true },
       lastName: { type: String, required: true },
       streetAddress: { type: String, required: true },
       city: { type: String, required: true },

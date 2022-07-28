@@ -1,6 +1,5 @@
 const Order = require('../models/Order')
-const asyncWrapper = require('../middlewares/asyncWrapper')
-const isAuth = require('../middlewares/IsAuth')
+const asyncWrapper = require('../utils/asyncWrapper')
 
 module.exports.createOrder = asyncWrapper( async (req, res, next) => {
   try {
@@ -12,24 +11,32 @@ module.exports.createOrder = asyncWrapper( async (req, res, next) => {
       shippingPrice: req.body.shippingPrice,
       taxPrice: req.body.taxPrice,
       totalPrice: req.body.totalPrice,
-      user: req.body.user._id,
+      user: req.userId,
     })
 
     const order = await newOrder.save()
-    console.log(order)
     res.status(201).send({ message: 'New Order Created', order })
   } catch (err) {
     console.log(err)
   }
 })
 
+module.exports.getOrders = asyncWrapper(async (req, res, next) => {
+    const orders = await Order.find({ user: req.userId })
+    if (orders) {
+      res.send(orders)
+    } else {
+      res.status(404).send({ message: 'Order Not Found' })
+    }
+})
+
 module.exports.getOrder = asyncWrapper(async (req, res, next) => {
-  const { id: orderID } = req.params
-  const order = await Order.find({ _id: orderID })
-  if (!order) {
-    return next(createCustomError(`No order with id : ${orderID}`, 404))
-  }
-  res.status(200).json(order[0])
+  const order = await Order.findById(req.params.id);
+    if (order) {
+      res.send(order);
+    } else {
+      res.status(404).send({ message: 'Order Not Found' });
+    }
 })
 
 module.exports.payOrder = asyncWrapper(async (req, res, next) => {
@@ -49,9 +56,4 @@ module.exports.payOrder = asyncWrapper(async (req, res, next) => {
   } else {
     res.status(404).send({ message: 'Order Not Found' })
   }
-})
-
-module.exports.getUserOrders  = asyncWrapper(async (req, res, next) => {
-  const orders = await Order.find({})
-  res.status(200).json(orders)
 })

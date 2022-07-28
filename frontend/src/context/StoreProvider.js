@@ -3,10 +3,6 @@ import React, { createContext, useReducer } from 'react'
 export const StoreContext = createContext()
 
 const initialState = {
-  userInfo: localStorage.getItem('userInfo')
-    ? JSON.parse(localStorage.getItem('userInfo'))
-    : null,
-
   cart: {
     shippingAddress: localStorage.getItem('shippingAddress')
       ? JSON.parse(localStorage.getItem('shippingAddress'))
@@ -22,6 +18,7 @@ const initialState = {
 
 const reducer = (state, action) => {
   switch (action.type) {
+    //Anadir productos al carrito de compra
     case 'CART_ADD_ITEM':
       const newItem = action.payload
       const existItem = state.cart.cartItems.find(
@@ -34,6 +31,8 @@ const reducer = (state, action) => {
         : [...state.cart.cartItems, newItem]
       localStorage.setItem('cartItems', JSON.stringify(cartItems))
       return { ...state, cart: { ...state.cart, cartItems } }
+
+    //Quitar productos al carrito de compra
     case 'CART_REMOVE_ITEM': {
       const cartItems = state.cart.cartItems.filter(
         (item) => item._id !== action.payload._id
@@ -41,25 +40,16 @@ const reducer = (state, action) => {
       localStorage.setItem('cartItems', JSON.stringify(cartItems))
       return { ...state, cart: { ...state.cart, cartItems } }
     }
+
     case 'CART_CLEAR':
-      return { ...state, cart: { ...state.cart, cartItems: [] } };
-    case 'USER_LOGIN':
-      return { ...state, userInfo: action.payload }
-    case 'USER_SIGNOUT':
-      return {
-        ...state,
-        userInfo: null,
-        cart: {
-          cartItems: [],
-          shippingAddress: {},
-          paymentMethod: '',
-        },
-      };
+      return { ...state, cart: { ...state.cart, cartItems: [] } }
+
     case 'SAVE_SHIPPING_ADRESS':
       return {
         ...state,
         cart: { ...state.cart, shippingAddress: action.payload },
       }
+
     case 'SAVE_PAYMENT_METHOD':
       return {
         ...state,
@@ -71,13 +61,12 @@ const reducer = (state, action) => {
   }
 }
 
-export function StoreProvider(props) {
+export const StoreProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState)
   const value = { state, dispatch }
-
   return (
     <StoreContext.Provider value={value}>
-      {props.children}
+      {children}
     </StoreContext.Provider>
   )
 }

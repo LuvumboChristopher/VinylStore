@@ -1,15 +1,5 @@
 const mongoose = require('mongoose')
 
-const reviewSchema = new mongoose.Schema(
-  {
-    name: { type: String, required: true },
-    comment: { type: String, required: true },
-    rating: { type: Number, required: true },
-  },
-  {
-    timestamps: true,
-  }
-)
 
 const productsShema = new mongoose.Schema(
   {
@@ -26,13 +16,17 @@ const productsShema = new mongoose.Schema(
       type: Number,
       required: [true, 'must provide a year'],
     },
-    genre: {
-      type: Array,
-      required: [true, 'must provide a genre'],
-    },
+    genre: [
+      {
+        genreName: {
+          type: String,
+          require: [true, 'must provide a genre'],
+        },
+      },
+    ],
     price: {
       type: Number,
-      required: [true, 'must provide an price'],
+      required: [true, 'must provide a price'],
     },
     img: {
       type: String,
@@ -41,7 +35,7 @@ const productsShema = new mongoose.Schema(
     description: {
       type: String,
       required: [true, 'must provide a description'],
-    }
+    },
   },
   { timestamps: true }
 )

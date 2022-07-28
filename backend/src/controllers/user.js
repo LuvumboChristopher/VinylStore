@@ -1,68 +1,100 @@
 const User = require('../models/User')
-const asyncWrapper = require('../middlewares/asyncWrapper')
+const asyncWrapper = require('../utils/asyncWrapper')
+const handleErrors = require('../utils/asyncWrapper')
 
-// Gestion des erreurs lies a la authetification
-const handleErrors = (err) => {
-  let errors = { email: '', password: '' }
 
-  // incorrect email
-  if (err.message === "L'adresse mail ne pas enregistré") {
-    errors.email = "L'adresse mail ne pas enregistré"
+module.exports.getAllUsers = asyncWrapper(async (req, res) => {
+  try {
+    const users = await User.find({})
+    res.status(200).json(users)
+  } catch (err) {
+    res.status(500).json({ message: err.message })
   }
+})
 
-  // incorrect password
-  if (err.message === 'Mot de passe incorrect') {
-    errors.password = 'Mot de passe incorrect'
+module.exports.getUser = asyncWrapper(async (req, res) => {
+  try {
+    const user = await User.findById(req.userId)
+    res.status(200).json(user)
+  } catch (err) {
+    res.status(500).json({ message: err.message })
   }
+})
 
-  if (err.message.includes('Please enter an email')) {
-    errors.email = 'Please enter an email'
+
+module.exports.deleteUser = asyncWrapper(async (req, res) => {
+  try {
+    const user = await User.findAndDelete(req.params.id)
+    res.status(200).send({ messagge: 'Utilisateur supprimé' })
+  } catch (err) {
+    res.status(500).json({ message: err.message })
   }
+})
 
-  if (err.message.includes('Please enter a password')) {
-    errors.password = 'Please enter a password'
-  }
-
-  if (err.message.includes('Please enter a valid email')) {
-    errors.email = 'Please enter a valid email'
-  }
-
-  if (err.code === 11000) {
-    errors.email = 'Cet email est déjà enregistré'
-    return errors
-  }
-
-  // validation errors
-  if (err.message.includes('user validation failed')) {
-    Object.values(err.errors).forEach(({ properties }) => {
-      errors[properties.path] = properties.message
-    })
-  }
-
-  return errors
-}
-
-
-// Controlllers
 module.exports.updateUser = asyncWrapper(async (req, res) => {
-  const user = await User.findById(req.user._id)
+  try {
+    const user = await User.findById(req.userId)
+
+    if(!user){
+      res.status(401)
+      throw new Error ('User not found')
+    }
+
+
   if (user) {
-    user.name = req.body.name || user.name
+    user.firstName = req.body.firstname || user.firstname
+    user.lastName = req.body.lastname || user.lastname
+    user.phoneNumber = req.body.phoneNumber || user.phoneNumber
     user.email = req.body.email || user.email
     if (req.body.password) {
       user.password = bcrypt.hashSync(req.body.password, 8)
     }
 
-    const updatedUser = await user.save()
-    res.send({
-      _id: updatedUser._id,
-      name: updatedUser.name,
-      email: updatedUser.email,
-      isAdmin: updatedUser.isAdmin,
-      token: generateToken(updatedUser),
-    })
-  } else {
-    res.status(404).send({ message: 'User not found' })
+    if (req.body.addresses.billingAddress) {
+      user.addresses.billingAddress.number =
+        req.body.addresses.billingAddress.number ||
+        user.addresses.billingAddress.number
+      user.addresses.billingAddress.streetName =
+        req.body.addresses.billingAddress.streetName ||
+        user.addresses.billingAddress.streetName
+      user.addresses.billingAddress.zipCode =
+        req.body.addresses.billingAddress.zipCode ||
+        user.addresses.billingAddress.zipCode
+      user.addresses.billingAddress.city =
+        req.body.addresses.billingAddress.city ||
+        user.addresses.billingAddress.city
+      user.addresses.billingAddress.country =
+        req.body.addresses.billingAddress.country ||
+        user.addresses.billingAddress.country
+    }
+    
+    if (req.body.addresses.shippingAddress) {
+      user.addresses.shippingAddress.number =
+        req.body.addresses.shippingAddress.number ||
+        user.addresses.shippingAddress.number
+
+      user.addresses.shippingAddress.streetName =
+        req.body.addresses.shippingAddress.streetName ||
+        user.addresses.shippingAddress.streetName 
+
+      user.addresses.shippingAddress.zipCode =
+        req.body.addresses.shippingAddress.zipCode ||
+        user.addresses.shippingAddress.zipCode
+
+      user.addresses.shippingAddress.city =
+        req.body.addresses.shippingAddress.city ||
+        user.addresses.shippingAddress.city
+
+      user.addresses.shippingAddress.country =
+        req.body.addresses.shippingAddress.country ||
+        user.addresses.shippingAddress.country
+    }
+  }
+
+  await user.save()
+  res.status(200).send({ messagge: 'Utilisateur mis à jour' })
+
+  } catch(err){
+    res.status(404).send({ message: err.message })
   }
 })
-

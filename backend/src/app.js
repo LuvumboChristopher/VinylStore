@@ -1,36 +1,58 @@
 const express = require('express')
 const connectDB = require('./db/connect')
-const { checkUser } = require('./middlewares/authMiddleware')
-
 const dotenv = require('dotenv').config()
 const cookieParser = require('cookie-parser')
 const cors = require('cors')
+const path = require ('path')
 
 const products = require('./routes/product')
-const orders = require('./routes/orders')
+const orders = require('./routes/order')
 const auth = require('./routes/auth')
 const user = require('./routes/user')
-
 
 const port = process.env.PORT || 5000
 const app = express()
 
-
-app.use(cors());
+app.use(
+  cors({
+    origin: 'http://localhost:3000',
+    credentials: true
+  })
+)
 app.use(express.json())
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
-
 
 app.use('/api/v1/products', products)
 app.use('/api/v1/orders', orders)
 app.use('/api/v1/auth', auth)
 app.use('/api/v1/users', user)
 
-
-app.get('/api/v1/paypal', (req,res)=>{
+app.get('/api/v1/keys/paypal', (req, res) => {
   res.send(process.env.PAYPAL_CLIENT_ID || 'sb')
 })
+
+
+// app.use(express.static(path.resolve(__dirname, '../../', 'frontend/build')))
+app.get('/', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../../', 'frontend/build'))
+})
+
+
+// app.use(express.static(path.resolve(__dirname, '../../','frontend/build')))
+// app.get('*', (req, res) => {
+//   res.sendFile(path.resolve(__dirname, '../../' ,'frontend/build'))
+// })
+
+
+
+
+// if (process.env.NODE_ENV === 'production') {
+//   app.use(express.static(path.resolve(__dirname,'/frontend/build')))
+//   app.get('*', (req, res) => {
+//     res.sendFile(path.resolve(__dirname, '../frontend/','build', 'index.html'))
+//   })
+// }
 
 // Demarage du server
 const start = async () => {
@@ -45,4 +67,3 @@ const start = async () => {
 }
 
 start()
-

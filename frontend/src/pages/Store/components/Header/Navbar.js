@@ -1,43 +1,59 @@
 import React, { useContext } from 'react'
 import VsLogoBlack from '../../../../assets/img/vs_logo_black.png'
+
 import { IoBagSharp } from 'react-icons/io5'
-import { IoPersonAdd } from 'react-icons/io5'
-import { IoLogIn } from 'react-icons/io5'
-import { BsClipboardData } from 'react-icons/bs'
+import { RiLoginCircleFill } from 'react-icons/ri'
+import { BsClipboardData, BsHeartFill } from 'react-icons/bs'
 import { BsDoorOpenFill } from 'react-icons/bs'
 import { BsPersonCircle } from 'react-icons/bs'
-
 import { BsFillVinylFill } from 'react-icons/bs'
-import { Link } from 'react-router-dom'
+import { SiHomebridge } from 'react-icons/si'
+import { Link, useNavigate } from 'react-router-dom'
 import { StoreContext } from '../../../../context/StoreProvider'
+import Axios from 'axios'
+import useAuth from '../../../../hooks/useAuth'
+import styled from 'styled-components'
+import { LogoStore, StoreHeader } from '../../style'
+
 
 const NavContent = () => {
-  const { state, dispatch: ctxDispatch } = useContext(StoreContext)
-  const { cart, userInfo } = state
+  const { auth, logout } = useAuth()
+  const { state } = useContext(StoreContext)
+  const { cart } = state
+  const navigate = useNavigate()
 
-  const signoutHandler = () => {
-    ctxDispatch({ type: 'USER_SIGNOUT' })
-    localStorage.removeItem('userInfo')
-    localStorage.removeItem('shippingAddress')
-    localStorage.removeItem('paymentMethod')
-    window.location.href = '/se-connecter'
+  const signoutHandler = async () => {
+    try {
+      await Axios.get('http://localhost:5000/api/v1/auth/logout', {
+        withCredentials: true,
+      })
+      logout()
+      navigate('/store')
+    } catch (err) {
+      console.error(err)
+    }
   }
+
   return (
     <nav className='store_nav_container'>
       <ul>
-        {userInfo !== null ? (
+        {auth.user ? (
           <div className='dropdown'>
             <Link to={''} className='dropbtn'>
-              <BsFillVinylFill style={{ fontSize: '1.6em' }} /> Mon compte
+              <BsFillVinylFill style={{ margin: 'auto', fontSize: '1.3em' }} />
             </Link>
             <div className='dropdown-content'>
-              <Link to='/profil'>
+              <Link to={''}>
                 <BsPersonCircle style={{ fontSize: '1.6em' }} />
                 <p>Profil</p>
               </Link>
               <Link to='/historique'>
                 <BsClipboardData style={{ fontSize: '1.6em' }} />
                 <p>Suivi des commandes</p>
+              </Link>
+              <Link to=''>
+                <BsHeartFill style={{ fontSize: '1.6em' }} />
+                <p>Coups de cœur</p>
               </Link>
               <Link to={''} onClick={signoutHandler}>
                 <BsDoorOpenFill style={{ fontSize: '1.6em' }} />
@@ -46,31 +62,26 @@ const NavContent = () => {
             </div>
           </div>
         ) : (
-          <>
-            <Link to='/se-connecter'>
-              <IoLogIn style={{ fontSize: '1.6em' }} />
-              Connexion
-            </Link>
-            <Link to='/inscription'>
-              <IoPersonAdd style={{ fontSize: '1.3em' }} />
-              Inscription
-            </Link>{' '}
-          </>
+          <Link to='/connexion' style={{ border: '1px solid black' }}>
+            <RiLoginCircleFill style={{ margin: 'auto', fontSize: '1.6em' }} />
+          </Link>
         )}
-
+        <Link to='/' className='backtosite'>
+          <SiHomebridge style={{ margin: 'auto', fontSize: '1.3em' }} />
+        </Link>
         <Link to='/panier' className='cart_logo'>
-          <div>
-            <IoBagSharp style={{ color: 'white', fontSize: '1.8em' }} />
+          <div style={{ margin: 'auto' }}>
+            <IoBagSharp style={{ color: 'white', fontSize: '1.3em' }} />
             <div>
               {cart.cartItems.length > 0 ? (
-                <span>
+                <span style={{ fontSize: '0.8em' }}>
                   {cart.cartItems.reduce(
                     (acc, current) => acc + current.quantity,
                     0
                   )}
                 </span>
               ) : (
-                <span>0</span>
+                <span style={{ fontSize: '0.8em' }}>0</span>
               )}
             </div>
           </div>
@@ -79,18 +90,19 @@ const NavContent = () => {
     </nav>
   )
 }
+
 const Navbar = () => {
   return (
-    <div className='store_header'>
+    <StoreHeader>
       <div>
         <Link to='/store'>
-          <img src={VsLogoBlack} alt='logo' className='vs_logo_black' />
+          <LogoStore src={VsLogoBlack} alt='logo' className='vs_logo_black' />
         </Link>
       </div>
       <div>
         <NavContent />
       </div>
-    </div>
+    </StoreHeader>
   )
 }
 
