@@ -29,7 +29,7 @@ const Form = () => {
   const handleLogin = async (e) => {
     e.preventDefault()
     try {
-      const url = 'http://localhost:5000/api/v1/auth/login'
+      const url = '/api/v1/auth/login'
       await axios.post(
         url,
         {

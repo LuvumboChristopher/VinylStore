@@ -12,7 +12,6 @@ import { Link, useNavigate } from 'react-router-dom'
 import { StoreContext } from '../../../../context/StoreProvider'
 import Axios from 'axios'
 import useAuth from '../../../../hooks/useAuth'
-import styled from 'styled-components'
 import { LogoStore, StoreHeader } from '../../style'
 
 
@@ -24,7 +23,7 @@ const NavContent = () => {
 
   const signoutHandler = async () => {
     try {
-      await Axios.get('http://localhost:5000/api/v1/auth/logout', {
+      await Axios.get('/api/v1/auth/logout', {
         withCredentials: true,
       })
       logout()
