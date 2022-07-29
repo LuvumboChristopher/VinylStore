@@ -55,12 +55,11 @@ const Contact = () => {
                   <FooterContainer>
                     <LoremTitle>A propos du vinyl store</LoremTitle>
                     <LoremText>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing
+                      Lorem ipsum dolor sit igot u amet, consectetur adipiscing
                       ePlanDuSiteContentt. In congue nunc rhoncus lorem dapibus,
                       quasi a animi ullam recusandae In congue nunc rhoncus
                       lorem dapibus, sagittisit amet consecte sagittis mattis
-                      neque eleifend. Maecenas in tincidunt tellus a animi
-                      ullam.
+                      neque eleifend ecenas in.
                     </LoremText>
                     <Copyright>
                       ©{new Date().getFullYear()} VinylStore Lyon.

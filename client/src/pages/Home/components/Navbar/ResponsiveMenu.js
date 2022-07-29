@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import VsLogoBlack from '../../../../assets/img/vs_logo_black.png'
 import { IoCloseSharp } from 'react-icons/io5'
 import { ResponsiveNavbar, HeaderImage, ResponsiveNavbarContent,  MenuIcon } from '../../style'
+import { Link } from 'react-router-dom'
 
 const ResponsiveMenu = () => {
   const ref = useRef()
@@ -24,7 +25,7 @@ const ResponsiveMenu = () => {
   useEffect(() => {
     setShowNavbar(true)
     window.addEventListener('scroll', () => {
-      if (window.scrollY > 750) {
+      if (window.scrollY > 761) {
         setNavbarTransparency(false)
       } else {
         setNavbarTransparency(true)
@@ -40,22 +41,19 @@ const ResponsiveMenu = () => {
     <>
       <ResponsiveNavbarContent ref={ref} showNavbarMenu={showNavbarMenu}>
         <IoCloseSharp
-          style={{ color: 'white', fontSize: '2.5rem', cursor: 'pointer' }}
+          style={{ color: 'white', fontSize: '2.3rem', cursor: 'pointer', margin: '0' }}
           onClick={HandleMenu}
         />
         <div
           style={{
             width:'100%',
-            height: '80%',
-            margin: 'auto',
-            display: 'grid',
-            placeItems: 'center',
+            margin: '4rem auto',
           }}
         >
           <ul
             style={{
               color: 'white',
-              fontSize: '2.5rem',
+              fontSize: '1.5rem',
               cursor: 'pointer',
               listStyle: 'none',
             }}
@@ -90,13 +88,10 @@ const ResponsiveMenu = () => {
       </ResponsiveNavbarContent>
       {showNavbar && (
         <ResponsiveNavbar navbarTransparency={navbarTransparency}>
-          <a href={'/#accueil'}>
             <HeaderImage
-              src={navbarTransparency ? '' : VsLogoBlack}
+              src={!navbarTransparency && VsLogoBlack}
               className='vs_logo_black'
             />
-          </a>
-
           <MenuIcon
             onClick={HandleMenu}
             navbarTransparency={navbarTransparency}

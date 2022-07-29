@@ -47,7 +47,7 @@ const FadeNavIn = keyframes`
 export const NavContainer = styled.div`
   z-index: 100;
   position: fixed;
-  left: 1%;
+  left: 0.45%;
   top: 50%;
   transform: translateY(-50%) translateX(-100px);
   background: none;
@@ -60,7 +60,7 @@ export const NavContainer = styled.div`
   border-radius: 50px;
   opacity: 0;
   animation: ${FadeNavIn} 1s ease 1 1s forwards;
-  @media (max-width: 768px) {
+  @media (max-width: 821px) {
     display: none;
   }
 `
@@ -96,17 +96,15 @@ export const NavTitle = styled.p`
 
 export const ResponsiveNavbar = styled.div`
   display: none;
-  @media (max-width: 768px) {
+  @media (max-width: 821px) {
     z-index: 99;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: auto;
+    height: 10vh;
+    padding: 2.5rem 1rem;
     margin: auto;
-    padding: 2rem;
-    padding-top: 25px;
-    padding-bottom: 25px;
     background: ${(props) =>
       props.navbarTransparency ? 'transparent' : 'white'};
     border-bottom: ${(props) =>
@@ -118,17 +116,13 @@ export const ResponsiveNavbar = styled.div`
   }
 `
 export const HeaderImage = styled.img`
-  width: 130px;
+  width: 128px;
   margin: 0;
-  cursor: pointer;
   transition: all 0.1s linear;
-  border: none;
-  &:hover {
-    transform: scale(1.05);
-  }
 `
 export const MenuIcon = styled(MenuAlt1)`
-  width: 2.2rem;
+  width: 1.85rem;
+  margin: 0;
   color: ${(props) => (props.navbarTransparency ? 'white' : 'black')};
   cursor: pointer;
   transition: all 0.2s linear;
@@ -138,7 +132,7 @@ export const MenuIcon = styled(MenuAlt1)`
 `
 export const ResponsiveNavbarContent = styled.div`
   display: none;
-  @media (max-width: 768px) {
+  @media (max-width: 821px) {
     display: block;
     z-index: 100;
     position: fixed;
@@ -189,7 +183,7 @@ export const UmdpSection = styled.div`
   margin-top: -1px;
   display: flex;
   flex-direction: row;
-  @media (min-width: 425px) and (max-width: 768px) {
+  @media (min-width: 425px) and (max-width: 1025px) {
     flex-direction: column;
   }
   @media (max-width: 425px) {
@@ -205,7 +199,7 @@ export const UmdpImgContainer = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
   border-right: 3px solid black;
-  @media (max-width: 768px) {
+  @media (max-width: 1025px) {
     width: 100%;
     height: 20vh;
     margin: 4rem auto 0;
@@ -257,7 +251,7 @@ export const UmdpSignature = styled.p`
 
 export const ServicesSection = styled.div`
   width: 100%;
-  height: auto;
+  margin: 0 auto;
   padding: 3rem 0;
   background: url(${ServicesFond});
   background-position: center;
@@ -272,13 +266,15 @@ export const ServicestHeader = styled.header`
   text-align: center;
   @media (max-width: 768px) {
     text-align: left;
-    margin-bottom: 3rem;
+    margin: auto;
+    padding: 0;
   }
 `
 
 export const ServicesTitle = styled.h1`
   font-family: var(--font-family-title);
-  font-size: clamp(32px, 2.35vw, 55px);
+  ${'' /* font-size: clamp(32px, 2.35vw, 55px); */}
+  font-size: clamp(1.75rem, 2.35vw, 55px);
   width: 100%;
   margin: auto;
   text-transform: none;
@@ -304,9 +300,9 @@ export const ContentContainer = styled.div`
   display: flex;
   justify-content: center;
   gap: 3.5vw;
-  @media (max-width: 1024px) {
+  @media (max-width: 1180px) {
     flex-direction: column;
-    gap: 10vh;
+    gap: 5vh;
   }
 `
 export const Card = styled.div`
@@ -319,7 +315,7 @@ export const Card = styled.div`
   box-shadow: 2px 3px 23px -3px rgba(0, 0, 0, 0.25);
   transition: 0.3s ease;
 
-  @media (max-width: 1024px) {
+  @media (max-width: 1180px) {
     width: 100%;
     margin: auto;
     justify-content: center;
@@ -335,7 +331,7 @@ export const Card = styled.div`
   }
 `
 export const CardImageContainer = styled.div`
-  @media (max-width: 1024px) {
+  @media (max-width: 1180px) {
     position: relative;
     width: 80%;
     margin: auto;
@@ -353,7 +349,7 @@ export const CardImage = styled.img`
   &:hover {
     cursor: pointer;
   }
-  @media (max-width: 1024px) {
+  @media (max-width: 1180px) {
     width: 100%;
     height: 300px;
     flex-direction: ${(props) => (props.reverse ? 'row-reverse' : 'row')};
@@ -370,7 +366,7 @@ export const CardTextContainer = styled.div`
   color: white;
   display: grid;
   place-items: center;
-  @media (max-width: 1024px) {
+  @media (max-width: 1180px) {
     width: 100%;
     margin: auto 1.5rem;
   }
@@ -382,7 +378,7 @@ export const CardTextContainer = styled.div`
 `
 export const CardTitle = styled.p`
   width: 100%;
-  font-size: 1.35rem;
+  font-size: 1.20rem;
   font-weight: bold;
   margin: 0 auto 1.5rem;
   text-align: left;
@@ -397,30 +393,32 @@ export const CardText = styled.p`
 
 export const BannerContainer = styled.div`
   width: 100%;
-  height: 322px;
+  margin: 0;
+  height: 323px;
   position: relative;
-  border-top: 3px solid white;
 `
 export const BannerVideo = styled.video`
   width: 100%;
-  height: 322px;
+  height: 323px;
   object-fit: cover;
 `
 export const BannerOverlay = styled.div`
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 322px;
+  width: 100vw;
+  height: 323px;
+  border-top: 3px solid white;
   border-bottom: 3px solid white;
   background-color: rgba(3, 2, 2, 0.81);
 `
 export const CitacionContainer = styled.div`
   width: 100%;
+  margin:0;
   position: absolute;
   top: 0;
   left: 0;
-  height: 322px;
+  height: 323px;
   display: grid;
   place-items: center;
 `
@@ -429,11 +427,11 @@ export const Citacion = styled.p`
   margin: auto;
   display: block;
   color: white;
-  padding: 0.75rem;
+  padding: 0.73rem;
   text-align: center;
-  font-size: 0.65rem;
+  font-size: 0.63rem;
   text-transform: uppercase;
-  letter-spacing: 6px;
+  letter-spacing: 5px;
   @media (min-width: 1440px) {
     width: 50%;
     font-size: 0.8rem;
@@ -490,7 +488,7 @@ export const ContactRight = styled.div`
   }
 `
 export const ContactSection = styled.div`
-  @media (min-width: 769px) {
+  @media (min-width: 821px) {
     margin: auto;
     display: flex;
     gap: 3rem;
@@ -503,18 +501,22 @@ export const ContactSection = styled.div`
   }
 `
 export const SectionContainer = styled.div`
-  width: 85%;
+  width: 90%;
   margin: 4rem auto;
   @media (min-width: 1440px) {
     width: ${(props) => (props.formSection ? '80%' : '85%')};
   }
+  @media (max-width: 821px) {
+    margin: 3rem auto 1.5rem;
+  }
 `
 export const ContactHeader = styled.header`
-  margin: 4rem auto;
+  margin: 3rem auto 1.5rem;
 `
 export const ContactTitle = styled.h1`
   font-family: var(--font-family-title);
-  font-size: clamp(32px, 2.2vw, 42px);
+  ${'' /* font-size: clamp(32px, 2.2vw, 42px); */}
+  font-size: clamp(1.75rem, 2.35vw, 55px);
   width: 100%;
   margin: 2rem auto 0;
   text-transform: none;
@@ -528,8 +530,8 @@ export const ContactSubtitle = styled.p`
 export const ContactForm = styled.form`
   width: 100%;
   margin: 1.2rem auto;
-  text-aplandusitecontentgn: center;
-  @media (min-width: 768px) {
+  text-align: center;
+  @media (min-width: 821px) {
     width: 100%;
     text-align: start;
     flex: 2;
@@ -539,21 +541,20 @@ export const FooterNav = styled.div`
   @media (min-width: 1440px) {
     align-items: flex-start;
   }
-  @media (min-width: 768px) {
+  @media (min-width: 821px) {
     flex: 1;
   }
 `
 export const ContactInput = styled.input`
   width: 100%;
-  padding: 0.3rem;
+  padding: 0.5rem;
   margin: 0 auto 1rem;
   background: transparent;
   border: none;
-  border-bottom: 1px solid white;
   border-radius: 0;
+  border-bottom: 1px solid white;
   color: white;
   resize: none;
-  text-align: justify;
   &:focus {
     outline: none;
   }
@@ -626,14 +627,11 @@ export const ContactButton = styled.button`
 `
 export const FooterInfo = styled.div`
   width: 100%;
-  margin: 2rem auto;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
-  @media (min-width: 768px) {
-    margin: 0;
-  }
   @media (min-width: 1440px) {
     flex-direction: row;
     justify-content: space-between;
