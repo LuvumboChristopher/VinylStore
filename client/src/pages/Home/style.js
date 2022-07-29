@@ -1,6 +1,6 @@
 import React from 'react'
-import styled, { keyframes }  from 'styled-components'
-import { FaAngleUp } from 'react-icons/fa';
+import styled, { keyframes } from 'styled-components'
+import { FaAngleUp } from 'react-icons/fa'
 import { MenuAlt1 } from '@styled-icons/heroicons-outline'
 import AccueilFond from '../../assets/img/accueil_fond.png'
 import ServicesFond from '../../assets/img/services_fond.jpg'
@@ -8,14 +8,11 @@ import ContactImage1 from '../../assets/img/contact_img_1.jpg'
 import ContactImage2 from '../../assets/img/contact_img_2.jpg'
 import JohnDoe from '../../assets/img/john_doe.png'
 
-
 /*------------------------------------------------------------Top-Button------------------------------------------------------------*/
 
 const Icon = ({ className, children }) => (
-  <FaAngleUp className={className}>
-    {children}
-  </FaAngleUp>
-);
+  <FaAngleUp className={className}>{children}</FaAngleUp>
+)
 export const TopButtonContainer = styled.div`
   position: relative;
 `
@@ -23,7 +20,7 @@ export const TopButtonIcon = styled(Icon)`
   z-index: 99;
   position: fixed;
   bottom: 40px;
-  right: 31px;
+  right: 20px;
   background-color: #000000;
   border: 1px solid #fff;
   height: 40px;
@@ -33,11 +30,11 @@ export const TopButtonIcon = styled(Icon)`
   cursor: pointer;
   transition: all 0.4s linear;
   &:hover {
-      background: rgba(255, 255, 255, 0.89);
-      color: #000000;
-      border: 1px solid #000000;    
+    background: rgba(255, 255, 255, 0.89);
+    color: #000000;
+    border: 1px solid #000000;
   }
-`;
+`
 
 /*------------------------------------------------------------Navigation------------------------------------------------------------*/
 
@@ -63,7 +60,7 @@ export const NavContainer = styled.div`
   border-radius: 50px;
   opacity: 0;
   animation: ${FadeNavIn} 1s ease 1 1s forwards;
-  @media (max-width: 992px) {
+  @media (max-width: 768px) {
     display: none;
   }
 `
@@ -98,40 +95,40 @@ export const NavTitle = styled.p`
 /*------------------------------------------------------------ResponsiveNavbar------------------------------------------------------------*/
 
 export const ResponsiveNavbar = styled.div`
-display: none;
-@media (max-width: 992px) {
+  display: none;
+  @media (max-width: 768px) {
     z-index: 99;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 120px;
+    height: auto;
     margin: auto;
-    padding: 1rem;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    background: ${props => props.navbarTransparency? 'transparent':'white'};
-    border-bottom: ${props => props.navbarTransparency? 'none':'4px solid black'};
-    display: block;
+    padding: 2rem;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    background: ${(props) =>
+      props.navbarTransparency ? 'transparent' : 'white'};
+    border-bottom: ${(props) =>
+      props.navbarTransparency ? 'none' : '4px solid black'};
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     transition: all 0.1s linear;
   }
 `
 export const HeaderImage = styled.img`
-  position: absolute;
-  top: 31.5%;
-  left: 25px;
-  width: 160px;
+  width: 130px;
+  margin: 0;
   cursor: pointer;
   transition: all 0.1s linear;
+  border: none;
   &:hover {
     transform: scale(1.05);
   }
 `
 export const MenuIcon = styled(MenuAlt1)`
-  position: absolute;
-  top: 30%;
-  right: 25px;
-  width: 2.8rem;
+  width: 2.2rem;
   color: ${(props) => (props.navbarTransparency ? 'white' : 'black')};
   cursor: pointer;
   transition: all 0.2s linear;
@@ -140,23 +137,31 @@ export const MenuIcon = styled(MenuAlt1)`
   }
 `
 export const ResponsiveNavbarContent = styled.div`
-  display:none;
-  @media (max-width: 992px) {
+  display: none;
+  @media (max-width: 768px) {
     display: block;
     z-index: 100;
     position: fixed;
     top: 0;
-    right: ${props => props.showNavbarMenu? '0':'-150%'};
+    right: ${(props) => (props.showNavbarMenu ? '0' : '-150%')};
     width: 85%;
     height: 100vh;
     margin: auto;
     padding: 1.5rem;
-    background-color: rgba(0,0,0,0.96);
+    background-color: rgba(0, 0, 0, 0.96);
     transition: all 0.35s ease-out;
   }
 `
 
+/*------------------------------------------------------------Global------------------------------------------------------------*/
 
+export const SectionTitle = styled.h1`
+  font-family: var(--font-family-title);
+  font-size: clamp(1.5rem, 2.35vw, 55px);
+  width: 100%;
+  margin: auto;
+  text-transform: none;
+`
 /*------------------------------------------------------------Accueil------------------------------------------------------------*/
 
 export const AccueilSection = styled.div`
@@ -169,27 +174,27 @@ export const AccueilSection = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
   overflow: auto;
-  @media screen and (max-height: 900px) {
-    height: 900px;
-  }
 `
 export const VsLogo = styled.img`
   display: block;
-  width: clamp(252px, 20%, 600px);
-  
+  width: clamp(200px, 20%, 600px);
 `
 
 /*------------------------------------------------------------UMDP------------------------------------------------------------*/
 
 export const UmdpSection = styled.div`
   width: 100%;
+  height: fit-content;
   margin: auto;
   margin-top: -1px;
   display: flex;
-  @media (max-width: 720px) {  
-    padding-top: 40px;
+  flex-direction: row;
+  @media (min-width: 425px) and (max-width: 768px) {
+    flex-direction: column;
   }
-  
+  @media (max-width: 425px) {
+    display: block;
+  }
 `
 export const UmdpImgContainer = styled.div`
   width: 45%;
@@ -200,54 +205,49 @@ export const UmdpImgContainer = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
   border-right: 3px solid black;
-  @media (max-width: 1440px) {
-    width: 70%;
-  }
-  @media (max-width: 1000px) {
-    display: none;
-  }
-  @media screen and (max-height: 900px) {
-    height: 900px;
+  @media (max-width: 768px) {
+    width: 100%;
+    height: 20vh;
+    margin: 4rem auto 0;
+    background-position: center 20%;
+    border: none;
   }
 `
-export const UmdpImg = styled.img`
+export const UmdpTextContent = styled.div`
+  width: 85%;
+  margin: 3rem auto;
+  display: flex;
+  flex-direction: column;
+  @media (max-width: 425px) {
+    width: 90%;
+  }
+`
+
+export const UmdpTextContainer = styled.div`
   width: 100%;
-  object-fit: cover;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  height: fit-content;
+  margin: auto;
+  display: grid;
+  place-items: center;
 `
-export const UmdpText = styled.div`
+
+export const UmdpTitle = styled.h1`
+  font-family: var(--font-family-title);
+  font-size: clamp(1.5rem, 2.35vw, 55px);
   width: 100%;
   margin: auto;
-  padding: 6rem;
-  @media (max-width: 1440px) {
-    padding: 3rem;
-  }
-  @media (max-width: 1000px) {
-    width: 100%;
-    margin: 4rem auto;
-    padding: 4rem;
-    padding-top: 15%;
-    padding-bottom: 45%;
-  }
-  
+  text-transform: none;
 `
-export const UmdpTitle = styled.h1`
-  width: 100%;
-  margin: 2rem auto;
-  font-size: clamp(25px, 2vw, 52px);
-  font-family: var(--font-family-title);
-  @media (max-width: 678px) {
-    text-align: center;
-  }
-`
+
 export const UmdpParagrph = styled.p`
   width: 100%;
-  margin: 2rem auto;
+  margin: 20px auto;
   text-align: justify;
+  ${'' /* font-size: clamp(15px, 18px, 26px); */}
 `
 export const UmdpSignature = styled.p`
   width: 95%;
-  margin-top: 4rem;
+  margin-top: 2rem;
   text-align: end;
   font-size: 2rem;
   font-family: var(--font-family-signature);
@@ -258,8 +258,7 @@ export const UmdpSignature = styled.p`
 export const ServicesSection = styled.div`
   width: 100%;
   height: auto;
-  padding-top: 5rem;
-  padding-bottom: 7rem;
+  padding: 3rem 0;
   background: url(${ServicesFond});
   background-position: center;
   background-repeat: no-repeat;
@@ -267,24 +266,24 @@ export const ServicesSection = styled.div`
 `
 export const ServicestHeader = styled.header`
   width: 86%;
-  margin: 0 auto 3.5rem;
+  margin: 0 auto 1.5rem;
   padding-bottom: 1rem;
   color: white;
   text-align: center;
-  @media (max-width: 992px) {
+  @media (max-width: 768px) {
     text-align: left;
     margin-bottom: 3rem;
-    padding-top: 70px;
   }
 `
+
 export const ServicesTitle = styled.h1`
   font-family: var(--font-family-title);
-  font-size: clamp(40px, 2.35vw, 52px);
+  font-size: clamp(32px, 2.35vw, 55px);
   width: 100%;
   margin: auto;
   text-transform: none;
-  
 `
+
 export const ServicesSubtitle = styled.p`
   width: 100%
   margin: auto;
@@ -295,17 +294,17 @@ export const ServicesSubtitle = styled.p`
 export const ServicesContainer = styled.div`
   width: 100%;
   height: 100%;
-  margin: auto;
+  margin: 2rem auto;
   display: flex;
   justify-content: space-around;
 `
 export const ContentContainer = styled.div`
-  width: 86%;
-  margin:  auto;
+  width: 90%;
+  margin: auto;
   display: flex;
   justify-content: center;
   gap: 3.5vw;
-  @media (max-width: 1440px) {
+  @media (max-width: 1024px) {
     flex-direction: column;
     gap: 10vh;
   }
@@ -317,10 +316,10 @@ export const Card = styled.div`
   flex-direction: column;
   background-color: rgba(200, 200, 200, 0.055);
   border-radius: 2px;
-  box-shadow: 2px 3px 23px -3px rgba(0,0,0,0.25);
+  box-shadow: 2px 3px 23px -3px rgba(0, 0, 0, 0.25);
   transition: 0.3s ease;
 
-  @media (max-width: 1440px) {
+  @media (max-width: 1024px) {
     width: 100%;
     margin: auto;
     justify-content: center;
@@ -336,11 +335,11 @@ export const Card = styled.div`
   }
 `
 export const CardImageContainer = styled.div`
-  @media (max-width: 1440px) {
+  @media (max-width: 1024px) {
     position: relative;
     width: 80%;
     margin: auto;
-    height: 330px;
+    height: 300px;
   }
   @media (max-width: 720px) {
     width: 100%;
@@ -348,31 +347,30 @@ export const CardImageContainer = styled.div`
   }
 `
 export const CardImage = styled.img`
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  &:hover {
+    cursor: pointer;
+  }
+  @media (max-width: 1024px) {
     width: 100%;
-    height: 360px;
+    height: 300px;
+    flex-direction: ${(props) => (props.reverse ? 'row-reverse' : 'row')};
     object-fit: cover;
-    &:hover {
-      cursor: pointer;
-    }
-    @media (max-width: 1440px) {
-      width: 100%;
-      height: 330px;
-      flex-direction: ${(props) =>
-        props.reverse ? 'row-reverse' : 'row'};
-      object-fit: cover; 
-    }
-    @media (max-width: 720px) {
-      width: 100%;
-      height: 400px;
-    }
-  `
+  }
+  @media (max-width: 720px) {
+    width: 100%;
+    height: 400px;
+  }
+`
 export const CardTextContainer = styled.div`
   width: 85%;
   margin: 2rem auto;
   color: white;
   display: grid;
   place-items: center;
-  @media (max-width: 1440px) {
+  @media (max-width: 1024px) {
     width: 100%;
     margin: auto 1.5rem;
   }
@@ -380,7 +378,6 @@ export const CardTextContainer = styled.div`
     width: 100%;
     margin: 1rem auto;
     padding: 0;
-  
   }
 `
 export const CardTitle = styled.p`
@@ -408,7 +405,6 @@ export const BannerVideo = styled.video`
   width: 100%;
   height: 322px;
   object-fit: cover;
-
 `
 export const BannerOverlay = styled.div`
   position: absolute;
@@ -438,7 +434,7 @@ export const Citacion = styled.p`
   font-size: 0.65rem;
   text-transform: uppercase;
   letter-spacing: 6px;
-  @media (min-width: 1440px){
+  @media (min-width: 1440px) {
     width: 50%;
     font-size: 0.8rem;
   }
@@ -455,10 +451,6 @@ export const ContactContainer = styled.div`
   @media (min-width: 1440px) {
     display: flex;
     height: 100%;
-  }
-  @media (max-width: 868px) {
-    padding-top: 120px;
-    margin-top: -115px;
   }
 `
 export const ContactLeft = styled.div`
@@ -498,10 +490,10 @@ export const ContactRight = styled.div`
   }
 `
 export const ContactSection = styled.div`
-  @media (min-width: 992px) {
-    margin: 6rem auto;
+  @media (min-width: 769px) {
+    margin: auto;
     display: flex;
-    gap: 5rem;
+    gap: 3rem;
     justify-content: space-around;
   }
   @media (min-width: 1440px) {
@@ -514,7 +506,7 @@ export const SectionContainer = styled.div`
   width: 85%;
   margin: 4rem auto;
   @media (min-width: 1440px) {
-    width: ${(props) => (props.formSection ? '75%' : '85%')};
+    width: ${(props) => (props.formSection ? '80%' : '85%')};
   }
 `
 export const ContactHeader = styled.header`
@@ -537,7 +529,7 @@ export const ContactForm = styled.form`
   width: 100%;
   margin: 1.2rem auto;
   text-aplandusitecontentgn: center;
-  @media (min-width: 992px) {
+  @media (min-width: 768px) {
     width: 100%;
     text-align: start;
     flex: 2;
@@ -547,7 +539,7 @@ export const FooterNav = styled.div`
   @media (min-width: 1440px) {
     align-items: flex-start;
   }
-  @media (min-width: 992px) {
+  @media (min-width: 768px) {
     flex: 1;
   }
 `
@@ -558,6 +550,7 @@ export const ContactInput = styled.input`
   background: transparent;
   border: none;
   border-bottom: 1px solid white;
+  border-radius: 0;
   color: white;
   resize: none;
   text-align: justify;
@@ -583,6 +576,7 @@ export const ContactTextarea = styled.textarea`
   background: transparent;
   border: none;
   border-bottom: 1px solid white;
+  border-radius: 0;
   color: white;
   resize: none;
   text-align: justify;
@@ -637,7 +631,7 @@ export const FooterInfo = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
-  @media (min-width: 992px) {
+  @media (min-width: 768px) {
     margin: 0;
   }
   @media (min-width: 1440px) {
@@ -661,7 +655,7 @@ export const PlanDuSiteContainer = styled.ul`
   display: flex;
   flex-direction: column;
   justify-content: left;
-  @media (min-width: 992px) {
+  @media (min-width: 768px) {
     list-style: none;
     display: block;
     justify-content: left;
@@ -683,11 +677,6 @@ export const Copyright = styled.p`
 export const NewsletterContainer = styled.div`
   width: 100%;
   margin: 4rem auto;
-  @media (min-width: 992px) {
-    width: 60%;
-    margin: 3rem auto;
-    border: none;
-  }
   @media (min-width: 1440px) {
     width: 85%;
     margin: auto;
@@ -709,6 +698,7 @@ export const NewsletterInput = styled.input`
   width: 100%;
   color: white;
   border: 1px solid white;
+  border-radius: 0;
   background: transparent;
   padding: 0.75rem;
   margin: 1.3rem auto;

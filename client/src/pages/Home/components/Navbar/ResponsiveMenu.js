@@ -1,12 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react'
 import VsLogoBlack from '../../../../assets/img/vs_logo_black.png'
 import { IoCloseSharp } from 'react-icons/io5'
-import { ResponsiveNavbar, HeaderImage, ResponsiveNavbarContent, NavContainer, MenuIcon } from '../../style'
-import { useNavigate } from 'react-router-dom'
+import { ResponsiveNavbar, HeaderImage, ResponsiveNavbarContent,  MenuIcon } from '../../style'
 
 const ResponsiveMenu = () => {
   const ref = useRef()
-  const navigate = useNavigate()
   const [showNavbar, setShowNavbar] = useState(false)
   const [showNavbarMenu, setShowNavbarMenu] = useState(false)
   const [navbarTransparency, setNavbarTransparency] = useState(true)
@@ -26,7 +24,7 @@ const ResponsiveMenu = () => {
   useEffect(() => {
     setShowNavbar(true)
     window.addEventListener('scroll', () => {
-      if (window.scrollY > 845) {
+      if (window.scrollY > 750) {
         setNavbarTransparency(false)
       } else {
         setNavbarTransparency(true)

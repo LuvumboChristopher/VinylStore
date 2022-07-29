@@ -129,6 +129,7 @@ export const ProductButtons = styled.button`
   text-transform: uppercase;
   letter-spacing: 3px;
   cursor: pointer;
+  text-decoration: none;
   &:hover {
     color: white;
     background-color: rgb(129, 8, 8);

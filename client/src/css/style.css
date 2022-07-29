@@ -79,3 +79,8 @@ section {
 }
 
 
+@media(max-width: 768px) {
+    html {
+      scroll-padding-top: 10vh;
+    }
+}
